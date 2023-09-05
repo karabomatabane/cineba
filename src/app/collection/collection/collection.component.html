@@ -1,0 +1,21 @@
+<div *ngIf="movies.length" class="row">
+    <div class="col-md-3 col-sm-6" *ngFor="let movie of movies">
+      <nb-card class="card">
+        <nb-card-header>{{ movie.title }}</nb-card-header>
+        <nb-card-body class="card-body">
+          <img src="https://image.tmdb.org/t/p/w500/{{ movie.poster_path }}" class="img-frame" />
+        </nb-card-body>
+        <nb-card-footer class="card-footer row">
+            <h6>Type: Fun</h6>
+            <h6>Released: {{ movie.release_date }}</h6>
+          <div class="mark-icon col-6">
+            <nb-icon
+              icon="star"
+              [class.marked]="movie.adult == true"
+            ></nb-icon>
+          </div>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+  </div>
+

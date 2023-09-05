@@ -1,0 +1,38 @@
+<div class="container" #scrollToTop>
+    <!-- Search Feature -->
+    <div class="phrase">
+      <h3>Search Movie by Name</h3>
+    </div>
+    <div class="search-box">
+      <nb-form-field>
+        <nb-icon nbPrefix icon="search" pack="eva"></nb-icon>
+        <input
+          nbInput
+          type="search"
+          id="search"
+          [(ngModel)]="searchText"
+          placeholder="Search"
+          fullWidth
+          status="danger"
+          fieldSize="large"
+        />
+      </nb-form-field>
+      <button
+        id="button"
+        nbButton
+        status="danger"
+        (click)="getMovies(1)"
+      >
+        <h6>Search</h6>
+      </button>
+    </div>
+    <!-- Render search movie -->
+    <app-collection [movies]="movies"></app-collection>
+    
+  </div>
+  <div class="pagination">
+      <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
+      <span>Page {{ currentPage }} of {{ totalPages }}</span>
+      <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+      <span class="showing-of">Showing {{ (currentPage - 1) * pageSize + 1 }} - {{ currentPage === totalPages ? (totalItems % pageSize) || pageSize : pageSize * currentPage }} of {{ totalItems }} items</span>
+    </div>
