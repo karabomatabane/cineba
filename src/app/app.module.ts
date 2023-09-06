@@ -12,16 +12,21 @@ import {
   NbButtonGroupModule,
   NbIconModule,
   NbFormFieldModule,
+  NbToastrModule,
+  NbGlobalPhysicalPosition,
+  NbGlobalLogicalPosition,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CollectionComponent } from './collection/collection/collection.component';
 import { HomeComponent } from './home/home/home.component';
 import { BookmarkComponent } from './bookmark/bookmark/bookmark.component';
 import { AuthInterceptor } from './_interceptors/auth.interceptor';
+import { RegisterComponent } from './register/register/register.component';
+import { LoginComponent } from './login/login/login.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +34,8 @@ import { AuthInterceptor } from './_interceptors/auth.interceptor';
     CollectionComponent,
     HomeComponent,
     BookmarkComponent,
+    RegisterComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,10 +50,15 @@ import { AuthInterceptor } from './_interceptors/auth.interceptor';
     NbEvaIconsModule,
     NbIconModule,
     NbFormFieldModule,
+    NbToastrModule.forRoot({
+      position: NbGlobalLogicalPosition.BOTTOM_END, // Position of the Toastr notification
+      preventDuplicates: true, // Prevent duplicate notifications
+    }),
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
   ],
   providers: [{

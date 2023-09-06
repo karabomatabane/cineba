@@ -44,3 +44,22 @@
     color: #555; /* Change to your desired text color */
   }
   
+/* Add this CSS to your component's CSS file or a global stylesheet */
+
+.centered-card {
+  margin: 20px; /* Add margin around the card */
+  max-width: 400px; /* Adjust the max width as needed */
+  margin-left: auto; /* Center horizontally */
+  margin-right: auto; /* Center horizontally */
+}
+
+
+/* Adjust the card's width as needed */
+nb-card {
+  width: 100%;
+  max-width: 400px; /* Adjust the max width as needed */
+}
+
+.myFormField {
+  margin-bottom: 16px; /* Adjust as needed */
+}

@@ -1,0 +1,52 @@
+<nb-card class="centered-card">
+    <nb-card-header>
+        Login
+    </nb-card-header>
+    <nb-card-body>
+        <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+            <nb-form-field class="myFormField">
+              <nb-icon nbPrefix icon="person-outline" pack="eva"></nb-icon>
+              <input
+                nbInput
+                type="text"
+                id="username"
+                autocomplete="off"
+                name="username"
+                formControlName="username"
+                placeholder="Username"
+                fullWidth
+                [status]="getValidationStatus('username')"
+                fieldSize="large"
+              />
+              <div *ngIf="loginForm.get('username')?.hasError('required') && loginForm.get('username')?.touched" class="validation-error">
+                Username is required.
+              </div>
+              <div *ngIf="loginForm.get('username')?.hasError('minlength') && loginForm.get('username')?.touched" class="validation-error">
+                Username must be at least 3 characters.
+              </div>
+            </nb-form-field>
+            <nb-form-field class="myFormField">
+              <nb-icon nbPrefix icon="lock-outline" pack="eva"></nb-icon>
+              <input
+                nbInput
+                type="password"
+                id="password"
+                name="password"
+                formControlName="password"
+                placeholder="Password"
+                fullWidth
+                [status]="getValidationStatus('password')"
+                fieldSize="large"
+              />
+              <div *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched" class="validation-error">
+                Password is required.
+              </div>
+              <div *ngIf="loginForm.get('password')?.hasError('minlength') && loginForm.get('password')?.touched" class="validation-error">
+                Password must be at least 6 characters.
+              </div>
+            </nb-form-field>
+            <button nbButton fullWidth status="primary" type="submit" [disabled]="loginForm.invalid">Login</button>
+          </form>
+          
+    </nb-card-body>
+</nb-card>

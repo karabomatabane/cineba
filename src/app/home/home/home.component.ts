@@ -9,7 +9,7 @@ import { Film } from 'src/app/_models/film.model';
 })
 export class HomeComponent implements OnInit {
   @ViewChild('scrollToTop') scrollToTop: ElementRef | undefined;
-  movies: Film[] = [];
+  films: Film[] = [];
   searchText: string | undefined;
   currentPage: number = 1;
   totalPages: number = 0;
@@ -18,12 +18,12 @@ export class HomeComponent implements OnInit {
   constructor(private filmService: FilmService) { }
 
   ngOnInit(): void {
-    this.getMovies(this.currentPage);
+    this.getFilms(this.currentPage);
   }
 
-  getMovies(page: number) {
-    this.filmService.getMovies(page).subscribe((data: any) => {
-      this.movies = data.results;
+  getFilms(page: number) {
+    this.filmService.getFilms(page).subscribe((data: any) => {
+      this.films = data.results;
       this.totalPages = data.total_pages;
       this.totalItems = data.total_results;
       // Scroll to the top of the page
@@ -34,14 +34,14 @@ export class HomeComponent implements OnInit {
   nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
-      this.getMovies(this.currentPage);
+      this.getFilms(this.currentPage);
     }
   }
 
   prevPage() {
     if (this.currentPage > 1) {
       this.currentPage--;
-      this.getMovies(this.currentPage);
+      this.getFilms(this.currentPage);
     }
   }
 
