@@ -58,6 +58,6 @@
   /* Additional styling for hover effect if desired */
 }
 
-.card-link:hover {
+.card-hover:hover {
   transform: scale(1.05); /* Scale the card slightly on hover */
 }

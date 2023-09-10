@@ -8,12 +8,25 @@
       <!-- <button id="button" nbButton status="danger" routerLink="/bookmarks">
         <h6>Bookmark</h6>
       </button> -->
-      <button id="button" nbButton status="danger" routerLink="/login">
-        <h6>Login</h6>
-      </button>
-      <button id="button" nbButton status="danger" routerLink="/register">
-        <h6>Sign up</h6>
-      </button>
+      <ng-container *ngIf="!isAuthenticated">
+        <button id="button" nbButton status="danger" routerLink="/login">
+          <h6>Login</h6>
+        </button>
+        <button id="button" nbButton status="danger" routerLink="/register">
+          <h6>Sign up</h6>
+        </button>
+      </ng-container>
+      <ng-container *ngIf="isAuthenticated">
+        <button id="button" nbButton status="danger" routerLink="/admin" *ngIf="isAdmin">
+          <h6>Admin</h6>
+        </button>
+        <button id="button" nbButton status="danger" routerLink="/bookmarks" *ngIf="!isAdmin">
+          <h6>Bookmark</h6>
+        </button>
+        <button id="button" nbButton status="danger" (click)="logout()">
+          <h6>Logout</h6>
+        </button>
+      </ng-container>
     </div>
   </nb-layout-header>
   <nb-layout-column>

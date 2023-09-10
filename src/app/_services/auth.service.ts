@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { loginUser, registerUser } from '../_models/auth.model';
+import { environment } from 'src/environments/environment';
 
 const TOKEN_KEY = 'authToken';
 const VOTES_KEY = 'votes';
@@ -10,9 +11,19 @@ const VOTES_KEY = 'votes';
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = 'http://localhost:3000';
+  private baseUrl = environment.apiUrl + 'auth';
+  private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
+  public isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
+  private isAdminSubject = new BehaviorSubject<boolean>(false);
+  public isAdmin$ = this.isAdminSubject.asObservable();
+  private userId: string | null = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    const token = localStorage.getItem(TOKEN_KEY);
+    if (token) {
+      this.setToken(token);
+    }
+  }
 
   register(user: registerUser): Observable<any> {
     return this.http.post(`${this.baseUrl}/register`, user);
@@ -30,19 +41,29 @@ export class AuthService {
     return parseInt(localStorage.getItem(VOTES_KEY) || '0');
   }
 
+  getUserId(): string | null {
+    return this.userId;
+  }
+
   setToken(token: string) {
     localStorage.setItem(TOKEN_KEY, token);
+    this.isAuthenticatedSubject.next(true);
+    //decode token to get role
+    const tokenPayload = JSON.parse(atob(token.split('.')[1]));
+    this.userId = tokenPayload._id;
+    if (tokenPayload.role === 'admin') {
+      this.isAdminSubject.next(true);
+    }
   }
 
   getToken(): string | null {
     return localStorage.getItem(TOKEN_KEY);
   }
 
-  isLoggedIn(): boolean {
-    return !!this.getToken();
-  }
-
   logout() {
     localStorage.removeItem(TOKEN_KEY);
+    this.isAuthenticatedSubject.next(false);
+    this.isAdminSubject.next(false);
+    this.userId = null;
   }
 }

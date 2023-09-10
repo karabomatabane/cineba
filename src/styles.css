@@ -63,3 +63,32 @@ nb-card {
 .myFormField {
   margin-bottom: 16px; /* Adjust as needed */
 }
+
+.search-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10vh;
+  margin-top: 3vh;
+  flex-wrap: wrap;
+}
+
+.pad-2
+{
+  padding: 1rem;
+}
+
+.pad-1
+{
+  padding: 0.5rem;
+}
+
+.mleft-1
+{
+  margin-left: 0.5rem;
+}
+
+.mtop-1
+{
+  margin-top: 0.5rem;
+}

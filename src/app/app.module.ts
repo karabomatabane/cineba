@@ -13,6 +13,7 @@ import {
   NbIconModule,
   NbFormFieldModule,
   NbToastrModule,
+  NbTimepickerModule,
   NbGlobalPhysicalPosition,
   NbGlobalLogicalPosition,
 } from '@nebular/theme';
@@ -27,6 +28,7 @@ import { BookmarkComponent } from './bookmark/bookmark/bookmark.component';
 import { AuthInterceptor } from './_interceptors/auth.interceptor';
 import { RegisterComponent } from './register/register/register.component';
 import { LoginComponent } from './login/login/login.component';
+import { NewFilmComponent } from './admin/new-film/new-film.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,7 @@ import { LoginComponent } from './login/login/login.component';
     BookmarkComponent,
     RegisterComponent,
     LoginComponent,
+    NewFilmComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,6 +57,7 @@ import { LoginComponent } from './login/login/login.component';
       position: NbGlobalLogicalPosition.BOTTOM_END, // Position of the Toastr notification
       preventDuplicates: true, // Prevent duplicate notifications
     }),
+    NbTimepickerModule.forRoot(),
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,

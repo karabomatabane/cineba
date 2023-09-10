@@ -11,6 +11,7 @@
           type="search"
           id="search"
           [(ngModel)]="searchText"
+          (keyup.enter)="searchFilms()"
           placeholder="Search"
           fullWidth
           status="danger"
@@ -21,18 +22,12 @@
         id="button"
         nbButton
         status="danger"
-        (click)="getFilms(1)"
+        (click)="searchFilms()"
       >
         <h6>Search</h6>
       </button>
     </div>
     <!-- Render search film -->
-    <app-collection [films]="films" buttonText="Vote" [voteEnabled]=true></app-collection>
+    <app-collection [films]="films" buttonText="Add"></app-collection>
     
   </div>
-  <div class="pagination">
-      <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
-      <span>Page {{ currentPage }} of {{ totalPages }}</span>
-      <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
-      <span class="showing-of">Showing {{ (currentPage - 1) * pageSize + 1 }} - {{ currentPage === totalPages ? (totalItems % pageSize) || pageSize : pageSize * currentPage }} of {{ totalItems }} items</span>
-    </div>

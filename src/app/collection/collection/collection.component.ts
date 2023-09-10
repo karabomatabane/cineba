@@ -10,7 +10,13 @@ import { FilmService } from 'src/app/_services/film.service';
   styleUrls: ['./collection.component.css']
 })
 export class CollectionComponent implements OnInit {
-  @Input() films: Film[] = [];
+  //type should be Film[] or tmdbFilm[]
+  @Input() films: any[] = [];
+  @Input() buttonText: string = "";
+  @Input() voteEnabled: boolean = false;
+  screeningDate: Date = new Date();
+  screeningTime: Date = new Date();
+
   votes: number = 0;
   constructor(private filmService: FilmService,
     private toastr: NbToastrService,
@@ -20,6 +26,40 @@ export class CollectionComponent implements OnInit {
   ngOnInit(): void {
     this.votes = this.authService.getVotes();
   }
+  
+  addFilm(id: string) {
+    this.filmService.addFilm(id, this.screeningDate, this.screeningTime).subscribe(
+      () => {
+        this.toastr.success('Film added to collection');
+        this.films = this.films.filter(film => film.id !== id);
+      },
+      (error: { error: any; }) => {
+        this.toastr.danger(error.error.error);
+        console.log(error.error);
+      }
+    )
+  }
+
+  updateScreeningDate(filmId: string, selectedDate: Date) {
+    this.films.find(film => film.id === filmId).screeningDate = selectedDate;
+    this.screeningDate = selectedDate;
+  }
+
+  updateScreeningTime(filmId: string, selectedTime: Date) {
+    this.films.find(film => film.id === filmId).screeningTime = selectedTime;
+    this.screeningTime = selectedTime;
+  }
+
+  clickEvent(film: any) {
+    if (this.voteEnabled) {
+      //cast film to Film
+      film = film as Film;
+      this.vote(film);
+    } else {
+      this.addFilm(film.id);
+    }
+  }
+
   vote(film: Film) {
     alert('vote');
     if (this.votes > 0) {

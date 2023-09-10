@@ -47,12 +47,13 @@ export class LoginComponent implements OnInit {
     }
     // Proceed with sign-up logic if the form is valid.
     console.log('Signing up:', this.loginForm.value);
-    this.authService.register(this.loginForm .value).subscribe(
-      () => {
+    this.authService.login(this.loginForm.value).subscribe(
+      (user : any) => {
         // login successful, you can redirect to home
         this.toastr.success('Login successful');
         this.router.navigate(['/']);
         this.authService.setVotes();
+        this.authService.setToken(user.accessToken);
         console.log('Login successful');
       },
       (error) => {
