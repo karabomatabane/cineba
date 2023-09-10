@@ -21,6 +21,7 @@ export class CollectionComponent implements OnInit {
     this.votes = this.authService.getVotes();
   }
   vote(film: Film) {
+    alert('vote');
     if (this.votes > 0) {
       this.filmService.vote(film).subscribe(
         () => {

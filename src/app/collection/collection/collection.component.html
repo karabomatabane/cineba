@@ -1,25 +1,30 @@
 <div *ngIf="films.length" class="row">
   <div class="col-md-3 col-sm-6" *ngFor="let film of films">
-    <nb-card class="card">
-      <nb-card-header>{{ film.title }}</nb-card-header>
-      <nb-card-body class="card-body">
-        <img src="https://image.tmdb.org/t/p/w500/{{ film.poster_path }}" class="img-frame" />
-      </nb-card-body>
-      <nb-card-footer class="card-footer row">
-          <h6>Type: Fun</h6>
-          <h6>Released: {{ film.release_date }}</h6>
-      </nb-card-footer>
-      <nb-card-footer class="card-footer row"  *ngIf="votes > 0">
-        <div class="col-12">
-          <button
-            nbButton
-            status="primary"
-            (click)="vote(film)"
-          >
-            Vote
-          </button>
-        </div>
-      </nb-card-footer>
-    </nb-card>
+    <a [routerLink]="['/film', film._id]" class="card-link"> <!-- Add this anchor element -->
+      <nb-card class="card">
+        <nb-card-header>{{ film.name }}</nb-card-header>
+        <nb-card-body class="card-body">
+          <img src="https://image.tmdb.org/t/p/w500/{{ film.imgUrl }}" class="img-frame" />
+        </nb-card-body>
+        <nb-card-footer class="card-footer row">
+          <div class="icon-container">
+            <nb-icon icon="clock-outline"></nb-icon>
+            <h6>{{ film.duration }} min</h6>
+          </div>&nbsp;|&nbsp;&nbsp;      
+          <h6>Released: {{ film.releaseDate | date }}</h6>
+        </nb-card-footer>
+        <nb-card-footer class="card-footer row">
+          <div class="col-12">
+            <button
+              nbButton
+              status="primary"
+              (click)="vote(film)"
+            >
+              Vote
+            </button>
+          </div>
+        </nb-card-footer>
+      </nb-card>
+    </a> <!-- Close the anchor element -->
   </div>
 </div>

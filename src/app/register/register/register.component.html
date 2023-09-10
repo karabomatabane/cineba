@@ -50,18 +50,18 @@
               <input
                 nbInput
                 type="password"
-                id="verifyPassword"
-                name="verifyPassword"
-                formControlName="verifyPassword"
-                placeholder="Verify Password"
+                id="confirmPassword"
+                name="confirmPassword"
+                formControlName="confirmPassword"
+                placeholder="confrim Password"
                 fullWidth
-                [status]="getValidationStatus('verifyPassword')"
+                [status]="getValidationStatus('confirmPassword')"
                 fieldSize="large"
               />
-              <div *ngIf="signupForm.get('verifyPassword')?.hasError('required') && signupForm.get('verifyPassword')?.touched" class="validation-error">
+              <div *ngIf="signupForm.get('confirmPassword')?.hasError('required') && signupForm.get('confirmPassword')?.touched" class="validation-error">
                 Verify Password is required.
                 </div>
-                <div *ngIf="signupForm.get('verifyPassword')?.hasError('mismatch') && signupForm.get('verifyPassword')?.touched" class="validation-error">
+                <div *ngIf="signupForm.get('confirmPassword')?.hasError('mismatch') && signupForm.get('confirmPassword')?.touched" class="validation-error">
                 Passwords do not match.
                 </div>
             </nb-form-field>

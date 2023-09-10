@@ -20,7 +20,7 @@ export class RegisterComponent implements OnInit {
     this.signupForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(3)]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      verifyPassword: ['', Validators.required],
+      confirmPassword: ['', Validators.required],
     }, {
       validator: this.passwordMatchValidator
     });
@@ -32,12 +32,12 @@ export class RegisterComponent implements OnInit {
   //custom validator for password match
   passwordMatchValidator(formGroup: FormGroup): void {
     const password = formGroup.get('password')?.value;
-    const verifyPassword = formGroup.get('verifyPassword')?.value;
+    const confirmPassword = formGroup.get('confirmPassword')?.value;
 
-    if (password !== verifyPassword) {
-      formGroup.get('verifyPassword')?.setErrors({ mismatch: true });
+    if (password !== confirmPassword) {
+      formGroup.get('confirmPassword')?.setErrors({ mismatch: true });
     } else {
-      formGroup.get('verifyPassword')?.setErrors(null);
+      formGroup.get('confirmPassword')?.setErrors(null);
     }
   }
 

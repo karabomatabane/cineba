@@ -1,7 +1,7 @@
 export interface registerUser {
     username: string;
     password: string;
-    verifyPassword: string;
+    confirmPassword: string;
 }
 
 export interface loginUser {
