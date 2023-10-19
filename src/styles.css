@@ -1,13 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: 'Triumvirate';
+  src: url('assets/fonts/TriumvirateCG.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 * {
     box-sizing: border-box;
     padding: 0px;
     margin: 0px;
-    font-family: "Farro", sans-serif;
     font-family: "Girassol", cursive;
     font-family: "Goblin One", cursive;
     font-family: "Roboto", sans-serif;
-  
+    font-family: "Farro", sans-serif;
   }
   
   h1, h2, h6, h5 {
@@ -58,6 +64,15 @@
 nb-card {
   width: 100%;
   max-width: 400px; /* Adjust the max width as needed */
+}
+
+.nb-theme-dark nb-card-header {
+  font-family: Oswald, sans-serif;
+  font-weight: 700 !important;
+}
+
+h6, h3 {
+  font-family: Farro, san-serif !important;
 }
 
 .myFormField {

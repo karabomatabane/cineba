@@ -16,8 +16,10 @@ export class CollectionComponent implements OnInit {
   @Input() voteEnabled: boolean = false;
   screeningDate: Date = new Date();
   screeningTime: Date = new Date();
-
   votes: number = 0;
+  isAuthenticated: boolean = false;
+  isAdmin: boolean = false;
+
   constructor(private filmService: FilmService,
     private toastr: NbToastrService,
     private authService: AuthService
@@ -25,6 +27,12 @@ export class CollectionComponent implements OnInit {
 
   ngOnInit(): void {
     this.votes = this.authService.getVotes();
+    this.authService.isAuthenticated$.subscribe((isAuthenticated: boolean) => {
+      this.isAuthenticated = isAuthenticated;
+    });
+    this.authService.isAdmin$.subscribe((isAdmin: boolean) => {
+      this.isAdmin = isAdmin;
+    });
   }
   
   addFilm(id: string) {
@@ -40,6 +48,13 @@ export class CollectionComponent implements OnInit {
     )
   }
 
+  formatDuration(minutes: number): string {
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
+    
+    return `${hours}h ${remainingMinutes}m`;
+  }
+  
   updateScreeningDate(filmId: string, selectedDate: Date) {
     this.films.find(film => film.id === filmId).screeningDate = selectedDate;
     this.screeningDate = selectedDate;
@@ -58,6 +73,19 @@ export class CollectionComponent implements OnInit {
     } else {
       this.addFilm(film.id);
     }
+  }
+
+  hide(film: any) {
+    film.active = false;
+    this.filmService.updateFilm(film).subscribe(
+      () => {
+        this.films = this.films.filter(f => f._id !== film._id);
+        this.toastr.success('Film hidden');
+      }, (error: { error: any; }) => {
+        this.toastr.danger(error.error.error);
+        console.log(error.error);
+      }
+    )
   }
 
   vote(film: Film) {

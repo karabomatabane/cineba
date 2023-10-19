@@ -1,0 +1,129 @@
+nb-card-body {
+    padding: 0;
+    overflow: hidden;
+}
+
+nb-card-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+nb-card {
+    max-width: 100%;
+}
+
+.img-frame {
+    object-fit: cover;
+    object-position: top;
+    width: 100%;
+    height: auto;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.filmPicture {
+    width: 100%;
+    height: 60vh;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.card-footer {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: 0px;
+    padding: 4px 0px;
+    align-items: center;
+}
+
+ul.filmText {
+    margin: 0px;
+    text-align: center;
+    list-style-type: none;
+    /* Remove the default bullet points */
+}
+
+.filmText li, nb-accordion-item-header {
+    display: inline-block;
+    font-size: 1.2rem !important;
+    font-weight: 500;
+}
+
+/* Add a separator (::before) to all li items except the first one */
+.filmText li:not(:first-child)::before {
+    content: " \00B7 ";
+    /* Unicode for middle dot (·) */
+    padding: 0 1rem;
+    /* Adjust spacing as needed */
+}
+
+ul.filmDisc {
+    margin-top: .6rem !important;
+    list-style: none;
+    /* Remove the default list-style */
+    display: flex;
+    /* Display list items horizontally */
+    flex-wrap: wrap;
+    /* Allow items to wrap onto multiple lines */
+    justify-content: center;
+    /* Center the items horizontally */
+    padding: 0;
+    /* Remove default padding */
+    margin: 0;
+    /* Remove default margin */
+}
+
+.filmDisc li {
+    margin: 5px;
+    /* Add spacing around each item */
+    border: 1px solid #f1f1f1;
+    /* Border for the pill shape */
+    border-radius: 20px;
+    /* Create a pill shape with border */
+    padding: 8px 16px;
+    /* Adjust padding as needed */
+    text-align: center;
+    /* Center text within the pill shape */
+}
+
+nb-card.cast {
+    background-color: #151A30 !important;
+    border: none !important;
+}
+
+ul li, p, nb-accordion-item-header {
+    font-family: "Farro", sans-serif;
+}
+
+nb-accordion-item-header {
+    display: block !important;
+    text-align: center !important;
+}
+
+p {
+    font-size: 1.1rem;
+}
+
+/* desktop  screen */
+@media only screen and (min-width: 1024px) {
+    .filmPicture {
+        max-width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        object-fit: fit;
+        /* Maintain aspect ratio */
+    }
+
+    .cast-row {
+       /* center horizontally */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}

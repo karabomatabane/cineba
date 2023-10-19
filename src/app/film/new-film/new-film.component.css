@@ -7,7 +7,6 @@ button {
     width: 100%;
     text-content: center;
     justify-content: center;
-    margin-top: 5vh;
     flex-wrap: wrap;
     overflow-wrap: break-word;
     text-overflow: clip;

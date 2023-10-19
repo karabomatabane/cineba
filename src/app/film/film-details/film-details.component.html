@@ -1,0 +1,91 @@
+<div class="row">
+    <!-- Left Column -->
+    <div class="col-md-5 col-lg-3">
+        <nb-card>
+            <nb-card-header>{{ film?.name }}</nb-card-header>
+            <nb-card-body>
+                <img [src]="film?.imgUrl" alt="{{ film?.name }}" class="img-fluid" class="filmPicture" />
+            </nb-card-body>
+            <nb-card-footer class="row">
+                <div class="col-12">
+                    <ul class="filmText">
+                        <li>{{ film?.releaseDate | date }}</li>
+                        <li>{{ formatDuration(film?.duration!)}}</li>
+                        <li>{{ film?.language }}</li>
+                    </ul>
+                    <ul class="filmDisc">
+                        <li *ngFor="let genre of film?.filmDetail?.genre">{{ genre }}</li>
+                    </ul>
+                </div>
+            </nb-card-footer>
+            <nb-card-footer>
+                <div class="row">
+                    <nb-accordion>
+                        <nb-accordion-item>
+                         <nb-accordion-item-header>Overview</nb-accordion-item-header>
+                         <nb-accordion-item-body>
+                           {{ film?.filmDetail?.overview }}
+                         </nb-accordion-item-body>
+                        </nb-accordion-item>
+                       </nb-accordion>
+                </div>
+            </nb-card-footer>
+            <nb-card-footer>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <a nbButton status="primary" href="{{ film?.filmDetail?.imdbUrl }}" target="_blank">Read
+                            more...</a>
+                    </div>
+                </div>
+            </nb-card-footer>
+        </nb-card>
+    </div>
+    <div class="col-md-7 col-lg-9">
+        <nb-card>
+            <nb-card-header>Reviews</nb-card-header>
+            <nb-card-body>
+                Reviews
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>
+
+<!-- Right Column -->
+<div class="row">
+    <div class="col-md-12">
+        <nb-card class="cast">
+            <nb-card-header>Cast</nb-card-header>
+            <nb-card-body>
+                <div class="row cast-row">
+                    <div class="col-md-3 col-sm-6 col-lg-2" *ngFor="let actor of film?.filmDetail?.cast">
+                        <nb-card>
+                            <!-- <nb-card-header>{{ actor.name }}</nb-card-header> -->
+                            <nb-card-body class="cast-card">
+                                <img [src]="actor.imgUrl.includes('null') ? '../../assets/user.png' : actor.imgUrl"
+                                    alt="{{ actor.name }}" class="img-frame" />
+                            </nb-card-body>
+                            <nb-card-footer>
+                                <p class="text-center">{{actor.name}} as {{ actor.character }}</p>
+                            </nb-card-footer>
+                        </nb-card>
+                    </div>
+                </div>
+                <div class="row cast-row">
+                    <div class="col-md-3 col-sm-6 col-lg-2" *ngIf="film?.filmDetail?.director?.name?.length > 0">
+                        <nb-card>
+                            <!-- <nb-card-header>{{ actor.name }}</nb-card-header> -->
+                            <nb-card-body class="cast-card">
+                                <img [src]="getFullPosterUrl(film?.filmDetail?.director?.imgUrl)"
+                                    alt="{{ film?.filmDetail?.director?.name }}" class="img-frame" />
+                            </nb-card-body>
+                            <nb-card-footer>
+                                <p class="text-center">{{ film?.filmDetail?.director?.name }} | <strong>Director</strong>
+                                </p>
+                            </nb-card-footer>
+                        </nb-card>
+                    </div>
+                </div>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

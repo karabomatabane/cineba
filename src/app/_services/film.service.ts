@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
+import { FilmDetails } from '../_models/film.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +12,31 @@ export class FilmService {
   constructor(private http: HttpClient) { }
   baseUrl = environment.apiUrl;
   tmdbUrl = environment.tmdbUrl;
+  CURRENT_FILM = 'currentFilm';
   
   getFilms(page: number) {
     //get films from api
     return this.http.get(this.baseUrl + 'film?page=' + page);
+  }
+
+  getFilmDetails(id: string) : Observable<FilmDetails> {
+    //get film details from api
+    return this.http.get<FilmDetails>(this.baseUrl + 'film/' + id);
+  }
+
+  setCurrentFilm(id: string) {
+    //set current film in local storage
+    localStorage.setItem(this.CURRENT_FILM, id);
+  }
+
+  getCurrentFilm() : string {
+    //get current film from local storage
+    return localStorage.getItem(this.CURRENT_FILM) || "";
+  }
+
+  updateFilm(film: any) {
+    //update film http://localhost:3210/film/:id
+    return this.http.put(this.baseUrl + 'film/' + film._id, film);
   }
 
   searchFilms(searchText: string) {

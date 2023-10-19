@@ -13,16 +13,21 @@ export class HomeComponent implements OnInit {
   searchText: string | undefined;
   currentPage: number = 1;
   totalPages: number = 0;
-  pageSize: number = 20;
+  pageSize: number = 10;
   totalItems: number = 0;
+  loading: boolean = false;
   constructor(private filmService: FilmService) { }
 
   ngOnInit(): void {
     this.getFilms(this.currentPage);
+    this.loading = true;
   }
 
   getFilms(page: number) {
     this.filmService.getFilms(page).subscribe((data: any) => {
+      setTimeout(() => {
+        this.loading = false;
+      }, 2000);
       this.films = data.results;
       this.totalPages = data.total_pages;
       this.totalItems = data.total_results;

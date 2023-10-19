@@ -1,43 +1,25 @@
 <nb-layout class="root">
-  <nb-layout-header fixed>
-    <h1>{{title}}</h1>
-    <div class="button-group">
-      <button id="button" nbButton status="danger" routerLink="/">
-        <h6>Home</h6>
-      </button>
-      <!-- <button id="button" nbButton status="danger" routerLink="/bookmarks">
-        <h6>Bookmark</h6>
-      </button> -->
-      <ng-container *ngIf="!isAuthenticated">
-        <button id="button" nbButton status="danger" routerLink="/login">
-          <h6>Login</h6>
-        </button>
-        <button id="button" nbButton status="danger" routerLink="/register">
-          <h6>Sign up</h6>
-        </button>
-      </ng-container>
-      <ng-container *ngIf="isAuthenticated">
-        <button id="button" nbButton status="danger" routerLink="/admin" *ngIf="isAdmin">
-          <h6>Admin</h6>
-        </button>
-        <button id="button" nbButton status="danger" routerLink="/bookmarks" *ngIf="!isAdmin">
-          <h6>Bookmark</h6>
-        </button>
-        <button id="button" nbButton status="danger" (click)="logout()">
-          <h6>Logout</h6>
-        </button>
-      </ng-container>
-    </div>
+  <nb-layout-header subheader class="brand" fixed>
+    <a href="#" (click)="toggle()"><nb-icon icon="menu-2" [options]="{ animation: { type: 'pulse' } }"></nb-icon></a>
+    <a routerLink="/home" class="logo">{{ title }}</a>
   </nb-layout-header>
-  <nb-layout-column>
+
+  <!-- Replace this section with the sidebar component -->
+  <nb-sidebar state="compacted" subheader>
+    <nb-menu [items]="items">
+    </nb-menu>
+ </nb-sidebar>
+  
+  <nb-layout-column class="mt-2">
     <router-outlet></router-outlet>
   </nb-layout-column>
+
   <nb-layout-footer fixed>
     <div class="footer">
-      <strong>Made by Karabo Matabane |&nbsp;</strong
-      ><a href="https://github.com/karabomatabane" target="_blank"
-        ><nb-icon icon="github" status="success"></nb-icon
-      ></a>
+      <strong>Made by Karabo Matabane |&nbsp;</strong>
+      <a href="https://github.com/karabomatabane" target="_blank">
+        <nb-icon icon="github" status="success"></nb-icon>
+      </a>
     </div>
   </nb-layout-footer>
 </nb-layout>

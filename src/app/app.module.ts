@@ -16,6 +16,11 @@ import {
   NbTimepickerModule,
   NbGlobalPhysicalPosition,
   NbGlobalLogicalPosition,
+  NbSidebarModule,
+  NbMenuModule,
+  NbSidebarService,
+  NbSpinnerModule,
+  NbAccordionModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { AppRoutingModule } from './app-routing.module';
@@ -28,7 +33,10 @@ import { BookmarkComponent } from './bookmark/bookmark/bookmark.component';
 import { AuthInterceptor } from './_interceptors/auth.interceptor';
 import { RegisterComponent } from './register/register/register.component';
 import { LoginComponent } from './login/login/login.component';
-import { NewFilmComponent } from './admin/new-film/new-film.component';
+import { NewFilmComponent } from './film/new-film/new-film.component';
+import { TabsComponent } from './admin/tabs/tabs.component';
+import { FilmDetailsComponent } from './film/film-details/film-details.component';
+import { LogoutComponent } from './admin/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +47,9 @@ import { NewFilmComponent } from './admin/new-film/new-film.component';
     RegisterComponent,
     LoginComponent,
     NewFilmComponent,
+    TabsComponent,
+    FilmDetailsComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -64,12 +75,16 @@ import { NewFilmComponent } from './admin/new-film/new-film.component';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    NbSidebarModule.forRoot(),
+    NbMenuModule.forRoot(),
+    NbSpinnerModule,
+    NbAccordionModule,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true, // Set multi to true to allow multiple interceptors
-  },],
+  },NbSidebarService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

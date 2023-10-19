@@ -3,15 +3,22 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home/home.component';
 import { RegisterComponent } from './register/register/register.component';
 import { LoginComponent } from './login/login/login.component';
-import { NewFilmComponent } from './admin/new-film/new-film.component';
+import { NewFilmComponent } from './film/new-film/new-film.component';
 import { AuthGuard } from './auth.guard';
 import { AdminGuard } from './admin.guard';
+import { TabsComponent } from './admin/tabs/tabs.component';
+import { LogoutComponent } from './admin/logout/logout.component';
+import { FilmDetailsComponent } from './film/film-details/film-details.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent }, // default route
+  { path: '', redirectTo: '/home', pathMatch: 'full' }, // Redirect empty path to '/home'
+  { path: 'home', component: HomeComponent }, // Home route
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'admin', component: NewFilmComponent, canActivate: [AuthGuard, AdminGuard] },
+  { path: 'logout',  component: LogoutComponent },
+  { path: 'new-film', component: NewFilmComponent, canActivate: [AuthGuard] },
+  { path: 'film/:id', component: FilmDetailsComponent, canActivate: [AuthGuard] },
+  { path: 'admin', component: TabsComponent, canActivate: [AuthGuard, AdminGuard] },
 ];
 
 @NgModule({

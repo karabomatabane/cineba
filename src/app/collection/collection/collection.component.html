@@ -10,7 +10,7 @@
           <ng-container *ngIf="film.duration">
             <div class="icon-container">
             <nb-icon icon="clock-outline"></nb-icon>
-            <h6>{{ film.duration }} min</h6>
+            <h6>{{ formatDuration(film.duration) }}</h6>
           </div>&nbsp;|&nbsp;&nbsp; 
           </ng-container>
           <h6>Released: {{ film.releaseDate || film.release_date | date }}</h6>
@@ -47,9 +47,9 @@
             <button
               nbButton
               status="primary"
-              (click)="clickEvent(film)"
+              (click)="isAdmin && buttonText !== 'Add' ? hide(film) : clickEvent((film))"
             >
-              {{ buttonText }}
+              {{ isAdmin && buttonText !== 'Add' ? 'Hide' : buttonText}}
             </button>
           </div>
         </nb-card-footer>
