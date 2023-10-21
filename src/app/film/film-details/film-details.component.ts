@@ -8,7 +8,23 @@ import { FilmService } from 'src/app/_services/film.service';
   styleUrls: ['./film-details.component.css']
 })
 export class FilmDetailsComponent implements OnInit {
-  film : FilmDetails | undefined;
+  film : FilmDetails = {} as FilmDetails;
+  rating : number = 0;
+
+  reviews: any[] = [
+    {
+      user: "User1",
+      comment: "A great movie!",
+      rating: 4,
+      date: new Date("2023-10-20"),
+    },
+    {
+      user: "User2",
+      comment: "I enjoyed it! It has become one of my favorite movies.",
+      rating: 5,
+      date: new Date("2023-10-20"),
+    }
+  ];
 
   constructor(private filmService : FilmService) { }
 
@@ -39,5 +55,14 @@ export class FilmDetailsComponent implements OnInit {
         console.log(error);
       }
     )
+  }
+
+  getOverallRating(): number {
+    let sum = 0;
+    this.film.filmDetail.reviews.forEach(review => {
+      sum += review.rating;
+    });
+    this.rating = sum / this.film.filmDetail.reviews.length;
+    return Math.floor(this.rating) || 4;
   }
 }

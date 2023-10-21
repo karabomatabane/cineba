@@ -28,6 +28,24 @@ export interface tmdbFilm {
     vote_count?: number;
 }
 
+interface cast {
+    name: string;
+    character: string;
+    imgUrl: string;
+}
+
+interface director {
+    name: string;
+    imgUrl: string;
+}
+
+interface review {
+    user: string;
+    comment: string;
+    rating: number;
+    date: Date;
+}
+
 export interface FilmDetails {
     _id: string;
     name: string;
@@ -39,11 +57,11 @@ export interface FilmDetails {
     language: string;
     filmDetail: {
         genre: string[];
-        cast: any[];
-        director: any;
+        cast: cast[];
+        director: director;
         overview: string;
         imdbUrl: string;
-        reviews: any[];
+        reviews: review[];
     };
     active: boolean;
 }

@@ -97,6 +97,87 @@ nb-card.cast {
     border: none !important;
 }
 
+.rating {
+    margin-top: 1rem;
+    width: auto !important;
+}
+
+.rating nb-icon {
+    font-size: 2.5rem;
+}
+
+.rating-value {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-top: .6rem;
+    display: none;
+    color: #00d68f;
+    text-align: center;
+}
+
+.rating:hover .rating-value {
+    display: block; /* Show the rating value when the parent (.rating) is hovered */
+}
+
+.rating:hover .star {
+    animation: pulse 1s infinite alternate;
+}
+
+.rate-button, .vote-button {
+    margin-top: .6rem;
+    text-align: center;
+}
+
+.votes { /*text*/ 
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #0095ff;
+    margin-top: 1.8rem;
+    text-align: center;
+}
+
+.row.ratings-and-votes {
+    display: flex;
+    justify-content: center !important;
+    margin: auto;
+
+}
+
+.review {
+    margin: 1rem 2rem;
+    background-color: #00000028;
+    border-radius: 10px; /* Adjust the value for the desired roundness */
+    padding: 1rem 1.5rem; /* Adjust the padding as needed */
+}
+
+.review:hover {
+    background-color: #0000004d;
+}
+
+.review-comment {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.review-rating {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #00d68f;
+    float: inline-end;
+}
+
+.review-credit {
+    font-size: .9rem;
+    font-weight: 500;
+    margin-bottom: .5rem;
+    color: #d8dde6;
+}
+
+.line-break {
+    border-bottom: 1px solid #151A30;
+    margin: 1rem 0;
+}
+
 ul li, p, nb-accordion-item-header {
     font-family: "Farro", sans-serif;
 }
@@ -125,5 +206,61 @@ p {
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+}
+
+/* smaller laptops */
+
+@media only screen and (min-width: 979px) {
+    .rating-value {
+        font-size: 1.2rem;
+        font-weight: 500;
+        margin-left: 1.7rem;
+        margin-top: .6rem;
+        display: none;
+        color: #00d68f;
+    }
+    
+    .rating:hover .rating-value {
+        display: block; /* Show the rating value when the parent (.rating) is hovered */
+    }
+    
+    .rating:hover .star {
+        animation: pulse 1s infinite alternate;
+    }
+    
+    .rate-button, .vote-button {
+        margin-top: .6rem;
+        width: auto !important;
+    }
+    
+    .votes { /*text*/ 
+        font-size: 1.2rem;
+        font-weight: 500;
+        margin-top: 1.8rem;
+        padding-left: 2.8rem;
+        margin-left: 2rem;
+        color: #0095ff;
+        width: auto !important;
+        border-left: #151A30 solid .1rem;
+    }
+    
+    .row.ratings-and-votes {
+        display: flex;
+        justify-content: center !important;
+        align-items: center;
+        margin: 1rem 1rem 2rem auto;
+    }
+    
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: .8;
+    }
+    100% {
+        transform: scale(1.1);
+        color: #19f27f
     }
 }
