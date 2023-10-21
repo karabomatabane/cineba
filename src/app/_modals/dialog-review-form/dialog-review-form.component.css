@@ -1,0 +1,19 @@
+#comment {
+    width: 28rem !important;
+    max-width: 32rem !important;
+    height: 16rem;
+}
+
+.centered-card {
+    max-width: 32rem !important;
+    width: 31rem !important;
+}
+
+.btnStar {
+    border: none;
+    background: none;
+}
+
+.btnStar nb-icon {
+    font-size: 2.5rem;
+}

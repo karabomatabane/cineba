@@ -39,8 +39,8 @@ interface director {
     imgUrl: string;
 }
 
-interface review {
-    user: string;
+export interface review {
+    user: {_id: string, name: string};
     comment: string;
     rating: number;
     date: Date;

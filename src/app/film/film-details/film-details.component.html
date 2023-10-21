@@ -67,13 +67,13 @@
                         </div>
                     </div>
                     <div class="rate-button col-md-3">
-                        <button nbButton status="success" class="rate-button" disabled>Rate</button>
+                        <button nbButton status="success" class="rate-button" (click)="openReviewModal()">Rate</button>
                     </div>
                     <div class="votes col-md-3">
                         <span>{{film.voteCount}} Votes</span>
                     </div>
                     <div class="vote-button col-md-3">
-                        <button nbButton status="info" class="rate-button">Vote</button>
+                        <button nbButton status="info" class="rate-button" (click)="submitVote()">{{ isVoted ? "Unvote" : "Vote" }}</button>
                     </div>
                 </nb-card-body>
             </div>
@@ -102,7 +102,7 @@
                             </p>
                             <div class="review-content">
                                 <p class="review-comment">{{ review.comment }}</p>
-                                <p class="review-credit">By {{ review.user }} on {{ review.date | date }}</p>
+                                <p class="review-credit">By {{ review.user.name }} on {{ review.date | date }}</p>
                             </div>
                         </div>
                     </nb-card-body>

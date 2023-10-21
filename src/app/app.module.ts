@@ -21,6 +21,8 @@ import {
   NbSidebarService,
   NbSpinnerModule,
   NbAccordionModule,
+  NbDialogService,
+  NbDialogModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { AppRoutingModule } from './app-routing.module';
@@ -37,6 +39,7 @@ import { NewFilmComponent } from './film/new-film/new-film.component';
 import { TabsComponent } from './admin/tabs/tabs.component';
 import { FilmDetailsComponent } from './film/film-details/film-details.component';
 import { LogoutComponent } from './admin/logout/logout.component';
+import { DialogReviewFormComponent } from './_modals/dialog-review-form/dialog-review-form.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +53,7 @@ import { LogoutComponent } from './admin/logout/logout.component';
     TabsComponent,
     FilmDetailsComponent,
     LogoutComponent,
+    DialogReviewFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,12 +83,14 @@ import { LogoutComponent } from './admin/logout/logout.component';
     NbMenuModule.forRoot(),
     NbSpinnerModule,
     NbAccordionModule,
+    NbDialogModule.forRoot(),
+    NbInputModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true, // Set multi to true to allow multiple interceptors
-  },NbSidebarService],
+  },NbSidebarService, NbDialogService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

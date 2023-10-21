@@ -1,0 +1,27 @@
+<nb-card class="centered-card">
+    <nb-card-header>
+        Review
+    </nb-card-header>
+    <nb-card-body>
+        <form [formGroup]="reviewForm">
+            <div class="myFormField">
+                <div class="star-rating">
+                    <button type="button" class="btnStar" *ngFor="let rating of ratings" (click)="updateRating(rating)"
+                        [class.selected]="rating === reviewForm.get('rating')?.value">
+                        <nb-icon icon="star{{ rating <= reviewForm.get('rating')?.value ? '' : '-outline' }}"
+                            status="success"></nb-icon>
+                    </button>
+                </div>
+            </div>
+            <nb-form-field class="myFormField">
+                <textarea nbInput type="text" id="comment" name="comment" formControlName="comment"
+                    placeholder="Comment (optional)"></textarea>
+            </nb-form-field>
+        </form>
+    </nb-card-body>
+    <nb-card-footer class="text-center">
+        <button nbButton status="danger" (click)="onCancel()">Cancel</button>
+        <button nbButton status="success" style="margin-left:1rem" type="submit" [disabled]="reviewForm.invalid"
+            (click)="onSubmit()">Submit</button>
+    </nb-card-footer>
+</nb-card>

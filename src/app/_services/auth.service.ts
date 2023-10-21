@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { loginUser, registerUser } from '../_models/auth.model';
+import { User, loginUser, registerUser } from '../_models/auth.model';
 import { environment } from 'src/environments/environment';
 
 const TOKEN_KEY = 'authToken';
@@ -43,6 +43,10 @@ export class AuthService {
 
   getUserId(): string | null {
     return this.userId;
+  }
+
+  getUserDetails(): Observable<User> {
+    return this.http.get<User>(`${this.baseUrl}/user/${this.userId}`);
   }
 
   setToken(token: string) {
