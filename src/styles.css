@@ -107,3 +107,8 @@ h6, h3 {
 {
   margin-top: 0.5rem;
 }
+
+.message {
+  margin-bottom: 1.6rem;
+  font-size: 12px !important;
+}

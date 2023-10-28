@@ -24,6 +24,9 @@
               <div *ngIf="signupForm.get('username')?.hasError('minlength') && signupForm.get('username')?.touched" class="validation-error">
                 Username must be at least 3 characters.
               </div>
+              <div *ngIf="signupForm.get('username')?.hasError('invalidUsername') && signupForm.get('username')?.touched" class="validation-error">
+                Username must contain at least one letter.
+              </div>
             </nb-form-field>
             <nb-form-field class="myFormField">
               <nb-icon nbPrefix icon="lock-outline" pack="eva"></nb-icon>
@@ -64,6 +67,30 @@
                 <div *ngIf="signupForm.get('confirmPassword')?.hasError('mismatch') && signupForm.get('confirmPassword')?.touched" class="validation-error">
                 Passwords do not match.
                 </div>
+            </nb-form-field>
+            <nb-form-field class="myFormField">
+              <nb-icon nbPrefix icon="hash-outline" pack="eva"></nb-icon>
+              <input
+                nbInput
+                type="text"
+                id="username"
+                autocomplete="off"
+                name="username"
+                formControlName="accountCode"
+                placeholder="Code"
+                fullWidth
+                [status]="getValidationStatus('accountCode')"
+                fieldSize="large"
+              />
+              <div *ngIf="signupForm.get('accountCode')?.hasError('required') && signupForm.get('accountCode')?.touched" class="validation-error">
+                Code is required.
+              </div>
+              <div *ngIf="signupForm.get('accountCode')?.hasError('minlength') && signupForm.get('accountCode')?.touched" class="validation-error">
+                Code must be 6 characters.
+              </div>
+              <div *ngIf="signupForm.get('accountCode')?.hasError('maxlength') && signupForm.get('accountCode')?.touched" class="validation-error">
+                Code must be 6 characters.
+              </div>
             </nb-form-field>
             <button nbButton fullWidth status="primary" type="submit" [disabled]="signupForm.invalid">Sign Up</button>
           </form>

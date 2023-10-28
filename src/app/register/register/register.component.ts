@@ -18,7 +18,8 @@ export class RegisterComponent implements OnInit {
     private router: Router
     ) {
     this.signupForm = this.formBuilder.group({
-      username: ['', [Validators.required, Validators.minLength(3)]],
+      username: ['', [Validators.required, Validators.minLength(3), isUsernameValid]],
+      accountCode: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required],
     }, {
@@ -41,7 +42,6 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-
   onSubmit() {
     if (this.signupForm.invalid) {
       // Handle invalid form submission (e.g., show error messages).
@@ -59,7 +59,7 @@ export class RegisterComponent implements OnInit {
       },
       (error) => {
         // Handle registration error (e.g., duplicate username)
-        this.toastr.danger(error.error.message);
+        this.toastr.danger(error.error.message || error.error);
         console.error('Registration error', error);
       }
     );
@@ -69,4 +69,10 @@ export class RegisterComponent implements OnInit {
     const control = this.signupForm.get(controlName);
     return control?.touched && control.invalid ? 'danger' : 'basic';
   }
+}
+
+export const isUsernameValid: ValidatorFn = (control) => {
+// cannot be just numbers or special characters. Must contain at least one letter
+  const usernameRegex = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{3,}$/;
+  return usernameRegex.test(control.value) ? null : { invalidUsername: true };
 }

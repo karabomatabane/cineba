@@ -1,0 +1,41 @@
+<section id="accountCode">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Account Code</h3>
+            <p>Give this code to your friends to let them join the club.</p>
+            <div class="input-group">
+                <input type="text" class="form-control" value="{{accountCode.code}}" readonly>
+                <span class="input-group-btn">
+                    <button class="btn copyButton" status="primary" type="button" (click)="copyCode()">Copy</button>
+                </span>
+            </div>
+            <span>Expires on: {{accountCode.expirationDate | date}}</span>
+        </div>
+        <div class="col-md-12">
+            <button nbButton status="primary" class="newButton">New</button>
+        </div>
+    </div>
+</section>
+<section id="users">
+    <h3 class="text-center">Manage Users</h3>
+    <table class="table table-outline">
+        <!-- user -> username, role, votedFilms -->
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Voted Films</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users">
+                <td>{{user.username}}</td>
+                <td>{{user.role}}</td>
+                <td>{{trimFilms(user.votedFilms)}}</td>
+                <td>
+                    <button class="btn btn-sm btn-danger" (click)="deleteUser(user._id)">Delete</button>
+                </td>
+            </tr>
+    </table>
+</section>

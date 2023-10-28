@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { User, loginUser, registerUser } from '../_models/auth.model';
+import { AccountCode, NewAccountCode, User, loginUser, registerUser } from '../_models/auth.model';
 import { environment } from 'src/environments/environment';
 
 const TOKEN_KEY = 'authToken';
@@ -47,6 +47,22 @@ export class AuthService {
 
   getUserDetails(): Observable<User> {
     return this.http.get<User>(`${this.baseUrl}/user/${this.userId}`);
+  }
+
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.baseUrl}/../user`);
+  }
+
+  deleteUser(userId: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/../user/${userId}`);
+  }
+
+  getAccountCode(): Observable<AccountCode> {
+    return this.http.get<AccountCode>(`${this.baseUrl}/account-code`);
+  }
+
+  createAccountCode(accountCode: NewAccountCode): Observable<AccountCode> {
+    return this.http.post<AccountCode>(`${this.baseUrl}/account-code`, accountCode);
   }
 
   setToken(token: string) {

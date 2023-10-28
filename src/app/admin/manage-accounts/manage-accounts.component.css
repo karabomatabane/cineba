@@ -1,0 +1,28 @@
+.form-control {
+    background-color: #151A30;
+    border: 1px solid #36f;
+}
+
+.copyButton {
+    background-color: #36f;
+    border: 1px solid #36f;
+    color: #151A30;
+}
+
+nb-icon {
+    font-size: 18px;
+}
+
+section {
+    margin-bottom: 9rem;
+}
+
+#accountCode {
+    /* center section */
+    display: flex;
+    justify-content: center;
+}
+
+.newButton {
+    margin-top: 1rem;
+}

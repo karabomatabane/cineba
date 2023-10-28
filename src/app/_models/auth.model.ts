@@ -4,6 +4,7 @@ export interface registerUser {
     username: string;
     password: string;
     confirmPassword: string;
+    accountCode: string;
 }
 
 export interface loginUser {
@@ -16,4 +17,15 @@ export interface User {
     username: string;
     role: string;
     votedFilms: Film[];
+}
+
+export interface AccountCode {
+    _id: string;
+    code: string;
+    expirationDate: Date;
+}
+
+export interface NewAccountCode {
+    code: string;
+    daysValid: number;
 }

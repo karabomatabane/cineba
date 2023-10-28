@@ -26,19 +26,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  //custom validator for password match
-  passwordMatchValidator(formGroup: FormGroup): void {
-    const password = formGroup.get('password')?.value;
-    const verifyPassword = formGroup.get('verifyPassword')?.value;
-
-    if (password !== verifyPassword) {
-      formGroup.get('verifyPassword')?.setErrors({ mismatch: true });
-    } else {
-      formGroup.get('verifyPassword')?.setErrors(null);
-    }
-  }
-
-
   onSubmit() {
     if (this.loginForm.invalid) {
       // Handle invalid form submission (e.g., show error messages).

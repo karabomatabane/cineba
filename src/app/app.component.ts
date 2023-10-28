@@ -57,6 +57,13 @@ export class AppComponent implements  OnInit {
     });
     this.authService.isAdmin$.subscribe((isAdmin: boolean) => {
       this.isAdmin = isAdmin;
+      //add admin menu item at index 2
+      this.items.splice(2, 0, {
+        title: 'Admin',
+        icon: 'settings-2-outline',
+        link: '/admin',
+        hidden: this.isAdmin ? false : true
+      });
     });
   }
 

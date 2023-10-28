@@ -40,6 +40,7 @@ import { TabsComponent } from './admin/tabs/tabs.component';
 import { FilmDetailsComponent } from './film/film-details/film-details.component';
 import { LogoutComponent } from './admin/logout/logout.component';
 import { DialogReviewFormComponent } from './_modals/dialog-review-form/dialog-review-form.component';
+import { ManageAccountsComponent } from './admin/manage-accounts/manage-accounts.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { DialogReviewFormComponent } from './_modals/dialog-review-form/dialog-r
     FilmDetailsComponent,
     LogoutComponent,
     DialogReviewFormComponent,
+    ManageAccountsComponent,
   ],
   imports: [
     BrowserModule,
