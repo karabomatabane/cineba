@@ -12,7 +12,7 @@
             <span>Expires on: {{accountCode.expirationDate | date}}</span>
         </div>
         <div class="col-md-12">
-            <button nbButton status="primary" class="newButton">New</button>
+            <button nbButton status="primary" class="newButton" (click)="openNewCodeModal()">New</button>
         </div>
     </div>
 </section>

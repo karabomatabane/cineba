@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { FilmDetails } from '../_models/film.model';
+import { FilmDetails, review } from '../_models/film.model';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +39,10 @@ export class FilmService {
     return this.http.put(this.baseUrl + 'film/' + film._id, film);
   }
 
+  review(id: string, review: review) {
+    return this.http.put(this.baseUrl + 'film/' + id + '/review', review);
+  }
+
   searchFilms(searchText: string) {
     //search films from tmdb api
     return this.http.get(this.tmdbUrl + '?query=' + searchText + '&include_adult=false&language=en-US&page=1');
@@ -51,7 +55,7 @@ export class FilmService {
     return this.http.post(this.baseUrl + 'film/tmdb/' + id, {screeningDate: screeningDate});
   }
 
-  vote(film: any) {
-    return this.http.post(this.baseUrl + film.id + '/vote', {});
+  vote(id: string) {
+    return this.http.put(`${this.baseUrl}film/${id}/vote`, {});
   }
 }

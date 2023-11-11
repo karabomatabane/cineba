@@ -91,7 +91,7 @@ export class CollectionComponent implements OnInit {
   vote(film: Film) {
     alert('vote');
     if (this.votes > 0) {
-      this.filmService.vote(film).subscribe(
+      this.filmService.vote(film._id).subscribe(
         () => {
           this.toastr.success('Vote ok');
           console.log('vote ok');

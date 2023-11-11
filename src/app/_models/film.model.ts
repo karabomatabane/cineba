@@ -40,7 +40,7 @@ interface director {
 }
 
 export interface review {
-    user: {_id: string, name: string};
+    user: {_id: string, username: string};
     comment: string;
     rating: number;
     date: Date;

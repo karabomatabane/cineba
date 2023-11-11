@@ -1,0 +1,39 @@
+<nb-card class="centered-card">
+    <nb-card-header>
+        Review
+    </nb-card-header>
+    <nb-card-body>
+        <form [formGroup]="codeForm">
+            <nb-form-field class="myFormField">
+                <!-- <nb-icon nbPrefix icon="code-outline"></nb-icon> -->
+                <input nbInput type="text" id="code" name="code" formControlName="code" placeholder="Code" />
+                <div *ngIf="codeForm.get('code')?.hasError('required') && codeForm.get('code')?.touched"
+                    class="validation-error">
+                    Code is required.
+                </div>
+                <div *ngIf="codeForm.get('code')?.hasError('minlength') && codeForm.get('code')?.touched"
+                    class="validation-error">
+                    Code must be exactly 6 characters.
+                </div>
+            </nb-form-field>
+            <nb-form-field class="myFormField">
+                <!-- <nb-icon nbPrefix icon="calendar-outline"></nb-icon> -->
+                <input nbInput type="number" id="daysValid" name="daysValid" formControlName="daysValid"
+                    placeholder="Days valid for" />
+                <div *ngIf="codeForm.get('daysValid')?.hasError('required') && codeForm.get('daysValid')?.touched"
+                    class="validation-error">
+                    Number of days are required.
+                </div>
+                <div *ngIf="codeForm.get('daysValid')?.hasError('max') && codeForm.get('daysValid')?.touched"
+                    class="validation-error">
+                    Number of days must be less than 31.
+                </div>
+            </nb-form-field>
+        </form>
+    </nb-card-body>
+    <nb-card-footer class="text-center">
+        <button nbButton status="danger" (click)="onCancel()">Cancel</button>
+        <button nbButton status="success" style="margin-left:1rem" type="submit" [disabled]="codeForm.invalid"
+            (click)="onSubmit()">Submit</button>
+    </nb-card-footer>
+</nb-card>

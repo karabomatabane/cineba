@@ -41,6 +41,7 @@ import { FilmDetailsComponent } from './film/film-details/film-details.component
 import { LogoutComponent } from './admin/logout/logout.component';
 import { DialogReviewFormComponent } from './_modals/dialog-review-form/dialog-review-form.component';
 import { ManageAccountsComponent } from './admin/manage-accounts/manage-accounts.component';
+import { DialogCodeFormComponent } from './_modals/dialog-code-form/dialog-code-form.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { ManageAccountsComponent } from './admin/manage-accounts/manage-accounts
     LogoutComponent,
     DialogReviewFormComponent,
     ManageAccountsComponent,
+    DialogCodeFormComponent,
   ],
   imports: [
     BrowserModule,

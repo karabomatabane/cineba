@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NbDialogService } from '@nebular/theme';
+import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { DialogReviewFormComponent } from 'src/app/_modals/dialog-review-form/dialog-review-form.component';
 import { User } from 'src/app/_models/auth.model';
 import { FilmDetails, review } from 'src/app/_models/film.model';
@@ -16,26 +16,28 @@ export class FilmDetailsComponent implements OnInit {
   rating: number = 0;
   currentUser: User = {} as User;
   isVoted: boolean = false;
+  isDetailsLoaded: boolean = false;
 
-  reviews: review[] = [
-    {
-      user: { _id: "1", name: "User1" },
-      comment: "A great movie!",
-      rating: 4,
-      date: new Date("2023-10-20"),
-    },
-    {
-      user: { _id: "0", name: "User2" },
-      comment: "I enjoyed it! It has become one of my favorite movies.",
-      rating: 5,
-      date: new Date("2023-10-20"),
-    }
-  ];
+  // reviews: review[] = [
+  //   {
+  //     user: { _id: "1", name: "User1" },
+  //     comment: "A great movie!",
+  //     rating: 4,
+  //     date: new Date("2023-10-20"),
+  //   },
+  //   {
+  //     user: { _id: "0", name: "User2" },
+  //     comment: "I enjoyed it! It has become one of my favorite movies.",
+  //     rating: 5,
+  //     date: new Date("2023-10-20"),
+  //   }
+  // ];
 
   constructor(
     private filmService: FilmService,
     private dialogService: NbDialogService,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private toastr: NbToastrService) { }
 
   ngOnInit(): void {
     this.getFilmDetails();
@@ -62,6 +64,7 @@ export class FilmDetailsComponent implements OnInit {
     const id: string = window.location.pathname.split('/')[2];
     this.filmService.getFilmDetails(id).subscribe(
       (data: FilmDetails) => {
+        this.isDetailsLoaded = true;
         console.log(data);
         this.film = data;
       },
@@ -69,6 +72,10 @@ export class FilmDetailsComponent implements OnInit {
         console.log(error);
       }
     )
+  }
+
+  getReviewsList(): review[] {
+    return this.film.filmDetail.reviews.filter(r => r.comment.length > 0);
   }
 
   getUserDetails() {
@@ -89,29 +96,41 @@ export class FilmDetailsComponent implements OnInit {
       sum += review.rating;
     });
     this.rating = sum / this.film.filmDetail.reviews.length;
-    return Math.floor(this.rating) || 4;
+    return Math.floor(this.rating) || 0;
+  }
+
+  getRatingCount(): number {
+    return this.film.filmDetail.reviews.length;
   }
 
   submitReview(review: review) {
     review.date = new Date();
-    review.user = { _id: this.authService.getUserId() || "Anonymous", name: "Anonymous" };
-    console.log(review);
+    review.user = { _id: this.authService.getUserId() || "Anonymous", username: this.currentUser.username || "Anonymous" };
+    this.film.filmDetail.reviews.push(review);
+    this.filmService.review(this.film._id, review).subscribe(
+      (data) => {
+        this.toastr.success("Review sent successfully", 'Success');
+        this.getFilmDetails();
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
   }
 
   submitVote() {
-    this.isVoted = !this.isVoted;
-    this.film.voteCount += this.isVoted ? 1 : -1;
-    // this.filmService.vote(this.film._id).subscribe(
-    //   (data) => {
-    //     console.log(data);
-    //     this.isVoted = !this.isVoted;
-    //     this.film.voteCount += this.isVoted ? 1 : -1;
-    //     this.getUserDetails();
-    //   },
-    //   (error) => {
-    //     console.log(error);
-    //   }
-    // )
+    if (this.film._id === undefined) return;
+    this.filmService.vote(this.film._id).subscribe(
+      (data) => {
+        console.log(data);
+        this.isVoted = !this.isVoted;
+        this.film.voteCount += this.isVoted ? 1 : -1;
+        this.getUserDetails();
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
   }
 
   openReviewModal() {

@@ -33,7 +33,7 @@ export class AppComponent implements  OnInit {
           title: 'Bookmarks',
           icon: 'bookmark-outline',
           link: '#',
-          hidden: this.isAuthenticated ? false : true
+          hidden: true
         },
         {
           title: 'Login',

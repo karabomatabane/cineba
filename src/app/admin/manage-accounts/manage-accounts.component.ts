@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NbToastrService } from '@nebular/theme';
-import { AccountCode, User } from 'src/app/_models/auth.model';
+import { NbDialogService, NbToastrService } from '@nebular/theme';
+import { DialogCodeFormComponent } from 'src/app/_modals/dialog-code-form/dialog-code-form.component';
+import { AccountCode, NewAccountCode, User } from 'src/app/_models/auth.model';
 import { Film } from 'src/app/_models/film.model';
 import { AuthService } from 'src/app/_services/auth.service';
 
@@ -12,7 +13,9 @@ import { AuthService } from 'src/app/_services/auth.service';
 export class ManageAccountsComponent implements OnInit {
   users: User[] = [];
   accountCode: AccountCode = {} as AccountCode;
-  constructor(private authService: AuthService,
+  constructor(
+    private authService: AuthService,
+    private dialogService: NbDialogService,
     private toastr: NbToastrService) { }
 
   ngOnInit(): void {
@@ -24,13 +27,28 @@ export class ManageAccountsComponent implements OnInit {
     this.authService.getUsers().subscribe((users: User[]) => {
       this.users = users;
     }, (error: any) => {
-      console.log(error);
+      console.log(error, this.authService.getToken());
     });
   }
 
   getAccountCode() {
     this.authService.getAccountCode().subscribe((accountCode: AccountCode) => {
       this.accountCode = accountCode;
+    }, (error: any) => {
+      console.log(error, this.authService.getToken());
+      this.toastr.danger(error.error, 'Error');
+    });
+  }
+
+  openNewCodeModal() {
+    this.dialogService.open(DialogCodeFormComponent)
+      .onClose.subscribe(code => code && this.submitAccountCode(code));
+  }
+
+  submitAccountCode(newAccountCode: NewAccountCode) {
+    this.authService.createAccountCode(newAccountCode).subscribe((res) => {
+      this.getAccountCode();
+      this.toastr.success("New code added successfully", 'Success');
     }, (error: any) => {
       console.log(error);
       this.toastr.danger(error.error, 'Error');
