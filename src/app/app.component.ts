@@ -2,21 +2,30 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from './_services/auth.service';
 import { Router } from '@angular/router';
 import { NbMenuItem, NbSidebarService } from '@nebular/theme';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements  OnInit {
+export class AppComponent implements OnInit {
   title = 'cineba!';
   items: NbMenuItem[] = [];
 
-  constructor(private authService : AuthService, 
-    private router : Router,
-    private sidebarService: NbSidebarService) { }
-  isAuthenticated : boolean = false;
-  isAdmin : boolean = false;
+  constructor(private authService: AuthService,
+    private router: Router,
+    private sidebarService: NbSidebarService,
+    private meta: Meta
+  ) {
+    this.meta.addTag({ name: 'og:url', content: 'https://web.cineba.co.za' });
+    this.meta.addTag({ name: 'og:type', content: 'website' });
+    this.meta.addTag({ name: 'og:title', content: 'CineBa! Film Festival' });
+    this.meta.addTag({ name: 'og:description', content: 'An annual film festival held in Bloemfontein, South Africa that celebrates African cinema.' });
+    this.meta.addTag({ name: 'og:image', content: 'assets/brand.png' });
+  }
+  isAuthenticated: boolean = false;
+  isAdmin: boolean = false;
 
   ngOnInit(): void {
     this.authService.isAuthenticated$.subscribe((isAuthenticated: boolean) => {

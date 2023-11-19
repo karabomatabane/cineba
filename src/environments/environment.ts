@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3210/',
+  apiUrl: 'http://3.110.193.231:3210/',
   // apiUrl: 'http://10.0.0.104:3210/',
   tmdbUrl: 'https://api.themoviedb.org/3/search/movie',
   tmdbToken: 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0N2U1MjcyODUxMDZlODNiNDIyYjYzYWM4OTVlZDQwYiIsInN1YiI6IjY0Zjc1ODEwMWI3MjJjMDExZGNkNWJmZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.EkXdtw-DX4RTRLuJMl5qU_9b1EbXAmiY5NCOc5bqRFc'
