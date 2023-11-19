@@ -22,7 +22,7 @@ jobs:
         ng b --configuration production
 
     - name: Copy files to server
-      uses: appleboy/scp-action@v0.3.0
+      uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
