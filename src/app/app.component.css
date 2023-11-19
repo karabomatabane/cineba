@@ -42,11 +42,11 @@ a.logo:hover {
     transform: scale(0.95);
   }
 
-  h1 {
-    margin-left: 10vw;
-  }
 }
 
+h1 {
+  margin-left: 10vw;
+}
 .button-group {
   display: flex;
   width: fit-content;

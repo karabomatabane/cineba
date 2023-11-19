@@ -12,8 +12,8 @@ import { AuthService } from 'src/app/_services/auth.service';
 export class RegisterComponent implements OnInit {
   signupForm: FormGroup;
   constructor(
-    private formBuilder: FormBuilder, 
-    private authService: AuthService, 
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
     private toastr: NbToastrService,
     private router: Router
     ) {
@@ -73,6 +73,6 @@ export class RegisterComponent implements OnInit {
 
 export const isUsernameValid: ValidatorFn = (control) => {
 // cannot be just numbers or special characters. Must contain at least one letter
-  const usernameRegex = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{3,}$/;
+  const usernameRegex = /^(?=.*[a-zA-Z])[\w\d]{3,}$/;
   return usernameRegex.test(control.value) ? null : { invalidUsername: true };
 }

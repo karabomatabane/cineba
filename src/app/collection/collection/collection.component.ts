@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { Film } from 'src/app/_models/film.model';
 import { AuthService } from 'src/app/_services/auth.service';
@@ -16,13 +17,14 @@ export class CollectionComponent implements OnInit {
   @Input() voteEnabled: boolean = false;
   screeningDate: Date = new Date();
   screeningTime: Date = new Date();
-  votes: number = 0;
+  votes: number = 1;
   isAuthenticated: boolean = false;
   isAdmin: boolean = false;
 
   constructor(private filmService: FilmService,
     private toastr: NbToastrService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -34,7 +36,7 @@ export class CollectionComponent implements OnInit {
       this.isAdmin = isAdmin;
     });
   }
-  
+
   addFilm(id: string) {
     this.filmService.addFilm(id, this.screeningDate, this.screeningTime).subscribe(
       () => {
@@ -51,10 +53,10 @@ export class CollectionComponent implements OnInit {
   formatDuration(minutes: number): string {
     const hours = Math.floor(minutes / 60);
     const remainingMinutes = minutes % 60;
-    
+
     return `${hours}h ${remainingMinutes}m`;
   }
-  
+
   updateScreeningDate(filmId: string, selectedDate: Date) {
     this.films.find(film => film.id === filmId).screeningDate = selectedDate;
     this.screeningDate = selectedDate;
@@ -89,8 +91,7 @@ export class CollectionComponent implements OnInit {
   }
 
   vote(film: Film) {
-    alert('vote');
-    if (this.votes > 0) {
+    if (this.isAuthenticated && this.votes > 0) {
       this.filmService.vote(film._id).subscribe(
         () => {
           this.toastr.success('Vote ok');
@@ -101,6 +102,10 @@ export class CollectionComponent implements OnInit {
           console.log(error);
         }
       )
+    } else {
+      this.toastr.danger('You must be logged in to vote');
+      //redirect to login
+      this.router.navigate(['/login']);
     }
   }
 }

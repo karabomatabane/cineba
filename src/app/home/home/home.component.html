@@ -7,9 +7,9 @@
     <nb-form-field>
       <nb-icon nbPrefix icon="search" pack="eva"></nb-icon>
       <input nbInput type="search" id="search" [(ngModel)]="searchText" placeholder="Search" fullWidth status="danger"
-        fieldSize="large" />
+      (keyup.enter)="searchFilm()" fieldSize="large" />
     </nb-form-field>
-    <button id="button" nbButton status="danger" (click)="getFilms(1)">
+    <button id="button" nbButton status="danger" (click)="searchFilm()">
       <h6>Search</h6>
     </button>
   </div>

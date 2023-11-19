@@ -13,7 +13,7 @@ export class FilmService {
   baseUrl = environment.apiUrl;
   tmdbUrl = environment.tmdbUrl;
   CURRENT_FILM = 'currentFilm';
-  
+
   getFilms(page: number) {
     //get films from api
     return this.http.get(this.baseUrl + 'film?page=' + page);
@@ -47,6 +47,13 @@ export class FilmService {
     //search films from tmdb api
     return this.http.get(this.tmdbUrl + '?query=' + searchText + '&include_adult=false&language=en-US&page=1');
   }
+
+  findFilm(searchText: string) {
+    // find film from tmdb api
+    const url = `${this.baseUrl}film?search=${searchText}`;
+    return this.http.get(url);
+  }
+
 
   addFilm(id: string, screeningDate: Date, screeningTime: Date) {
     //add film to collection

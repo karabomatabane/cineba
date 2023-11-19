@@ -10,7 +10,7 @@ import { Film } from 'src/app/_models/film.model';
 export class HomeComponent implements OnInit {
   @ViewChild('scrollToTop') scrollToTop: ElementRef | undefined;
   films: Film[] = [];
-  searchText: string | undefined;
+  searchText: string = "";
   currentPage: number = 1;
   totalPages: number = 0;
   pageSize: number = 10;
@@ -33,6 +33,19 @@ export class HomeComponent implements OnInit {
       this.totalItems = data.total_results;
       // Scroll to the top of the page
       this.scrollToTop?.nativeElement.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+
+  searchFilm() {
+    this.loading = true;
+    this.filmService.findFilm(this.searchText).subscribe((data: any) => {
+      this.films = data.results;
+      this.totalPages = data.total_pages;
+      this.totalItems = data.total_results;
+      this.loading = false;
+    }, (error: any) => {
+      console.log(error);
+      this.loading = false;
     });
   }
 
