@@ -2,8 +2,8 @@ name: Deploy to Server
 
 on:
   push:
-    branches:
-      - dev
+    tags:
+      - 'v*'  # This will trigger on tags that start with 'v', e.g., v1.0.0
   pull_request:
     branches:
       - master
