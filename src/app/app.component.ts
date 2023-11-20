@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
     this.meta.addTag({ name: 'og:type', content: 'website' });
     this.meta.addTag({ name: 'og:title', content: 'CineBa! Film Festival' });
     this.meta.addTag({ name: 'og:description', content: 'An annual film festival held in Bloemfontein, South Africa that celebrates African cinema.' });
-    this.meta.addTag({ name: 'og:image', content: 'assets/brand.png' });
+    this.meta.addTag({ name: 'og:image', content: 'https://web.cineba.co.za/assets/brand.png' });
   }
   isAuthenticated: boolean = false;
   isAdmin: boolean = false;
