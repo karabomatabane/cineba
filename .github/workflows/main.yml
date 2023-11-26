@@ -40,5 +40,6 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         script: |
           cd /home/bitnami/cineba-api/wwwroot
+          ls -la
           scp -r /github/workspace/dist/cineba/* .
           pm2 restart serve
