@@ -67,7 +67,7 @@ export class CollectionComponent implements OnInit {
     this.screeningTime = selectedTime;
   }
 
-  clickEvent(film: any) {
+  clickEvent(film: any, event: Event) {
     if (this.voteEnabled) {
       //cast film to Film
       film = film as Film;
@@ -77,7 +77,8 @@ export class CollectionComponent implements OnInit {
     }
   }
 
-  hide(film: any) {
+  hide(film: any, event: Event) {
+    if (event.target instanceof HTMLButtonElement) {
     film.active = false;
     this.filmService.updateFilm(film).subscribe(
       () => {
@@ -87,7 +88,7 @@ export class CollectionComponent implements OnInit {
         this.toastr.danger(error.error.error);
         console.log(error.error);
       }
-    )
+    )}
   }
 
   vote(film: Film) {

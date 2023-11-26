@@ -1,7 +1,7 @@
 <div *ngIf="films.length" class="row">
   <div class="col-md-3 col-sm-6" *ngFor="let film of films">
-    <a [routerLink]="voteEnabled ? ['/film', film._id] : null" [class.card-hover]="voteEnabled" class="card-link"> <!-- Add this anchor element -->
-      <nb-card class="card">
+      <nb-card class="card" [class.card-hover]="voteEnabled">
+        <a [routerLink]="voteEnabled ? ['/film', film._id] : null" class="card-link"> <!-- Add this anchor element -->
         <nb-card-header>{{ film.name || film.title }}</nb-card-header>
         <nb-card-body class="card-body">
           <img src="https://image.tmdb.org/t/p/w500/{{ film.imgUrl || film.poster_path }}" class="img-frame" />
@@ -11,7 +11,7 @@
             <div class="icon-container">
             <nb-icon icon="clock-outline"></nb-icon>
             <h6>{{ formatDuration(film.duration) }}</h6>
-          </div>&nbsp;|&nbsp;&nbsp; 
+          </div>&nbsp;|&nbsp;&nbsp;
           </ng-container>
           <h6>Released: {{ film.releaseDate || film.release_date | date }}</h6>
         </nb-card-footer>
@@ -34,7 +34,7 @@
             <input
             class="mleft-1 mtop-1"
             nbInput
-            type="text" 
+            type="text"
             [nbTimepicker]="timepicker"
             [(ngModel)]="film.screeningTime"
             (ngModelChange)="updateScreeningTime($event, film._id)"
@@ -42,18 +42,18 @@
             <nb-timepicker #timepicker></nb-timepicker>
           </div>
         </nb-card-footer>
+      </a> <!-- Close the anchor element -->
         <nb-card-footer class="card-footer row">
           <div class="col-12">
             <button
               nbButton
               status="primary"
-              (click)="isAdmin && buttonText !== 'Add' ? hide(film) : clickEvent((film))"
+              (click)="isAdmin && buttonText !== 'Add' ? hide(film, $event) : clickEvent(film, $event)"
             >
               {{ isAdmin && buttonText !== 'Add' ? 'Hide' : buttonText}}
             </button>
           </div>
         </nb-card-footer>
       </nb-card>
-    </a> <!-- Close the anchor element -->
   </div>
 </div>
