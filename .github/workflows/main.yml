@@ -32,11 +32,6 @@ jobs:
         echo $GITHUB_SHA > dist/cineba/version.txt
         echo $GITHUB_REF >> dist/cineba/version.txt
 
-    - name: Copy files to server
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.SSH_KEY }}
-        source: "dist/cineba/*"
-        target: "~/cineba-api/wwwroot"
+    - name: Copy files to server using scp
+      run: |
+        scp -r -i ${{ secrets.SSH_KEY }} dist/cineba/* ${{ secrets.USERNAME }}@${{ secrets.HOST }}:~/cineba-api/wwwroot
