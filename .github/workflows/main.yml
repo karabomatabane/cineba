@@ -1,15 +1,19 @@
-name: remote ssh command
-on: [push]
-jobs:
+name: Debug SSH Connection
 
-  build:
-    name: Build
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  debug-ssh:
     runs-on: ubuntu-latest
+
     steps:
-    - name: executing remote ssh commands using password
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.SSH_KEY }}
-        script: whoami
+    - name: Debug SSH Connection
+      run: |
+        echo "Host: ${{ secrets.HOST }}"
+        echo "Username: ${{ secrets.USERNAME }}"
+        echo "SSH Key: ${{ secrets.SSH_KEY }}"
+        nc -zv ${{ secrets.HOST }} 22
+        ssh -v -i ${{ secrets.SSH_KEY }} ${{ secrets.USERNAME }}@${{ secrets.HOST }} -p 22 "echo Hello from the remote server"
