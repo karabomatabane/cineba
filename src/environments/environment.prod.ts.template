@@ -1,0 +1,6 @@
+export const environment = {
+  production: true,
+  apiUrl: 'api/',
+  tmdbUrl: 'https://api.themoviedb.org/3/search/movie',
+  tmdbToken: 'HIDDEN_TOKEN',
+};
