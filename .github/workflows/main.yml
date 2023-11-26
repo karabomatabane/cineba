@@ -27,6 +27,11 @@ jobs:
         sed -e "s/HIDDEN_TOKEN/$HIDDEN_TOKEN/g" src/environments/environment.prod.ts.template > src/environments/environment.prod.ts
         ng b --configuration production
 
+    - name: Debug
+      run: |
+        ls -R /github/workspace
+        ls -R /github/workspace/dist/cineba
+        
     - name: Create a version file with the commit hash and tag
       run: |
         echo $GITHUB_SHA > dist/cineba/version.txt
@@ -40,6 +45,5 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         script: |
           cd /home/bitnami/cineba-api/wwwroot
-          ls -la
-          scp -r /github/workspace/dist/cineba/* .
+          scp -r $GITHUB_WORKSPACE/dist/cineba/* .
           pm2 restart serve
