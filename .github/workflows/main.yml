@@ -39,6 +39,6 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.SSH_KEY }}
         script: |
-          cd /home/cineba-api/wwwroot
+          cd /home/bitnami/cineba-api/wwwroot
           scp -r /github/workspace/dist/cineba/* .
           pm2 restart serve
