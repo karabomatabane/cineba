@@ -1,0 +1,49 @@
+<h3 class="text-center">Manage Films</h3>
+    <div class="search-box">
+      <nb-form-field>
+        <nb-icon nbPrefix icon="search" pack="eva"></nb-icon>
+        <input
+          nbInput
+          type="search"
+          id="search"
+          [(ngModel)]="searchText"
+          (keyup.enter)="search()"
+          placeholder="Search"
+          fullWidth
+          status="danger"
+          fieldSize="large"
+        />
+      </nb-form-field>
+      <button
+        id="button"
+        nbButton
+        status="danger"
+        (click)="search()"
+      >
+        <h6>Search</h6>
+      </button>
+    </div>
+<table class="table table-outline">
+    <!-- user -> username, role, votedFilms -->
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Duration</th>
+            <th>Release Date</th>
+            <th>Language</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let film of films; index as i">
+            <td>{{i}}</td>
+            <td>{{film.name}}</td>
+            <td>{{ formatDuration(film.duration) }}</td>
+            <td>{{film.releaseDate | date }}</td>
+            <td>{{film.language}}</td>
+            <td>
+                <button class="btn btn-sm btn-danger" (click)="toggleVisibility(film._id)">{{ film.active ? "Hide" : "Show" }}</button>
+            </td>
+        </tr>
+</table>
