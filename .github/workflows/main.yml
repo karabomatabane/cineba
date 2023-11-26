@@ -27,6 +27,11 @@ jobs:
         sed -e "s/HIDDEN_TOKEN/$HIDDEN_TOKEN/g" src/environments/environment.prod.ts.template > src/environments/environment.prod.ts
         ng b --configuration production
 
+    - name: Create a version file with the commit hash and tag
+      run: |
+        echo $GITHUB_SHA > dist/cineba/version.txt
+        echo $GITHUB_REF >> dist/cineba/version.txt
+
     - name: Copy files to server
       uses: appleboy/ssh-action@master
       with:

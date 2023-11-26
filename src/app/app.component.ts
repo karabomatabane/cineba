@@ -62,6 +62,12 @@ export class AppComponent implements OnInit {
           link: '/logout',
           hidden: this.isAuthenticated ? false : true
         },
+        {
+          title: 'About',
+          icon: 'info-outline',
+          link: '/about',
+          hidden: false
+        },
       ]
     });
     this.authService.isAdmin$.subscribe((isAdmin: boolean) => {

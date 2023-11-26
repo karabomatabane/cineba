@@ -15,7 +15,6 @@ export class AuthInterceptor implements HttpInterceptor {
   private readonly tmdbToken = environment.tmdbToken;
 
   constructor(private authService: AuthService) {}
-  private readonly defaultToken = this.authService.getToken();
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     // Check if it's the specific request that needs a custom token
@@ -31,12 +30,18 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     // For other requests, use the default token
-    const authRequest = request.clone({
-      setHeaders: {
-        Authorization: `Bearer ${this.defaultToken}`
-      }
-    });
+    const defaultToken = this.authService.getToken();
+    if (defaultToken !== null) {
+      const authRequest = request.clone({
+        setHeaders: {
+          Authorization: `Bearer ${defaultToken}`
+        }
+      });
 
-    return next.handle(authRequest);
+      return next.handle(authRequest);
+    }
+
+    // If the default token is null, proceed without adding Authorization header
+    return next.handle(request);
   }
 }

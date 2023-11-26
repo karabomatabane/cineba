@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { FilmDetails, review } from '../_models/film.model';
+import { Film, FilmDetails, review } from '../_models/film.model';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +22,11 @@ export class FilmService {
   getFilmDetails(id: string) : Observable<FilmDetails> {
     //get film details from api
     return this.http.get<FilmDetails>(this.baseUrl + 'film/' + id);
+  }
+
+  getAllFilms() : Observable<Film[]>{
+    //get full list from api
+    return this.http.get<Film[]>(this.baseUrl + 'film/admin/all');
   }
 
   setCurrentFilm(id: string) {

@@ -42,6 +42,8 @@ import { LogoutComponent } from './admin/logout/logout.component';
 import { DialogReviewFormComponent } from './_modals/dialog-review-form/dialog-review-form.component';
 import { ManageAccountsComponent } from './admin/manage-accounts/manage-accounts.component';
 import { DialogCodeFormComponent } from './_modals/dialog-code-form/dialog-code-form.component';
+import { AboutComponent } from './about/about/about.component';
+import { FullListComponent } from './admin/full-list/full-list.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +60,8 @@ import { DialogCodeFormComponent } from './_modals/dialog-code-form/dialog-code-
     DialogReviewFormComponent,
     ManageAccountsComponent,
     DialogCodeFormComponent,
+    AboutComponent,
+    FullListComponent,
   ],
   imports: [
     BrowserModule,

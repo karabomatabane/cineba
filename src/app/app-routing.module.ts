@@ -9,6 +9,7 @@ import { AdminGuard } from './admin.guard';
 import { TabsComponent } from './admin/tabs/tabs.component';
 import { LogoutComponent } from './admin/logout/logout.component';
 import { FilmDetailsComponent } from './film/film-details/film-details.component';
+import { AboutComponent } from './about/about/about.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' }, // Redirect empty path to '/home'
@@ -16,9 +17,11 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'logout',  component: LogoutComponent },
+  { path: 'about',  component: AboutComponent },
   { path: 'new-film', component: NewFilmComponent, canActivate: [AuthGuard] },
   { path: 'film/:id', component: FilmDetailsComponent, canActivate: [AuthGuard] },
   { path: 'admin', component: TabsComponent, canActivate: [AuthGuard, AdminGuard] },
+  { path: '**', redirectTo: '/home' } // Redirect all other paths to home
 ];
 
 @NgModule({
