@@ -22,7 +22,7 @@ jobs:
           exit 1
         fi
 
-        if [ -z "${{ secrets.SSH_KEY }}" ]; then
+        if [ -z "${{ secrets.KEY }}" ]; then
           echo "Error: SSH_KEY is missing in GitHub Secrets."
           exit 1
         fi
