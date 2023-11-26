@@ -16,12 +16,17 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Set up environment variables
+      run: |
+        echo "export HIDDEN_TOKEN=${{ secrets.TMDB_TOKEN }}" >> $GITHUB_ENV
+
     - name: Install Angular CLI
       run: npm install -g @angular/cli
 
     - name: Install dependencies and build for production
       run: |
         npm install
+        sed -i "s/HIDDEN_TOKEN/$HIDDEN_TOKEN/g" src/environments/environment.prod.ts.template
         ng b --configuration production
 
     - name: Copy files to server
