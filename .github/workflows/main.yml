@@ -26,7 +26,7 @@ jobs:
     - name: Install dependencies and build for production
       run: |
         npm install
-        sed -i "s/HIDDEN_TOKEN/$HIDDEN_TOKEN/g" src/environments/environment.prod.ts.template
+        sed -e "s/HIDDEN_TOKEN/$HIDDEN_TOKEN/g" src/environments/environment.prod.ts.template > src/environments/environment.prod.ts
         ng b --configuration production
 
     - name: Copy files to server
