@@ -29,9 +29,8 @@ jobs:
 
     - name: Debug
       run: |
-        ls -R /github/workspace
-        ls -R /github/workspace/dist/cineba
-        
+        ls -R $GITHUB_WORKSPACE/dist/cineba
+
     - name: Create a version file with the commit hash and tag
       run: |
         echo $GITHUB_SHA > dist/cineba/version.txt
