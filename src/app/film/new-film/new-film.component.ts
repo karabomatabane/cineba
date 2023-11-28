@@ -10,6 +10,8 @@ import { FilmService } from 'src/app/_services/film.service';
 export class NewFilmComponent implements OnInit {
   films: tmdbFilm[] = [];
   searchText: string ="";
+  pageMax = 43
+  currentPage = 1
   constructor(private filmService: FilmService) { }
 
   ngOnInit(): void {
@@ -26,5 +28,21 @@ export class NewFilmComponent implements OnInit {
       }
     )
   }
+
+  addSAFilms() {
+    // ask for page number
+    if (this.currentPage <= this.pageMax) {
+      this.filmService.addSAFilms(this.currentPage).subscribe(
+        (data: any) => {
+          console.log(data);
+          this.currentPage++;
+          this.addSAFilms();
+        },
+        (error) => {
+          console.log(error);
+        }
+      )
+    }
+    }
 
 }

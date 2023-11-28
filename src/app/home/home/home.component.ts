@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
   searchText: string = "";
   currentPage: number = 1;
   totalPages: number = 0;
-  pageSize: number = 10;
+  pageSize: number = 12;
   totalItems: number = 0;
   loading: boolean = false;
   constructor(private filmService: FilmService) { }

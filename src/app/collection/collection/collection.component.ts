@@ -77,6 +77,10 @@ export class CollectionComponent implements OnInit {
     }
   }
 
+  checkImage(path : string) {
+    return !path.includes('null');
+  }
+
   hide(film: any, event: Event) {
     if (event.target instanceof HTMLButtonElement) {
     film.active = false;

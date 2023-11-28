@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, map, switchMap } from 'rxjs';
 import { Film, FilmDetails, review } from '../_models/film.model';
 
 @Injectable({
@@ -66,6 +66,35 @@ export class FilmService {
     screeningDate.setHours(screeningTime.getHours());
     return this.http.post(this.baseUrl + 'film/tmdb/' + id, {screeningDate: screeningDate});
   }
+
+  addSAFilms(page: number): Observable<any> {
+    const discoverUrl = 'https://api.themoviedb.org/3/discover/movie';
+    return this.http.get(discoverUrl, {
+      params: {
+        include_adult: 'false',
+        include_video: 'false',
+        language: 'en-ZA',
+        page: page.toString(),
+        sort_by: 'popularity.desc',
+        with_origin_country: 'ZA',
+        with_original_language: 'en|ve|st|tn|ts|zu|xh|ss|nr|af'
+      }
+    }).pipe(
+      switchMap((data: any) => {
+        if (data && data.results && Array.isArray(data.results)) {
+          const films = data.results;
+          const ids = films.map((film: any) => film.id);
+          console.log(ids);
+          return this.http.post(this.baseUrl + 'film/seed', { ids });
+        } else {
+          // Handle unexpected response format
+          console.error('Unexpected response format from TMDB API');
+          return [];
+        }
+      })
+    );
+  }
+
 
   vote(id: string) {
     return this.http.put(`${this.baseUrl}film/${id}/vote`, {});

@@ -18,7 +18,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     // Check if it's the specific request that needs a custom token
-    if (request.url.includes(environment.tmdbUrl)) {
+    if (request.url.includes("api.themoviedb.org")) {
       // Clone the request and add the Authorization header with the custom token
       const authRequest = request.clone({
         setHeaders: {

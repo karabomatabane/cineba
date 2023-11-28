@@ -27,7 +27,14 @@
         <h6>Search</h6>
       </button>
     </div>
+
+    <div class="text-center">
+      <button
+      nbButton
+      status="primary"
+      (click)="addSAFilms()">Seed</button>
+    </div>
     <!-- Render search film -->
     <app-collection [films]="films" buttonText="Add"></app-collection>
-    
+
   </div>
