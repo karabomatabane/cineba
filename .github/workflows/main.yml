@@ -62,7 +62,20 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         source: dist/cineba/*
         target: /home/bitnami/
+        
+  restart-server:
+    needs: deploy
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Move files to correct directory
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
         script: |
           cd /home/bitnami
           cp -r dist/cineba/* cineba-api/wwwroot
           pm2 restart serve
+

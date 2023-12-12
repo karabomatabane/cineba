@@ -4,10 +4,12 @@
         <a [routerLink]="voteEnabled ? ['/film', film._id] : null" class="card-link"> <!-- Add this anchor element -->
         <nb-card-header>{{ film.name || film.title }}</nb-card-header>
         <nb-card-body class="card-body">
-          <img src="https://image.tmdb.org/t/p/w500/{{ film.imgUrl || film.poster_path }}" class="img-frame" />
+          <div class="img-frame-container">
+            <img src="{{checkImage(film.imgUrl) ? 'https://image.tmdb.org/t/p/w500/' + film.imgUrl || film.poster_path : '../assets/film.png'}}" class="img-frame" />
+          </div>
         </nb-card-body>
         <nb-card-footer class="card-footer row">
-          <ng-container *ngIf="film.duration">
+          <ng-container>
             <div class="icon-container">
             <nb-icon icon="clock-outline"></nb-icon>
             <h6>{{ formatDuration(film.duration) }}</h6>
