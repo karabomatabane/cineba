@@ -62,7 +62,7 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         source: dist/cineba/*
         target: /home/bitnami/
-        
+
   restart-server:
     needs: deploy
     runs-on: ubuntu-latest
@@ -76,6 +76,7 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         script: |
           cd /home/bitnami
+          rm -rf cineba-api/wwwroot/*
           cp -r dist/cineba/* cineba-api/wwwroot
           pm2 restart serve
 
