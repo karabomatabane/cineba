@@ -38,6 +38,7 @@ jobs:
     - name: Set up environment variables
       run: |
         echo "export HIDDEN_TOKEN=${{ secrets.TMDB_TOKEN }}" >> $GITHUB_ENV
+        echo "${{ secrets.TMDB_TOKEN }}" > hidden_token.txt
 
     - name: Install Angular CLI
       run: npm install -g @angular/cli
@@ -79,4 +80,3 @@ jobs:
           rm -rf cineba-api/wwwroot/*
           cp -r dist/cineba/* cineba-api/wwwroot
           pm2 restart serve
-
