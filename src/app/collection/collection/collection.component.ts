@@ -77,9 +77,17 @@ export class CollectionComponent implements OnInit {
     }
   }
 
-  checkImage(path : string) {
-    return !path.includes('null');
+  getImagePath(path: string | null | undefined, posterPath: string | null | undefined): string {
+    if (path && !path.includes('null')) {
+      return `https://image.tmdb.org/t/p/w500/${path}`;
+    } else if (posterPath && !posterPath.includes('null')) {
+      return `https://image.tmdb.org/t/p/w500/${posterPath}`;
+    } else {
+      return '../assets/film.png';
+    }
   }
+
+
 
   hide(film: any, event: Event) {
     if (event.target instanceof HTMLButtonElement) {

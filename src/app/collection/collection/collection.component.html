@@ -5,7 +5,7 @@
         <nb-card-header>{{ film.name || film.title }}</nb-card-header>
         <nb-card-body class="card-body">
           <div class="img-frame-container">
-            <img src="{{checkImage(film.imgUrl) ? 'https://image.tmdb.org/t/p/w500/' + film.imgUrl || film.poster_path : '../assets/film.png'}}" class="img-frame" />
+            <img src="{{getImagePath(film.imgUrl, film.poster_path)}}" class="img-frame" />
           </div>
         </nb-card-body>
         <nb-card-footer class="card-footer row">
