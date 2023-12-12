@@ -10,69 +10,78 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Your existing steps for checking SSH keys...
+    - name: Check if SSH keys exist
+      run: |
+        if [ -z "${{ secrets.HOST }}" ]; then
+          echo "Error: HOST is missing in GitHub Secrets."
+          exit 1
+        fi
 
-  encode-environment-file:
-    runs-on: ubuntu-latest
+        if [ -z "${{ secrets.USERNAME }}" ]; then
+          echo "Error: USERNAME is missing in GitHub Secrets."
+          exit 1
+        fi
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Install secret-to-file-action
-        uses: mobiledevops/secret-to-file-action@v1
-        with:
-          base64-encoded-secret: ${{ secrets.ENV_FILE }}
-          filename: "src/environments/environment.prod.ts"
-          working-directory: "."
+        if [ -z "${{ secrets.KEY }}" ]; then
+          echo "Error: SSH_KEY is missing in GitHub Secrets."
+          exit 1
+        fi
 
   deploy:
-    needs: [check-keys, encode-environment-file]
+    needs: check-keys
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Set up environment variables (if needed)
-        run: |
-          # Any additional setup steps, if required
+    - name: Set up environment variables
+      run: |
+        mkdir -p ~/secrets
+        echo "${{ secrets.TMDB_TOKEN }}" > ~/secrets/hidden_token.txt
 
-      - name: Install Angular CLI
-        run: npm install -g @angular/cli
+    - name: Install Angular CLI
+      run: npm install -g @angular/cli
 
-      - name: Install dependencies and build for production
-        run: |
-          npm install
-          ng b --configuration production
+    - name: Install secret-to-file-action
+      uses: mobiledevops/secret-to-file-action@v1
+      with:
+        base64-encoded-secret: ${{ secrets.TMDB_TOKEN }}
+        filename: "src/environments/environment.prod.ts"
+        working-directory: "."
 
-      - name: Create a version file with the commit hash and tag
-        run: |
-          echo $GITHUB_SHA > dist/cineba/version.txt
-          echo $GITHUB_REF >> dist/cineba/version.txt
+    - name: Install dependencies and build for production
+      run: |
+        npm install
+        ng b --configuration production
 
-      - name: Copy files to server using appleboy
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          source: dist/cineba/*
-          target: /home/bitnami/
+    - name: Create a version file with the commit hash and tag
+      run: |
+        echo $GITHUB_SHA > dist/cineba/version.txt
+        echo $GITHUB_REF >> dist/cineba/version.txt
+
+    - name: Copy files to server using appleboy
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        source: dist/cineba/*
+        target: /home/bitnami/
 
   restart-server:
     needs: deploy
     runs-on: ubuntu-latest
 
     steps:
-      - name: Move files to correct directory
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          script: |
-            cd /home/bitnami
-            rm -rf cineba-api/wwwroot/*
-            cp -r dist/cineba/* cineba-api/wwwroot
-            pm2 restart serve
+    - name: Move files to correct directory
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        script: |
+          cd /home/bitnami
+          rm -rf cineba-api/wwwroot/*
+          cp -r dist/cineba/* cineba-api/wwwroot
+          pm2 restart serve
