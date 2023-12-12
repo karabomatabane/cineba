@@ -35,20 +35,18 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up environment variables
-      run: |
-        mkdir -p ~/secrets
-        echo "${{ secrets.TMDB_TOKEN }}" > ~/secrets/hidden_token.txt
-
     - name: Install Angular CLI
       run: npm install -g @angular/cli
 
     - name: Install secret-to-file-action
       uses: mobiledevops/secret-to-file-action@v1
       with:
-        base64-encoded-secret: ${{ secrets.TMDB_TOKEN }}
+        base64-encoded-secret: ${{ secrets.ENV_FILE }}
         filename: "src/environments/environment.prod.ts"
         working-directory: "."
+
+    - name: Create environment.ts by copying environment.prod.ts
+      run: cp src/environments/environment.prod.ts src/environments/environment.ts
 
     - name: Install dependencies and build for production
       run: |
