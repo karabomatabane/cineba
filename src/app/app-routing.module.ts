@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'logout',  component: LogoutComponent },
   { path: 'about',  component: AboutComponent },
   { path: 'new-film', component: NewFilmComponent, canActivate: [AuthGuard] },
-  { path: 'film/:id', component: FilmDetailsComponent, canActivate: [AuthGuard] },
+  { path: 'film/:id', component: FilmDetailsComponent },
   { path: 'admin', component: TabsComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: '**', redirectTo: '/home' } // Redirect all other paths to home
 ];

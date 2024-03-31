@@ -5,7 +5,7 @@
         <nb-card-header>{{ film.name || film.title }}</nb-card-header>
         <nb-card-body class="card-body">
           <div class="img-frame-container">
-            <img src="{{getImagePath(film.imgUrl, film.poster_path)}}" class="img-frame" />
+            <img src="{{getImagePath(film.imgUrl, film.poster_path)}}" class="img-frame"  alt="{{film.name}}"/>
           </div>
         </nb-card-body>
         <nb-card-footer class="card-footer row">
