@@ -15,7 +15,7 @@
     font-family: "Roboto", sans-serif;
     font-family: "Farro", sans-serif;
   }
-  
+
   h1, h2, h6, h5 {
       margin: 0px;
   }
@@ -28,8 +28,60 @@
     justify-content: center;
     margin-top: 16px; /* Adjust as needed */
   }
-  
-  .pagination button {
+
+.nb-theme-dark nb-sidebar.compacted, .nb-theme-dark nb-sidebar.compacted nb-menu,
+.nb-theme-dark nb-sidebar.compacted .main-container {
+  width: 60px;
+}
+
+.nb-theme-dark nb-menu .menu-item {
+  padding: 1rem 0;
+}
+
+nb-menu .menu-item a {
+  font-size: 1.2rem !important;
+}
+
+.nb-theme-dark nb-layout-header nav {
+  height: 5.8rem !important;
+  padding: 2rem !important;
+}
+
+.nb-theme-dark [nbInput].size-large::placeholder {
+  font-size: 1.6rem !important;
+}
+
+nav nb-icon {
+  font-size: 1.8rem !important;
+}
+
+li a nb-icon, nb-menu {
+  font-size: 1.8rem !important;
+}
+
+nb-form-field {
+  width: 22rem;
+}
+
+nb-card-header {
+  font-size: 1.8rem !important;
+}
+
+nb-card-body nb-form-field {
+  width: 100%;
+}
+
+.carousel-control .icon-prev {
+  margin-left: -60px !important;
+  font-size: 4rem !important;
+}
+
+.carousel-control .icon-next {
+  margin-right: -60px !important;
+  font-size: 4rem !important;
+}
+
+.pagination button {
     margin: 0 8px; /* Adjust as needed */
     padding: 8px 16px;
     background-color: #007bff; /* Change to your desired button color */
@@ -38,18 +90,18 @@
     border-radius: 4px;
     cursor: pointer;
   }
-  
+
   .pagination button:disabled {
     background-color: #ccc;
     cursor: not-allowed;
   }
-  
+
   .showing-of {
     margin-left: 16px; /* Adjust as needed */
     font-size: 14px; /* Adjust the font size as needed */
     color: #555; /* Change to your desired text color */
   }
-  
+
 /* Add this CSS to your component's CSS file or a global stylesheet */
 
 .centered-card {

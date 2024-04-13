@@ -1,0 +1,61 @@
+.featured-content {
+  margin-top: 5vh;
+  height: 50vh;
+  padding: 10px 50px;
+  display: flex;
+  align-items: center;
+}
+
+.image-container {
+  flex: 0 0 auto; /* Ensure image container does not grow */
+  margin-right: 20px; /* Adjust spacing between image and text */
+}
+
+.text-container {
+  flex: 1; /* Allow text container to grow and fill remaining space */
+}
+
+.featured-title {
+  width: 300px;
+}
+
+.featured-title h3 {
+  font-size: 2.8rem;
+  margin-bottom: 0.5rem; /* Add some space below the title */
+}
+
+.featured-desc {
+  width: 600px;
+  color: lightgray;
+  margin: 30px 0;
+  line-height: 1.2;
+  font-size: 1.6rem;
+}
+
+.featured-date {
+  color: white;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 4rem;
+}
+
+nb-icon {
+  font-size: 1.6rem;
+  margin-left: 0 !important; /* Remove default margin */
+}
+
+.featured-button {
+  color: #598BFF;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  border-radius: 4px;
+  border: 2px solid #598BFF;
+  background-color: transparent; /* Set background to transparent */
+  outline: none;
+  font-weight: bold;
+}
+
+.featured-button:hover {
+  background-color: #598BFF;
+  color: white;
+}

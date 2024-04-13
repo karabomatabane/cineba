@@ -24,6 +24,7 @@ import {
   NbDialogService,
   NbDialogModule,
 } from '@nebular/theme';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -44,6 +45,7 @@ import { ManageAccountsComponent } from './admin/manage-accounts/manage-accounts
 import { DialogCodeFormComponent } from './_modals/dialog-code-form/dialog-code-form.component';
 import { AboutComponent } from './about/about/about.component';
 import { FullListComponent } from './admin/full-list/full-list.component';
+import { BannerComponent } from './home/banner/banner.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +64,7 @@ import { FullListComponent } from './admin/full-list/full-list.component';
     DialogCodeFormComponent,
     AboutComponent,
     FullListComponent,
+    BannerComponent,
   ],
   imports: [
     BrowserModule,
@@ -92,7 +95,8 @@ import { FullListComponent } from './admin/full-list/full-list.component';
     NbSpinnerModule,
     NbAccordionModule,
     NbDialogModule.forRoot(),
-    NbInputModule
+    NbInputModule,
+    CarouselModule.forRoot(),
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
