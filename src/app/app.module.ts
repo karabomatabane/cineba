@@ -23,6 +23,9 @@ import {
   NbAccordionModule,
   NbDialogService,
   NbDialogModule,
+  NbOptionModule,
+  NbSelectModule,
+  NbCheckboxModule,
 } from '@nebular/theme';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
@@ -46,6 +49,9 @@ import { DialogCodeFormComponent } from './_modals/dialog-code-form/dialog-code-
 import { AboutComponent } from './about/about/about.component';
 import { FullListComponent } from './admin/full-list/full-list.component';
 import { BannerComponent } from './home/banner/banner.component';
+import { ListsComponent } from './list/lists/lists.component';
+import { ListDetailComponent } from './list/list-detail/list-detail.component';
+import { NewListComponent } from './list/new-list/new-list.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +71,9 @@ import { BannerComponent } from './home/banner/banner.component';
     AboutComponent,
     FullListComponent,
     BannerComponent,
+    ListsComponent,
+    ListDetailComponent,
+    NewListComponent,
   ],
   imports: [
     BrowserModule,
@@ -96,6 +105,9 @@ import { BannerComponent } from './home/banner/banner.component';
     NbAccordionModule,
     NbDialogModule.forRoot(),
     NbInputModule,
+    NbOptionModule,
+    NbSelectModule,
+    NbCheckboxModule,
     CarouselModule.forRoot(),
   ],
   providers: [{

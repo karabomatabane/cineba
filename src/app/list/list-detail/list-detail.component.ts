@@ -1,13 +1,13 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FilmService } from 'src/app/_services/film.service';
 import { Film } from 'src/app/_models/film.model';
+import { FilmService } from 'src/app/_services/film.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-list-detail',
+  templateUrl: './list-detail.component.html',
+  styleUrls: ['./list-detail.component.css']
 })
-export class HomeComponent implements OnInit {
+export class ListDetailComponent implements OnInit {
   @ViewChild('scrollToTop') scrollToTop: ElementRef | undefined;
   films: Film[] = [];
   searchText: string = "";
@@ -16,12 +16,10 @@ export class HomeComponent implements OnInit {
   pageSize: number = 12;
   totalItems: number = 0;
   loading: boolean = false;
-  lists: any;
+
   constructor(private filmService: FilmService) { }
 
   ngOnInit(): void {
-    this.getFilms(this.currentPage);
-    this.loading = true;
   }
 
   getFilms(page: number) {

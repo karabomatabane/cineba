@@ -59,7 +59,7 @@ li a nb-icon, nb-menu {
   font-size: 1.8rem !important;
 }
 
-nb-form-field {
+nb-form-field, nb-select {
   width: 22rem;
 }
 
@@ -67,8 +67,12 @@ nb-card-header {
   font-size: 1.8rem !important;
 }
 
-nb-card-body nb-form-field {
+nb-card-body nb-form-field, nb-select {
   width: 100%;
+}
+
+nb-option, nb-checkbox span, nb-radio span {
+  font-size: 1.4rem !important;
 }
 
 .carousel-control .icon-prev {
@@ -79,6 +83,11 @@ nb-card-body nb-form-field {
 .carousel-control .icon-next {
   margin-right: -60px !important;
   font-size: 4rem !important;
+}
+
+.select-button.placeholder {
+  font-size: 1.4rem !important;
+  padding: 1rem !important;
 }
 
 .pagination button {

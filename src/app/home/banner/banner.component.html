@@ -9,7 +9,8 @@
         <p class="featured-desc"><nb-icon icon="checkmark-circle-2"></nb-icon>&nbsp;{{ film.voteCount }}&nbsp;Votes
           &nbsp;&nbsp;&nbsp;&nbsp;{{ formatDuration(film.duration) }}&nbsp;&nbsp;&nbsp;&nbsp;
           {{ getYear(film.releaseDate) }}</p>
-        <p class="featured-date">Screening:&nbsp;&nbsp;{{ film.screeningDate | date }}</p>
+        <p class="featured-date">Catch on:&nbsp;&nbsp;{{ film.screeningDate | date }}<br><br>At:&nbsp;
+          {{ getTime(film.screeningDate)}}</p>
         <button class="featured-button"><nb-icon icon="plus-circle"></nb-icon>&nbsp;&nbsp;LIST</button>
       </div>
     </div>

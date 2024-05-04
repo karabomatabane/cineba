@@ -1,0 +1,45 @@
+h2, h3, h4 {
+  text-align: center;
+  margin-top: 1.5rem;
+  margin-bottom: 3vh;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+.filter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4rem;
+}
+.custom-button {
+  width: 20vw !important;
+  max-width: fit-content !important;
+}
+
+.search-filter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.search-filter button {
+  margin-left: 1vw;
+}
+
+.underline {
+  border: 1px solid #007bff;
+  width: 100%;
+  margin: 6vh 0;
+}
+
+.empty {
+  margin-top: -3vh;
+}

@@ -35,6 +35,10 @@ export class BannerComponent implements OnInit {
     return date.split('-')[0];
   }
 
+  getTime(date: string): string {
+    return date.split('T')[1].split(':')[0] + ':' + date.split('T')[1].split(':')[1];
+  }
+
   getImagePath(path: string | null | undefined, posterPath: string | null | undefined): string {
     if (path && !path.includes('null')) {
       return `https://image.tmdb.org/t/p/w500/${path}`;
