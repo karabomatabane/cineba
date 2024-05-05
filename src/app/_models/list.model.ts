@@ -1,3 +1,5 @@
+import { Film } from "./film.model";
+
 export interface Comment {
     user: {_id: string, username: string};
     message: string;
@@ -9,9 +11,10 @@ export interface ViewList {
     name: string;
     imgUrl: string;
     description: string;
+    lastUpdated: Date;
     active: boolean;
     private: boolean;
-    films: string[];
+    films: Film[];
     likes: number;
     comments: Comment[];
     owner: {_id: string, username: string};

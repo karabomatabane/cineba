@@ -1,6 +1,6 @@
 <h2>Unleash your film expertise. Create, explore, and share!</h2>
 <div class="menu">
-  <button nbButton status="primary" class="custom-button" (click)="create()">
+  <button nbButton status="primary" class="custom-button" (click)="openListFormModal()">
     <h6>New List</h6>
   </button>
 
@@ -23,10 +23,16 @@
       </nb-select>
     </div>
     <div class="checkbox-filter">
-      <nb-checkbox [(ngModel)]="onlyByMe">By Me</nb-checkbox>
+      <nb-checkbox [(ngModel)]="onlyByMe" (ngModelChange)="onByMeChange()">By Me</nb-checkbox>
     </div>
   </div>
 </div>
 <div *ngIf="!viewLists || viewLists.length === 0" class="empty">
   <h4>No view lists found</h4>
+</div>
+<div [nbSpinner]="loading" nbSpinnerSize="giant" nbSpinnerStatus="primary">
+  <div *ngIf="viewLists && viewLists.length > 0" class="list-container">
+    <div *ngFor="let viewList of viewLists" class="list-card">
+     <app-list-card [viewList]="viewList" [currentUser]="currentUser"></app-list-card>
+  </div>
 </div>

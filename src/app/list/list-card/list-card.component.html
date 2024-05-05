@@ -1,0 +1,34 @@
+<nb-card class="card">
+  <nb-card-body>
+    <div class="coverImg">
+      <!-- Check if there are at least three films in the viewList -->
+      <ng-container *ngIf="viewList.films.length >= 3">
+        <!-- Render the covers of the first three films -->
+        <img *ngFor="let film of viewList.films.slice(0, 3)" [src]="getImagePath(film)" class="img" alt="{{ film.name }}">
+      </ng-container>
+      <!-- If there are fewer than three films, render a default image -->
+      <ng-container *ngIf="viewList.films.length < 3" class="default-cover">
+        <img src="assets/film.png" class="img" alt="Default Cover">
+        <div class="coverTxt">{{ getInitials(viewList.name) }}</div>
+      </ng-container>
+    </div>
+    <div class="header">
+      <h4>{{ viewList.name }}</h4>
+    </div>
+    <div class="details">
+      <!-- user, likes, comment count -->
+      <div class="user">
+        <nb-icon icon="person"></nb-icon>
+        <h6>{{ viewList.owner._id === this.currentUser._id ? "You" : viewList.owner.username }}</h6>
+      </div>
+      <div class="likes">
+        <nb-icon icon="heart"></nb-icon>
+        <h6>{{ viewList.likes }}</h6>
+      </div>
+      <div class="comments">
+        <nb-icon icon="message-circle"></nb-icon>
+        <h6>{{ viewList.comments.length }}</h6>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>

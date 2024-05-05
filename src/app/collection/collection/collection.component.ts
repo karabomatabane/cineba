@@ -83,7 +83,7 @@ export class CollectionComponent implements OnInit {
     } else if (posterPath && !posterPath.includes('null')) {
       return `https://image.tmdb.org/t/p/w500/${posterPath}`;
     } else {
-      return '../assets/film.png';
+      return '../assets/placeholder.png';
     }
   }
 

@@ -49,9 +49,10 @@ import { DialogCodeFormComponent } from './_modals/dialog-code-form/dialog-code-
 import { AboutComponent } from './about/about/about.component';
 import { FullListComponent } from './admin/full-list/full-list.component';
 import { BannerComponent } from './home/banner/banner.component';
-import { ListsComponent } from './list/lists/lists.component';
-import { ListDetailComponent } from './list/list-detail/list-detail.component';
-import { NewListComponent } from './list/new-list/new-list.component';
+import { ViewListsComponent } from './list/view-lists/view-lists.component';
+import { ViewListDetailComponent } from './list/view-list-detail/view-list-detail.component';
+import { DialogListFormComponent } from './list/new-view-list/dialog-list-form.component';
+import { ListCardComponent } from './list/list-card/list-card.component';
 
 @NgModule({
   declarations: [
@@ -71,9 +72,10 @@ import { NewListComponent } from './list/new-list/new-list.component';
     AboutComponent,
     FullListComponent,
     BannerComponent,
-    ListsComponent,
-    ListDetailComponent,
-    NewListComponent,
+    ViewListsComponent,
+    ViewListDetailComponent,
+    DialogListFormComponent,
+    ListCardComponent,
   ],
   imports: [
     BrowserModule,

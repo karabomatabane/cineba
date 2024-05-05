@@ -1,0 +1,79 @@
+/*import font*/
+@import url('https://fonts.googleapis.com/css2?family=Jaro:opsz@6..72&display=swap');
+
+.coverImg {
+  position: relative;
+  width: 225px; /* Adjust width as needed */
+  height: 225px; /* Adjust height as needed */
+  overflow: hidden; /* Hide overflow to ensure proper stacking */
+  float: left; /* Float the cover image to the left */
+  margin-bottom: 1rem; /* Add spacing between cover image and details */
+}
+
+.img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* Adjust positioning for the second and third images */
+.img:nth-child(2) {
+  top: 25px; /* Adjust vertical position of second cover */
+  left: 25px; /* Adjust horizontal position of second cover */
+}
+
+.img:nth-child(3) {
+  top: 50px; /* Adjust vertical position of third cover */
+  left: 50px; /* Adjust horizontal position of third cover */
+}
+
+.header {
+  text-align: center;
+  margin: 1rem 0; /* Add spacing between header and details */
+}
+
+.details {
+  display: flex; /* Display details inline */
+  flex-direction: row;
+  justify-content: space-between; /* Align details to opposite ends */
+}
+
+.user,
+.likes,
+.comments {
+  display: flex;
+  align-items: center;
+  margin-right: 10px; /* Add spacing between detail items */
+}
+
+h6 {
+  font-weight:lighter !important;
+}
+
+.user nb-icon,
+.likes nb-icon,
+.comments nb-icon {
+  margin-right: 5px; /* Add spacing between icon and text */
+}
+
+.default-cover {
+  position: relative;
+  text-align: center;
+}
+
+.coverTxt {
+  font-family: "Jaro", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ffffff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 8rem;
+}

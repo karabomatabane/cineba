@@ -3,11 +3,11 @@ import { Film } from 'src/app/_models/film.model';
 import { FilmService } from 'src/app/_services/film.service';
 
 @Component({
-  selector: 'app-list-detail',
-  templateUrl: './list-detail.component.html',
-  styleUrls: ['./list-detail.component.css']
+  selector: 'app-view-list-detail',
+  templateUrl: './view-list-detail.component.html',
+  styleUrls: ['./view-list-detail.component.css']
 })
-export class ListDetailComponent implements OnInit {
+export class ViewListDetailComponent implements OnInit {
   @ViewChild('scrollToTop') scrollToTop: ElementRef | undefined;
   films: Film[] = [];
   searchText: string = "";
