@@ -5,7 +5,7 @@
         <img class="featured-title" [src]="getImagePath(film.imgUrl, film.poster_path)" alt="">
       </div>
       <div class="text-container">
-        <h3 class="featured-title">{{ film.name }}</h3>
+        <h3 class="featured-title" routerLink="../film/{{film._id}}">{{ film.name }}</h3>
         <p class="featured-desc"><nb-icon icon="checkmark-circle-2"></nb-icon>&nbsp;{{ film.voteCount }}&nbsp;Votes
           &nbsp;&nbsp;&nbsp;&nbsp;{{ formatDuration(film.duration) }}&nbsp;&nbsp;&nbsp;&nbsp;
           {{ getYear(film.releaseDate) }}</p>

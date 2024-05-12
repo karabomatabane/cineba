@@ -8,12 +8,12 @@
       </ng-container>
       <!-- If there are fewer than three films, render a default image -->
       <ng-container *ngIf="viewList.films.length < 3" class="default-cover">
-        <img src="assets/film.png" class="img" alt="Default Cover">
+        <img src="assets/film.png" class="img" alt="Default Cover" routerLink="../view-list/{{viewList._id}}">
         <div class="coverTxt">{{ getInitials(viewList.name) }}</div>
       </ng-container>
     </div>
     <div class="header">
-      <h4>{{ viewList.name }}</h4>
+      <h4><a routerLink="../view-list/{{viewList._id}}">{{ viewList.name }}</a></h4>
     </div>
     <div class="details">
       <!-- user, likes, comment count -->

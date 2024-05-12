@@ -133,6 +133,13 @@ textarea {
   height: 16rem;
 }
 
+.underline {
+  border: 1px solid #007bff;
+  width: 100%;
+  margin: 6vh 0;
+}
+
+
 input, textarea, input::placeholder, textarea::placeholder {
   font-size: 1.4rem !important;
 }

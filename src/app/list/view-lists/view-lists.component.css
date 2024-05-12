@@ -34,11 +34,6 @@ h2, h3, h4 {
   margin-left: 1vw;
 }
 
-.underline {
-  border: 1px solid #007bff;
-  width: 100%;
-  margin: 6vh 0;
-}
 
 .empty {
   margin-top: -3vh;
@@ -51,3 +46,4 @@ h2, h3, h4 {
   justify-content: center;
   gap: 2rem;
 }
+

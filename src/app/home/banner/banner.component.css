@@ -24,6 +24,11 @@
   margin-bottom: 0.5rem; /* Add some space below the title */
 }
 
+.featured-title:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 .featured-desc {
   width: 600px;
   color: lightgray;
