@@ -53,6 +53,7 @@ import { ViewListsComponent } from './list/view-lists/view-lists.component';
 import { ViewListDetailComponent } from './list/view-list-detail/view-list-detail.component';
 import { DialogListFormComponent } from './list/new-view-list/dialog-list-form.component';
 import { ListCardComponent } from './list/list-card/list-card.component';
+import { AddFilmsComponent } from './list/add-films/add-films.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { ListCardComponent } from './list/list-card/list-card.component';
     ViewListDetailComponent,
     DialogListFormComponent,
     ListCardComponent,
+    AddFilmsComponent,
   ],
   imports: [
     BrowserModule,

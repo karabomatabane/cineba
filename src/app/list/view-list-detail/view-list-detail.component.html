@@ -1,7 +1,7 @@
 <!-- Search Feature -->
-<div class="container">
+<div *ngIf="this.viewList.owner" class="container">
   <div class="vl-banner">
-     <img src="assets/theatre.png" alt="Default Cover" />
+    <img src="assets/theatre.png" alt="Default Cover" />
   </div>
   <div class="vl-header">
     <div class="vl-user">
@@ -46,6 +46,12 @@
           <h6>Search</h6>
         </button>
       </div>
+      <div class="vl-add-film">
+        <button nbButton status="primary" (click)="addFilmToList()">
+          <nb-icon icon="plus" pack="eva"></nb-icon>
+          <h6>Add Films</h6>
+        </button>
+      </div>
       <!-- Render search film -->
       <div [nbSpinner]="loading" nbSpinnerSize="giant" nbSpinnerStatus="primary">
         <app-collection [films]="films" buttonText="Vote" [voteEnabled]=true></app-collection>
@@ -63,12 +69,12 @@
     </div>
     <div *ngIf="viewList.films.length === 0" class="vl-empty text-center">
       <h3>This view list has no films</h3>
-    </div>
-    <div class="vl-add-film">
-      <button nbButton status="primary" (click)="addFilmToList()">
-        <nb-icon icon="plus" pack="eva"></nb-icon>
-        <h6>Add Films</h6>
-      </button>
+      <div class="vl-add-film">
+        <button nbButton status="primary" (click)="addFilmToList()">
+          <nb-icon icon="plus" pack="eva"></nb-icon>
+          <h6>Add Films</h6>
+        </button>
+      </div>
     </div>
   </div>
 </div>

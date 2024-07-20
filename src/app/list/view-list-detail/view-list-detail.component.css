@@ -100,3 +100,19 @@ p, .vl-user p  {
 .vl-body {
   padding: 8rem 20px;
 }
+
+.vl-body button {
+  margin-left: 0;
+}
+
+.search-box {
+  margin-bottom: 1rem !important;
+}
+
+.vl-films .vl-add-film {
+  margin-bottom: 2rem;
+}
+
+.phrase {
+  margin-top: -4rem !important;
+}

@@ -1,9 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NbDialogService } from '@nebular/theme';
 import { Film } from 'src/app/_models/film.model';
 import { ViewList } from 'src/app/_models/list.model';
 import { FilmService } from 'src/app/_services/film.service';
 import { ListService } from 'src/app/_services/list.service';
+import { AddFilmsComponent } from '../add-films/add-films.component';
 
 @Component({
   selector: 'app-view-list-detail',
@@ -20,8 +22,24 @@ export class ViewListDetailComponent implements OnInit {
   totalItems: number = 0;
   loading: boolean = false;
   viewList = {} as ViewList;
+  fakeFilm: Film = {
+    "_id": "656592d30ba044f0a78154ec",
+    "name": "!Aitsa",
+    "imgUrl": "https://image.tmdb.org/t/p/w500/9HKfpQMmRKHEQpj7JddeUgnznaX.jpg",
+    "voteCount": 0,
+    "releaseDate": new Date("2023-03-16T00:00:00.000Z"),
+    "screeningDate": new Date("2024-01-01T00:00:00.000Z"),
+    "duration": 89,
+    "language": "English",
+    "filmDetail": "656592d30ba044f0a78154e9",
+    "active": true,
+  };
 
-  constructor(private viewListService: ListService, private route: ActivatedRoute) { }
+  constructor(
+    private viewListService: ListService,
+    private route: ActivatedRoute,
+    private dialogService: NbDialogService
+  ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
@@ -78,7 +96,22 @@ export class ViewListDetailComponent implements OnInit {
   }
 
   addFilmToList() {
-    console.log('Add film to list');
+      // if (!this.isAuthenticated) {
+      //   this.toastr.warning("Please login to create view list", 'Warning');
+      //   return;
+      // }
+      this.films.push(this.fakeFilm);
+      this.dialogService.open(AddFilmsComponent, {context: {films: this.films}})
+        .onClose.subscribe(films => films && this.submitListFilms(films));
+  }
+
+  submitListFilms(films: Film[]) {
+    this.viewList.films = films;
+    this.viewListService.updateViewList(this.viewList._id, this.viewList).subscribe((res) => {
+      console.log(res);
+    }, (error) => {
+      console.error(error)
+    })
   }
 
   nextPage() {
