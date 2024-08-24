@@ -1,11 +1,13 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NbDialogService } from '@nebular/theme';
+import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { Film } from 'src/app/_models/film.model';
 import { ViewList } from 'src/app/_models/list.model';
 import { FilmService } from 'src/app/_services/film.service';
 import { ListService } from 'src/app/_services/list.service';
 import { AddFilmsComponent } from '../add-films/add-films.component';
+import { AuthService } from 'src/app/_services/auth.service';
+import { User } from 'src/app/_models/auth.model';
 
 @Component({
   selector: 'app-view-list-detail',
@@ -14,6 +16,7 @@ import { AddFilmsComponent } from '../add-films/add-films.component';
 })
 export class ViewListDetailComponent implements OnInit {
   @ViewChild('scrollToTop') scrollToTop: ElementRef | undefined;
+  currentUser: User = {} as User;
   films: Film[] = [];
   searchText: string = "";
   currentPage: number = 1;
@@ -38,13 +41,16 @@ export class ViewListDetailComponent implements OnInit {
   constructor(
     private viewListService: ListService,
     private route: ActivatedRoute,
-    private dialogService: NbDialogService
+    private dialogService: NbDialogService,
+    private toastr: NbToastrService,
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.getViewListDetails(params['id']);
     });
+    this.getUserDetails();
   }
 
   // getFilms(page: number) {
@@ -70,6 +76,17 @@ export class ViewListDetailComponent implements OnInit {
     });
   }
 
+  getUserDetails() {
+    this.authService.getUserDetails().subscribe(
+      (user: User) => {
+        this.currentUser = user;
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
+  }
+
   searchFilm() {
     this.loading = true;
     // this.filmService.findFilm(this.searchText).subscribe((data: any) => {
@@ -84,23 +101,39 @@ export class ViewListDetailComponent implements OnInit {
   }
 
   likeViewList() {
-    console.log('Like view list');
+    if (Object.keys(this.currentUser).length === 0) {
+      this.toastr.danger('You must be logged in to like a list', 'Error');
+      return;
+    }
+    let msg = '';
+    if (this.viewList.likes.includes(this.currentUser._id)) {
+      this.viewList.likes = this.viewList.likes.filter((id) => id !== this.currentUser._id);
+      msg = 'List unliked successfully';
+    } else {
+      this.viewList.likes.push(this.currentUser._id);
+      msg = 'List liked successfully';
+    }
+    this.viewListService.updateViewList(this.viewList._id, { likes: this.viewList.likes }).subscribe((res) => {
+      this.toastr.success(msg, 'Success');
+      console.log(res);
+    }, (err) => {
+      this.toastr.danger('An error occurred while liking the list', 'Error');
+    });
   }
 
   commentViewList() {
-    console.log('Comment view list');
+    this.toastr.warning('Feature coming soon', 'Warning');
   }
 
   shareViewList() {
-    console.log('Share view list');
+    this.toastr.warning('Feature coming soon', 'Warning');
   }
 
   addFilmToList() {
       // if (!this.isAuthenticated) {
       //   this.toastr.warning("Please login to create view list", 'Warning');
       //   return;
-      // }
-      this.films.push(this.fakeFilm);
+      //
       this.dialogService.open(AddFilmsComponent, {context: {films: this.films}})
         .onClose.subscribe(films => films && this.submitListFilms(films));
   }

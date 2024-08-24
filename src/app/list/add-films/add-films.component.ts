@@ -23,7 +23,7 @@ export class AddFilmsComponent implements OnInit {
   constructor(
     private filmService: FilmService,
     private listService: ListService,
-    public dialogRef: NbDialogRef<DialogListFormComponent>) { }
+    public dialogRef: NbDialogRef<AddFilmsComponent>) { }
 
   ngOnInit(): void {
     this.getAllFilms();
@@ -50,8 +50,9 @@ export class AddFilmsComponent implements OnInit {
 
   onSubmit() {
     if (this.films.length === 0) {
-      // Handle empty list (e.g., show error messages).
-      console.error('Empty list');
+      if(confirm("No existing films selected. Existing films will be removed from the list. Do you want to continue?")) {
+        this.dialogRef.close(this.films);
+      }
       return;
     }
     this.dialogRef.close(this.films); // Pass the vieList data to the parent component
@@ -62,7 +63,6 @@ export class AddFilmsComponent implements OnInit {
   }
 
   toggleSelection(film: Film, event: any) {
-    console.log(this.films);
     if (event.target.checked) {
       this.films.push(film);
     } else {

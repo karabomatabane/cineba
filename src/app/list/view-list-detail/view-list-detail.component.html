@@ -1,18 +1,18 @@
 <!-- Search Feature -->
-<div *ngIf="this.viewList.owner" class="container">
+<div *ngIf="this.viewList.owner" class="container vl-container">
   <div class="vl-banner">
     <img src="assets/theatre.png" alt="Default Cover" />
   </div>
   <div class="vl-header">
     <div class="vl-user">
-      <p>View list by {{ viewList.owner.username }}</p>
+      <p>View list by {{ viewList.owner._id === this.currentUser._id ? 'You' : viewList.owner.username }}</p>
       <div class="vl-right">
         <!-- updated on | likes | comments | share -->
         <p>Updated on {{ viewList.lastUpdated | date }}</p>
         <div class="vl-actions">
-          <button (click)="likeViewList()">
-            <nb-icon icon="heart" pack="eva"></nb-icon>
-            <h6>{{ viewList.likes }}</h6>
+          <button class="likes" (click)="likeViewList()">
+            <nb-icon ngClass="{{ viewList.likes.includes(this.currentUser._id) ? 'liked' : ''}}" icon="heart" pack="eva"></nb-icon>
+            <h6>{{ viewList.likes.length }}</h6>
           </button>
           <button (click)="commentViewList()">
             <nb-icon icon="message-circle" pack="eva"></nb-icon>

@@ -11,7 +11,7 @@
           {{ getYear(film.releaseDate) }}</p>
         <p class="featured-date">Catch on:&nbsp;&nbsp;{{ film.screeningDate | date }}<br><br>At:&nbsp;
           {{ getTime(film.screeningDate)}}</p>
-        <button class="featured-button"><nb-icon icon="plus-circle"></nb-icon>&nbsp;&nbsp;LIST</button>
+        <button class="featured-button" (click)="addToList(film)"><nb-icon icon="plus-circle"></nb-icon>&nbsp;&nbsp;LIST</button>
       </div>
     </div>
   </slide>

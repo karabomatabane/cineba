@@ -1,6 +1,6 @@
 <nb-card class="card">
   <nb-card-body>
-    <div class="coverImg">
+    <div class="coverImg" routerLink="../view-list/{{viewList._id}}">
       <!-- Check if there are at least three films in the viewList -->
       <ng-container *ngIf="viewList.films.length >= 3">
         <!-- Render the covers of the first three films -->
@@ -21,9 +21,9 @@
         <nb-icon icon="person"></nb-icon>
         <h6>{{ viewList.owner._id === this.currentUser._id ? "You" : viewList.owner.username }}</h6>
       </div>
-      <div class="likes">
-        <nb-icon icon="heart"></nb-icon>
-        <h6>{{ viewList.likes }}</h6>
+      <div class="likes" (click)="addLike()">
+        <nb-icon ngClass="{{ viewList.likes.includes(this.currentUser._id) ? 'liked' : ''}}" icon="heart"></nb-icon>
+        <h6>{{ viewList.likes.length }}</h6>
       </div>
       <div class="comments">
         <nb-icon icon="message-circle"></nb-icon>

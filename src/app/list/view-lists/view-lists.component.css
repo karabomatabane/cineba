@@ -1,3 +1,4 @@
+/* Mobile first styles */
 h2, h3, h4 {
   text-align: center;
   margin-top: 1.5rem;
@@ -13,8 +14,8 @@ h2, h3, h4 {
 
 .filter {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
   gap: 4rem;
 }
@@ -45,5 +46,41 @@ h2, h3, h4 {
   flex-wrap: wrap;
   justify-content: center;
   gap: 2rem;
+}
+
+/* Desktop styles */
+@media (min-width: 768px) {
+  .filter {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .custom-button {
+    width: 20vw !important;
+    max-width: fit-content !important;
+  }
+
+  .search-filter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .search-filter button {
+    margin-left: 1vw;
+  }
+
+
+  .empty {
+    margin-top: -3vh;
+  }
+
+  .list-container {
+    margin-top: 3vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+  }
 }
 

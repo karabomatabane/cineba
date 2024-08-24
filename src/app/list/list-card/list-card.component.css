@@ -29,17 +29,19 @@
   height: 100%;
   object-fit: cover;
   border-radius: 10px;
+  transition: transform 0.3s ease;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
 }
 
-/* Adjust positioning for the second and third images */
+/* Refined positioning for the stacked images */
 .img:nth-child(2) {
-  top: 25px; /* Adjust vertical position of second cover */
-  left: 25px; /* Adjust horizontal position of second cover */
+  top: 10px; /* Subtle vertical offset */
+  transform: scale(0.9);
 }
 
 .img:nth-child(3) {
-  top: 50px; /* Adjust vertical position of third cover */
-  left: 50px; /* Adjust horizontal position of third cover */
+  top: 20px; /* Subtle vertical offset */
+  transform: scale(0.8);
 }
 
 .header {
@@ -79,6 +81,13 @@ h6 {
 .likes nb-icon,
 .comments nb-icon {
   margin-right: 5px; /* Add spacing between icon and text */
+}
+
+.likes nb-icon:hover, .liked {
+  color: #FF0000; /* Change icon color on hover */
+  cursor: pointer;
+  scale:calc(1.5);
+  transition: all 0.3s ease; /* Add smooth transition effect */
 }
 
 .default-cover {

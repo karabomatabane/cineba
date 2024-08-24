@@ -15,7 +15,7 @@ export interface ViewList {
     active: boolean;
     private: boolean;
     films: Film[];
-    likes: number;
+    likes: string[];
     comments: Comment[];
     owner: {_id: string, username: string};
     members: string[];

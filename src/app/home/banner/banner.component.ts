@@ -1,4 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
+import { NbDialogService, NbToastrService } from '@nebular/theme';
+import { User } from 'src/app/_models/auth.model';
+import { AuthService } from 'src/app/_services/auth.service';
+import { ListService } from 'src/app/_services/list.service';
+import { DialogEnlistComponent } from 'src/app/list/dialog-enlist/dialog-enlist.component';
 
 @Component({
   selector: 'app-banner',
@@ -7,14 +12,33 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class BannerComponent implements OnInit {
   @Input() films: any[] = [];
-  constructor() { }
+  currentUser: User = {} as User;
+
+  constructor(
+    private dialogService: NbDialogService,
+    private authService: AuthService,
+    private viewListService: ListService,
+    private toastr: NbToastrService
+  ) { }
 
   ngOnInit(): void {
+    this.getUserDetails();
   }
 
   getFilms() {
     // top three films
     return this.films.slice(0, 3);
+  }
+
+  getUserDetails() {
+    this.authService.getUserDetails().subscribe(
+      (user: User) => {
+        this.currentUser = user;
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
   }
 
   getFeaturedContentStyle(): any {
@@ -47,5 +71,21 @@ export class BannerComponent implements OnInit {
     } else {
       return '../assets/film.png';
     }
+  }
+
+  submitUpdatedLists(lists: any) {
+    lists.forEach((list: any) => {
+      this.viewListService.updateViewList(list._id, list).subscribe((data: any) => {
+        this.toastr.success(`${list.name} updated successfully`, 'Success');
+      }, (error) => {
+        console.error(error);
+        this.toastr.danger('An error occurred', 'Error');
+      });
+    });
+  }
+
+  addToList(film: any) {
+    this.dialogService.open(DialogEnlistComponent, {context: {film: film, user: this.currentUser} })
+        .onClose.subscribe(lists => lists && this.submitUpdatedLists(lists));
   }
 }

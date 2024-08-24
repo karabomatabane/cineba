@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
       },
       (error) => {
         // login failed, you can display a message to user
-        this.toastr.danger(error.error.message);
+        this.toastr.danger(error.error.message ?? error.error);
         console.error(error);
       }
     );
