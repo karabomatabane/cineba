@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { Film } from 'src/app/_models/film.model';
 import { Comment, ViewList } from 'src/app/_models/list.model';
@@ -47,6 +47,7 @@ export class ViewListDetailComponent implements OnInit {
     private dialogService: NbDialogService,
     private toastr: NbToastrService,
     private authService: AuthService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -75,6 +76,12 @@ export class ViewListDetailComponent implements OnInit {
   getViewListDetails(viewListId: string) {
     this.loading = true;
     this.viewListService.getViewList(viewListId).subscribe((data: any) => {
+      if (data.private && data.owner._id !== this.currentUser._id) {
+        this.toastr.warning('This view list is private', 'Warning');
+        this.loading = false;
+        this.router.navigate(['/']);
+        return;
+      };
       this.films = data.films;
       this.viewList = data;
       this.totalItems = data.films.length;
@@ -169,7 +176,9 @@ export class ViewListDetailComponent implements OnInit {
   submitListFilms(films: Film[]) {
     this.viewList.films = films;
     this.viewListService.updateViewList(this.viewList._id, this.viewList).subscribe((res) => {
-      console.log(res);
+      this.toastr.success('List updated successfully', 'Success');
+      // refresh the view list
+      this.getViewListDetails(this.viewList._id);
     }, (error) => {
       console.error(error)
     })
