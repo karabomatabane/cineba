@@ -51,12 +51,9 @@ export class ViewListDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      this.getViewListDetails(params['id']);
-    });
-    this.getUserDetails();
     this.authService.isAuthenticated$.subscribe((isAuthenticated: boolean) => {
       this.isAuthenticated = isAuthenticated;
+      this.getUserDetails();
     });
   }
 
@@ -93,9 +90,15 @@ export class ViewListDetailComponent implements OnInit {
     this.authService.getUserDetails().subscribe(
       (user: User) => {
         this.currentUser = user;
+        this.route.params.subscribe((params) => {
+          this.getViewListDetails(params['id']);
+        });
       },
       (error) => {
         console.log(error);
+        this.route.params.subscribe((params) => {
+          this.getViewListDetails(params['id']);
+        });
       }
     )
   }
