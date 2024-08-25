@@ -37,7 +37,7 @@ h2, h3, h4 {
 
 
 .empty {
-  margin-top: -3vh;
+  margin-top: 3vh;
 }
 
 .list-container {
@@ -68,11 +68,6 @@ h2, h3, h4 {
 
   .search-filter button {
     margin-left: 1vw;
-  }
-
-
-  .empty {
-    margin-top: -3vh;
   }
 
   .list-container {
