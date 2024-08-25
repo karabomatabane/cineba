@@ -61,7 +61,7 @@
       <div class="pagination">
         <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
         <span>Page {{ currentPage }} of {{ totalPages }}</span>
-        <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+        <button class="btn-next" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
         <span class="showing-of">Showing {{ (currentPage - 1) * pageSize + 1 }} - {{ currentPage === totalPages ?
           (totalItems
           % pageSize) || pageSize : pageSize * currentPage }} of {{ totalItems }} items</span>

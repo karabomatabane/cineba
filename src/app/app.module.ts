@@ -55,6 +55,8 @@ import { DialogListFormComponent } from './list/new-view-list/dialog-list-form.c
 import { ListCardComponent } from './list/list-card/list-card.component';
 import { AddFilmsComponent } from './list/add-films/add-films.component';
 import { DialogEnlistComponent } from './list/dialog-enlist/dialog-enlist.component';
+import { DialogCommentComponent } from './list/dialog-comment/dialog-comment.component';
+import { DialogShareComponent } from './list/dialog-share/dialog-share.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +82,8 @@ import { DialogEnlistComponent } from './list/dialog-enlist/dialog-enlist.compon
     ListCardComponent,
     AddFilmsComponent,
     DialogEnlistComponent,
+    DialogCommentComponent,
+    DialogShareComponent,
   ],
   imports: [
     BrowserModule,

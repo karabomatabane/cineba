@@ -146,6 +146,10 @@ p, .vl-user p {
   }
 }
 
+.btn-next {
+  margin-left: .8rem;
+}
+
 /* for larger screens */
 @media (min-width: 768px) {
   button {

@@ -2,12 +2,14 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { Film } from 'src/app/_models/film.model';
-import { ViewList } from 'src/app/_models/list.model';
+import { Comment, ViewList } from 'src/app/_models/list.model';
 import { FilmService } from 'src/app/_services/film.service';
 import { ListService } from 'src/app/_services/list.service';
 import { AddFilmsComponent } from '../add-films/add-films.component';
 import { AuthService } from 'src/app/_services/auth.service';
 import { User } from 'src/app/_models/auth.model';
+import { DialogCommentComponent } from '../dialog-comment/dialog-comment.component';
+import { DialogShareComponent } from '../dialog-share/dialog-share.component';
 
 @Component({
   selector: 'app-view-list-detail',
@@ -20,11 +22,12 @@ export class ViewListDetailComponent implements OnInit {
   films: Film[] = [];
   searchText: string = "";
   currentPage: number = 1;
-  totalPages: number = 0;
+  totalPages: number = 1;
   pageSize: number = 12;
   totalItems: number = 0;
   loading: boolean = false;
   viewList = {} as ViewList;
+  isAuthenticated: boolean = false;
   fakeFilm: Film = {
     "_id": "656592d30ba044f0a78154ec",
     "name": "!Aitsa",
@@ -51,6 +54,9 @@ export class ViewListDetailComponent implements OnInit {
       this.getViewListDetails(params['id']);
     });
     this.getUserDetails();
+    this.authService.isAuthenticated$.subscribe((isAuthenticated: boolean) => {
+      this.isAuthenticated = isAuthenticated;
+    });
   }
 
   // getFilms(page: number) {
@@ -121,19 +127,41 @@ export class ViewListDetailComponent implements OnInit {
     });
   }
 
+  submitComment(message: any) {
+    const comment: Comment = {
+      user: { _id: this.currentUser._id, username: this.currentUser.username },
+      message: message,
+      date: new Date(),
+    };
+    this.viewList.comments.push(comment);
+    this.viewListService.updateViewList(this.viewList._id, this.viewList).subscribe((res) => {
+      this.toastr.success('Comment added successfully', 'Success');
+      console.log(res);
+    }, (error) => {
+      this.toastr.danger('An error occurred while adding comment', 'Error');
+      console.error(error);
+    });
+  }
+
   commentViewList() {
-    this.toastr.warning('Feature coming soon', 'Warning');
+    if (!this.isAuthenticated) {
+      this.toastr.warning('Please login to comment on view list', 'Warning');
+      return;
+    }
+    this.dialogService.open(DialogCommentComponent)
+      .onClose.subscribe(data => data && this.submitComment(data.comment));
   }
 
   shareViewList() {
-    this.toastr.warning('Feature coming soon', 'Warning');
+    this.dialogService.open(DialogShareComponent, { context: { title: this.viewList.name } });
   }
 
   addFilmToList() {
-      // if (!this.isAuthenticated) {
-      //   this.toastr.warning("Please login to create view list", 'Warning');
-      //   return;
-      //
+      if (!this.isAuthenticated) {
+        this.toastr.warning("Please login to modify view list", 'Warning');
+        return;
+      }
+
       this.dialogService.open(AddFilmsComponent, {context: {films: this.films}})
         .onClose.subscribe(films => films && this.submitListFilms(films));
   }
