@@ -17,7 +17,7 @@
       </button>
     </div>
     <div class="sorting-filter">
-      <nb-select [(ngModel)]="sortBy" placeholder="Sort By">
+      <nb-select [(ngModel)]="sortBy" (ngModelChange)="onSortChange()" placeholder="Sort By">
         <nb-option value="name">Name</nb-option>
         <nb-option value="likes">Likes</nb-option>
       </nb-select>
