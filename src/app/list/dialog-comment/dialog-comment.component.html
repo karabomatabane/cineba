@@ -1,0 +1,18 @@
+<nb-card class="centered-card">
+  <nb-card-header>
+      Comment
+  </nb-card-header>
+  <nb-card-body>
+      <form [formGroup]="commentForm">
+          <nb-form-field class="myFormField">
+              <textarea nbInput type="text" id="comment" name="comment" formControlName="comment"
+                  placeholder="Share your thoughts (up to 120 characters)"></textarea>
+          </nb-form-field>
+      </form>
+  </nb-card-body>
+  <nb-card-footer class="text-center">
+      <button nbButton status="danger" (click)="onCancel()">Cancel</button>
+      <button nbButton status="success" style="margin-left:1rem" type="submit" [disabled]="commentForm.invalid"
+          (click)="onSubmit()">Submit</button>
+  </nb-card-footer>
+</nb-card>

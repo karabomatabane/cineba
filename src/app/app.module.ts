@@ -23,7 +23,11 @@ import {
   NbAccordionModule,
   NbDialogService,
   NbDialogModule,
+  NbOptionModule,
+  NbSelectModule,
+  NbCheckboxModule,
 } from '@nebular/theme';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -44,6 +48,15 @@ import { ManageAccountsComponent } from './admin/manage-accounts/manage-accounts
 import { DialogCodeFormComponent } from './_modals/dialog-code-form/dialog-code-form.component';
 import { AboutComponent } from './about/about/about.component';
 import { FullListComponent } from './admin/full-list/full-list.component';
+import { BannerComponent } from './home/banner/banner.component';
+import { ViewListsComponent } from './list/view-lists/view-lists.component';
+import { ViewListDetailComponent } from './list/view-list-detail/view-list-detail.component';
+import { DialogListFormComponent } from './list/new-view-list/dialog-list-form.component';
+import { ListCardComponent } from './list/list-card/list-card.component';
+import { AddFilmsComponent } from './list/add-films/add-films.component';
+import { DialogEnlistComponent } from './list/dialog-enlist/dialog-enlist.component';
+import { DialogCommentComponent } from './list/dialog-comment/dialog-comment.component';
+import { DialogShareComponent } from './list/dialog-share/dialog-share.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +75,15 @@ import { FullListComponent } from './admin/full-list/full-list.component';
     DialogCodeFormComponent,
     AboutComponent,
     FullListComponent,
+    BannerComponent,
+    ViewListsComponent,
+    ViewListDetailComponent,
+    DialogListFormComponent,
+    ListCardComponent,
+    AddFilmsComponent,
+    DialogEnlistComponent,
+    DialogCommentComponent,
+    DialogShareComponent,
   ],
   imports: [
     BrowserModule,
@@ -92,7 +114,11 @@ import { FullListComponent } from './admin/full-list/full-list.component';
     NbSpinnerModule,
     NbAccordionModule,
     NbDialogModule.forRoot(),
-    NbInputModule
+    NbInputModule,
+    NbOptionModule,
+    NbSelectModule,
+    NbCheckboxModule,
+    CarouselModule.forRoot(),
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

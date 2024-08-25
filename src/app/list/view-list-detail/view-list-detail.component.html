@@ -1,0 +1,80 @@
+<!-- Search Feature -->
+<div *ngIf="this.viewList.owner" class="container vl-container">
+  <div class="vl-banner">
+    <img src="assets/theatre.png" alt="Default Cover" />
+  </div>
+  <div class="vl-header">
+    <div class="vl-user">
+      <p>View list by {{ viewList.owner._id === this.currentUser._id ? 'You' : viewList.owner.username }}</p>
+      <div class="vl-right">
+        <!-- updated on | likes | comments | share -->
+        <p>Updated on {{ viewList.lastUpdated | date }}</p>
+        <div class="vl-actions">
+          <button class="likes" (click)="likeViewList()">
+            <nb-icon ngClass="{{ viewList.likes.includes(this.currentUser._id) ? 'liked' : ''}}" icon="heart" pack="eva"></nb-icon>
+            <h6>{{ viewList.likes.length }}</h6>
+          </button>
+          <button (click)="commentViewList()">
+            <nb-icon icon="message-circle" pack="eva"></nb-icon>
+            <h6>{{ viewList.comments.length }}</h6>
+          </button>
+          <button (click)="shareViewList()">
+            <nb-icon icon="share" pack="eva"></nb-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="underline"></div>
+    <div class="vl-details">
+      <h1>{{ viewList.name }}</h1>
+      <p>{{ viewList.description || "No description." }}</p>
+    </div>
+    <div class="underline"></div>
+  </div>
+  <div class="vl-body">
+    <div *ngIf="viewList.films.length > 0" class="vl-films">
+      <div class="phrase">
+        <h3>Search Film by Name</h3>
+      </div>
+      <div class="search-box">
+        <nb-form-field>
+          <nb-icon nbPrefix icon="search" pack="eva"></nb-icon>
+          <input nbInput type="search" id="search" [(ngModel)]="searchText" placeholder="Search" fullWidth
+            status="danger" (keyup.enter)="searchFilm()" fieldSize="large" />
+        </nb-form-field>
+        <button id="button" nbButton status="danger" (click)="searchFilm()">
+          <h6>Search</h6>
+        </button>
+      </div>
+      <div class="vl-add-film">
+        <button nbButton status="primary" (click)="addFilmToList()">
+          <nb-icon icon="plus" pack="eva"></nb-icon>
+          <h6>Add Films</h6>
+        </button>
+      </div>
+      <!-- Render search film -->
+      <div [nbSpinner]="loading" nbSpinnerSize="giant" nbSpinnerStatus="primary">
+        <app-collection [films]="films" buttonText="Vote" [voteEnabled]=true></app-collection>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination">
+        <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
+        <span>Page {{ currentPage }} of {{ totalPages }}</span>
+        <button class="btn-next" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+        <span class="showing-of">Showing {{ (currentPage - 1) * pageSize + 1 }} - {{ currentPage === totalPages ?
+          (totalItems
+          % pageSize) || pageSize : pageSize * currentPage }} of {{ totalItems }} items</span>
+      </div>
+    </div>
+    <div *ngIf="viewList.films.length === 0" class="vl-empty text-center">
+      <h3>This view list has no films</h3>
+      <div class="vl-add-film">
+        <button nbButton status="primary" (click)="addFilmToList()">
+          <nb-icon icon="plus" pack="eva"></nb-icon>
+          <h6>Add Films</h6>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

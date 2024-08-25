@@ -1,0 +1,55 @@
+<nb-card class="centered-card">
+  <nb-card-header class="header">
+    Add Films
+    <nb-icon icon="search" class="float-right" (click)="focusSearch()"></nb-icon>
+  </nb-card-header>
+  <nb-card-body>
+    <div class="search-box" id="search-bar">
+      <nb-form-field>
+        <nb-icon nbPrefix icon="search" pack="eva"></nb-icon>
+        <input
+          nbInput
+          type="search"
+          id="search"
+          [(ngModel)]="searchText"
+          (keyup.enter)="search()"
+          placeholder="Search"
+          fullWidth
+          status="danger"
+          fieldSize="large"
+        />
+      </nb-form-field>
+      <button
+        id="button"
+        nbButton
+        status="danger"
+        (click)="search()"
+      >
+        <h6>Search</h6>
+      </button>
+    </div>
+    <table class="table table-responsive table-dark">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Title</th>
+          <th>Release Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let film of allFilms">
+          <td>
+            <nb-checkbox (change)="toggleSelection(film, $event)" checked="{{ isSelected(film._id) }}"></nb-checkbox>
+          </td>
+          <td>{{ film.name }}</td>
+          <td>{{ film.releaseDate | date }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="text-center" (click)="loadMore()"><a href="javascript:void(0)">Load more</a></p>
+  </nb-card-body>
+  <nb-card-footer class="text-center">
+    <button nbButton status="danger" (click)="onCancel()">Cancel</button>
+    <button nbButton status="success" style="margin-left:1rem" type="submit" (click)="onSubmit()">Submit</button>
+  </nb-card-footer>
+</nb-card>

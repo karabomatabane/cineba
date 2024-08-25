@@ -1,0 +1,215 @@
+/* Mobile-first styles */
+button {
+  margin-left: 0;
+}
+
+.phrase {
+  display: flex;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  margin-top: -4rem;
+  flex-wrap: wrap;
+  overflow-wrap: break-word;
+  text-overflow: clip;
+}
+
+.vl-banner {
+  width: 100%;
+  height: 40%;
+  position: relative;
+}
+
+.vl-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vl-body {
+  padding: 8rem 20px;
+  order: 1;
+}
+
+.vl-header {
+  bottom: 20rem;
+  left: auto;
+  width: inherit;
+  padding: 20px;
+  order: 2;
+}
+
+.vl-user {
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  padding: 1rem 20px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+}
+
+.vl-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 1rem;
+  gap: 1rem;
+}
+
+p, .vl-user p {
+  margin: 0;
+  color: #ffffff; /* Text color */
+  font-size: 1.4rem !important;
+}
+
+.vl-header .underline {
+  margin: 0 !important;
+}
+
+.vl-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2.5rem;
+  margin-top: .4rem;
+}
+
+.vl-actions button {
+  background-color: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  font-size: 1.2rem;
+}
+
+.vl-actions button h6 {
+  margin-left: 5px; /* Adjust spacing between icon and text */
+  color: #ffffff; /* Text color */
+}
+
+.vl-actions nb-icon {
+  font-size: 1.8rem;
+}
+
+.vl-details {
+  padding: 20px;
+  color: #ffffff; /* Text color */
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-size: 1.4rem;
+  align-items: center;
+}
+
+.vl-add-film {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.vl-body {
+  padding: 8rem 20px;
+}
+
+.search-box {
+  margin-bottom: 1rem !important;
+}
+
+.vl-films .vl-add-film {
+  margin-bottom: 2rem;
+}
+
+.likes nb-icon:hover, .liked {
+  color: #FF0000; /* Change icon color on hover */
+  cursor: pointer;
+  animation: pulse 1s infinite; /* Add pulse animation */
+  transition: all 0.3s ease; /* Add smooth transition effect */
+}
+
+.liked {
+  animation: none;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.btn-next {
+  margin-left: .8rem;
+}
+
+/* for larger screens */
+@media (min-width: 768px) {
+  button {
+    margin-left: 1vw;
+  }
+
+  .phrase {
+    margin-top: -6rem !important;
+  }
+
+  .vl-header {
+    bottom: 10rem;
+  }
+
+  .vl-user p {
+    font-size: 1.8rem !important;
+  }
+
+  .vl-user {
+    flex-direction: row; /* Align elements horizontally on larger screens */
+    justify-content: space-between;
+    align-items: center;
+    text-align: start;
+    padding: 0 20px;
+  }
+
+  .vl-right {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 0;
+  }
+
+  .vl-actions {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: .3rem;
+    margin-top: 0;
+  }
+
+  .vl-actions button h6 {
+    font-size: 1.8rem !important;
+  }
+
+  .vl-actions button {
+    font-size: 1.6rem;
+  }
+
+  .vl-actions nb-icon {
+    font-size: 2.2rem;
+  }
+
+  .vl-details {
+    font-size: 1.6rem;
+    align-items: start;
+  }
+
+  .vl-body {
+    padding: 8rem 40px;
+  }
+}

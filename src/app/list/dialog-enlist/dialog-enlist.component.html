@@ -1,0 +1,30 @@
+<nb-card class="centered-card">
+  <nb-card-header class="header">
+    Add Film to List
+  </nb-card-header>
+  <nb-card-body>
+    <table class="table table-responsive table-dark">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Title</th>
+          <th>Created by</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let list of lists">
+          <td>
+            <nb-checkbox (change)="toggleSelection(list, $event)" checked="{{ isSelected(list) }}"></nb-checkbox>
+          </td>
+          <td>{{ list.name }}</td>
+          <td>{{ list.owner._id == user._id ? 'You' : list.owner.username }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </nb-card-body>
+  <nb-card-footer class="text-center">
+    <button nbButton status="danger" (click)="onCancel()">Cancel</button>
+    <button nbButton status="success" style="margin-left:1rem" type="submit" (click)="onSubmit()">Submit</button>
+  </nb-card-footer>
+</nb-card>
+

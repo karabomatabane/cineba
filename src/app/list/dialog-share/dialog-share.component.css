@@ -1,0 +1,39 @@
+/* Adjust the card's width as needed */
+.centered-card.share {
+  max-width: 37rem !important;
+  width: 100% !important;
+}
+
+nb-card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.socials {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  gap: 1rem;
+}
+
+.divider {
+  display: flex;
+  justify-content: center;
+}
+
+i {
+  font-size: 2rem;
+  color: #151A30;
+}
+
+i:hover {
+  color: #007bff;
+  cursor: pointer;
+}
+.icon-button {
+  padding: .5rem .7rem !important;
+}
+
+p {
+  font-size: 1.4rem;
+}

@@ -7,63 +7,172 @@
 }
 
 * {
-    box-sizing: border-box;
-    padding: 0px;
-    margin: 0px;
-    font-family: "Girassol", cursive;
-    font-family: "Goblin One", cursive;
-    font-family: "Roboto", sans-serif;
-    font-family: "Farro", sans-serif;
-  }
-  
-  h1, h2, h6, h5 {
-      margin: 0px;
-  }
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+  font-family: "Girassol", cursive;
+  font-family: "Goblin One", cursive;
+  font-family: "Roboto", sans-serif;
+  font-family: "Farro", sans-serif;
+}
 
-  /* Add this CSS to your component's CSS file or a global stylesheet */
+h1,
+h2,
+h6,
+h5 {
+  margin: 0px;
+}
+
+/* Add this CSS to your component's CSS file or a global stylesheet */
 
 .pagination {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 16px; /* Adjust as needed */
-  }
-  
-  .pagination button {
-    margin: 0 8px; /* Adjust as needed */
-    padding: 8px 16px;
-    background-color: #007bff; /* Change to your desired button color */
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .pagination button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-  
-  .showing-of {
-    margin-left: 16px; /* Adjust as needed */
-    font-size: 14px; /* Adjust the font size as needed */
-    color: #555; /* Change to your desired text color */
-  }
-  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 16px;
+  /* Adjust as needed */
+}
+
+.nb-theme-dark nb-sidebar.compacted,
+.nb-theme-dark nb-sidebar.compacted nb-menu,
+.nb-theme-dark nb-sidebar.compacted .main-container {
+  width: 60px;
+}
+
+.nb-theme-dark nb-menu .menu-item {
+  padding: 1rem 0;
+}
+
+nb-menu .menu-item a {
+  font-size: 1.2rem !important;
+}
+
+.nb-theme-dark nb-layout-header nav {
+  height: 5.8rem !important;
+  padding: 2rem !important;
+}
+
+.nb-theme-dark [nbInput].size-large::placeholder {
+  font-size: 1.6rem !important;
+}
+
+nav nb-icon {
+  font-size: 1.8rem !important;
+}
+
+li a nb-icon,
+nb-menu {
+  font-size: 1.8rem !important;
+}
+
+nb-form-field,
+nb-select {
+  width: 22rem;
+}
+
+nb-card-header {
+  font-size: 1.8rem !important;
+}
+
+nb-card-body nb-form-field,
+nb-select {
+  width: 100%;
+}
+
+nb-option,
+nb-checkbox span,
+nb-radio span {
+  font-size: 1.4rem !important;
+}
+
+.carousel-control .icon-prev {
+  margin-left: -60px !important;
+  font-size: 4rem !important;
+}
+
+.carousel-control .icon-next {
+  margin-right: -60px !important;
+  font-size: 4rem !important;
+}
+
+.select-button.placeholder {
+  font-size: 1.4rem !important;
+  padding: 1rem !important;
+}
+
+.pagination button {
+  margin: 0 8px;
+  /* Adjust as needed */
+  padding: 8px 16px;
+  background-color: #007bff;
+  /* Change to your desired button color */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.centered-card {
+  max-width: 32rem !important;
+  width: 31rem !important;
+}
+
+.centered-card input {
+  width: 28rem !important;
+  max-width: 32rem !important;
+}
+
+textarea {
+  width: 28rem !important;
+  max-width: 32rem !important;
+  height: 16rem;
+}
+
+.underline {
+  border: 1px solid #007bff;
+  width: 100%;
+  margin: 6vh 0;
+}
+
+
+input, textarea, input::placeholder, textarea::placeholder {
+  font-size: 1.4rem !important;
+}
+
+
+.showing-of {
+  margin-left: 16px;
+  /* Adjust as needed */
+  font-size: 14px;
+  /* Adjust the font size as needed */
+  color: #555;
+  /* Change to your desired text color */
+}
+
 /* Add this CSS to your component's CSS file or a global stylesheet */
 
 .centered-card {
-  margin: 20px; /* Add margin around the card */
-  max-width: 400px; /* Adjust the max width as needed */
-  margin-left: auto; /* Center horizontally */
-  margin-right: auto; /* Center horizontally */
+  margin: 20px;
+  /* Add margin around the card */
+  max-width: 400px;
+  /* Adjust the max width as needed */
+  margin-left: auto;
+  /* Center horizontally */
+  margin-right: auto;
+  /* Center horizontally */
 }
 
 
 /* Adjust the card's width as needed */
 nb-card {
   width: 100%;
-  max-width: 400px; /* Adjust the max width as needed */
+  max-width: 400px;
+  /* Adjust the max width as needed */
 }
 
 .nb-theme-dark nb-card-header {
@@ -71,12 +180,14 @@ nb-card {
   font-weight: 700 !important;
 }
 
-h6, h3 {
+h6,
+h3 {
   font-family: Farro, san-serif !important;
 }
 
 .myFormField {
-  margin-bottom: 16px; /* Adjust as needed */
+  margin-bottom: 16px;
+  /* Adjust as needed */
 }
 
 .search-box {
@@ -88,27 +199,29 @@ h6, h3 {
   flex-wrap: wrap;
 }
 
-.pad-2
-{
+.pad-2 {
   padding: 1rem;
 }
 
-.pad-1
-{
+.pad-1 {
   padding: 0.5rem;
 }
 
-.mleft-1
-{
+.mleft-1 {
   margin-left: 0.5rem;
 }
 
-.mtop-1
-{
+.mtop-1 {
   margin-top: 0.5rem;
 }
 
 .message {
   margin-bottom: 1.6rem;
   font-size: 12px !important;
+}
+
+.copyButton {
+  background-color: #36f;
+  border: 1px solid #36f;
+  color: #151A30;
 }

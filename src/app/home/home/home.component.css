@@ -5,7 +5,7 @@ button {
 .phrase {
   display: flex;
   width: 100%;
-  text-content: center;
+  text-align: center;
   justify-content: center;
   margin-top: 5vh;
   flex-wrap: wrap;

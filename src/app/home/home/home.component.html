@@ -1,28 +1,4 @@
-<div class="container" #scrollToTop>
-  <!-- Search Feature -->
-  <div class="phrase">
-    <h3>Search Film by Name</h3>
-  </div>
-  <div class="search-box">
-    <nb-form-field>
-      <nb-icon nbPrefix icon="search" pack="eva"></nb-icon>
-      <input nbInput type="search" id="search" [(ngModel)]="searchText" placeholder="Search" fullWidth status="danger"
-      (keyup.enter)="searchFilm()" fieldSize="large" />
-    </nb-form-field>
-    <button id="button" nbButton status="danger" (click)="searchFilm()">
-      <h6>Search</h6>
-    </button>
-  </div>
-  <!-- Render search film -->
-  <div [nbSpinner]="loading" nbSpinnerSize="giant" nbSpinnerStatus="primary">
-    <app-collection [films]="films" buttonText="Vote" [voteEnabled]=true></app-collection>
-  </div>
-
-</div>
-<div class="pagination">
-  <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
-  <span>Page {{ currentPage }} of {{ totalPages }}</span>
-  <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
-  <span class="showing-of">Showing {{ (currentPage - 1) * pageSize + 1 }} - {{ currentPage === totalPages ? (totalItems
-    % pageSize) || pageSize : pageSize * currentPage }} of {{ totalItems }} items</span>
-</div>
+<div class="container">
+  <app-banner [films]="films"></app-banner>
+  <h1 class="phrase text-center">VIEW LISTS</h1>
+  <app-view-lists></app-view-lists>

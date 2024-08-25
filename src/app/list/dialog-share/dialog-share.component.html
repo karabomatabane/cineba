@@ -1,0 +1,28 @@
+<nb-card class="centered-card share">
+  <nb-card-header>
+    Share
+  </nb-card-header>
+  <nb-card-body>
+    <div class="copy">
+      <p class="text-center">Share <strong>{{ title }}</strong> with friends:</p>
+      <div class="input-group">
+        <input type="text" class="form-control" value="{{url}}" readonly>
+        <span class="input-group-btn">
+          <button class="btn copyButton" status="primary" type="button" (click)="copyLink()">Copy</button>
+        </span>
+      </div>
+    </div>
+    <div class="divider">
+      <h4>OR</h4>
+    </div>
+    <div class="socials">
+      <button class="icon-button" nbButton (click)="shareOnFacebook()"><i
+          class="fa fa-facebook-square"></i></button>
+      <button class="icon-button" nbButton (click)="shareOnTwitter()"><i class="fa fa-twitter"></i></button>
+      <button class="icon-button" nbButton (click)="shareOnWhatsApp()"><i class="fa fa-whatsapp"></i></button>
+    </div>
+  </nb-card-body>
+  <nb-card-footer class="text-center">
+    <button nbButton status="danger" (click)="onCancel()">Cancel</button>
+  </nb-card-footer>
+</nb-card>

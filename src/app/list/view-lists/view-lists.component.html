@@ -1,0 +1,38 @@
+<h2>Unleash your film expertise. Create, explore, and share!</h2>
+<div class="menu">
+  <button nbButton status="primary" class="custom-button" (click)="openListFormModal()">
+    <h6>New List</h6>
+  </button>
+
+  <div class="underline"></div>
+  <div *ngIf="viewLists && viewLists.length > 0" class="filter">
+    <div class="search-filter">
+      <nb-form-field>
+        <nb-icon nbPrefix icon="search" pack="eva"></nb-icon>
+        <input nbInput type="search" id="search" [(ngModel)]="searchText" placeholder="Search" fullWidth status="danger"
+          (keyup.enter)="searchList()" fieldSize="large" />
+      </nb-form-field>
+      <button id="button" nbButton status="danger" (click)="searchList()">
+        <h6>Search</h6>
+      </button>
+    </div>
+    <div class="sorting-filter">
+      <nb-select [(ngModel)]="sortBy" placeholder="Sort By">
+        <nb-option value="name">Name</nb-option>
+        <nb-option value="likes">Likes</nb-option>
+      </nb-select>
+    </div>
+    <div class="checkbox-filter">
+      <nb-checkbox [(ngModel)]="onlyByMe" (ngModelChange)="onByMeChange()">By Me</nb-checkbox>
+    </div>
+  </div>
+</div>
+<div *ngIf="!viewLists || viewLists.length === 0" class="empty">
+  <h4>No view lists found</h4>
+</div>
+<div [nbSpinner]="loading" nbSpinnerSize="giant" nbSpinnerStatus="primary">
+  <div *ngIf="viewLists && viewLists.length > 0" class="list-container">
+    <div *ngFor="let viewList of viewLists" class="list-card">
+     <app-list-card [viewList]="viewList" [currentUser]="currentUser"></app-list-card>
+  </div>
+</div>

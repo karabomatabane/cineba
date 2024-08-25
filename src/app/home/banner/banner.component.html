@@ -1,0 +1,18 @@
+<carousel [itemsPerSlide]="1" [showIndicators]="false">
+  <slide *ngFor="let film of films.slice(0, 3)">
+    <div class="featured-content">
+      <div class="image-container">
+        <img class="featured-title" [src]="getImagePath(film.imgUrl, film.poster_path)" alt="">
+      </div>
+      <div class="text-container">
+        <h3 class="featured-title" routerLink="../film/{{film._id}}">{{ film.name }}</h3>
+        <p class="featured-desc"><nb-icon icon="checkmark-circle-2"></nb-icon>&nbsp;{{ film.voteCount }}&nbsp;Votes
+          &nbsp;&nbsp;&nbsp;&nbsp;{{ formatDuration(film.duration) }}&nbsp;&nbsp;&nbsp;&nbsp;
+          {{ getYear(film.releaseDate) }}</p>
+        <p class="featured-date">Catch on:&nbsp;&nbsp;{{ film.screeningDate | date }}<br><br>At:&nbsp;
+          {{ getTime(film.screeningDate)}}</p>
+        <button class="featured-button" (click)="addToList(film)"><nb-icon icon="plus-circle"></nb-icon>&nbsp;&nbsp;LIST</button>
+      </div>
+    </div>
+  </slide>
+</carousel>

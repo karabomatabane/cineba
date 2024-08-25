@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
   pageSize: number = 12;
   totalItems: number = 0;
   loading: boolean = false;
+  lists: any;
   constructor(private filmService: FilmService) { }
 
   ngOnInit(): void {

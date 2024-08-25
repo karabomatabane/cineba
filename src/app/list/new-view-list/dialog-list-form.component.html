@@ -1,0 +1,24 @@
+<nb-card class="centered-card">
+  <nb-card-header>
+      View List
+  </nb-card-header>
+  <nb-card-body>
+      <form [formGroup]="viewListForm">
+          <div class="myFormField">
+              <nb-checkbox formControlName="private">Private</nb-checkbox>
+          </div>
+          <div class="myFormField">
+              <input type="text" id="name" name="name" formControlName="name" placeholder="Give your view list a name" nbInput>
+          </div>
+          <nb-form-field class="myFormField">
+              <textarea nbInput type="text" id="description" name="description" formControlName="description"
+                  placeholder="How about a description? (optional)"></textarea>
+          </nb-form-field>
+      </form>
+  </nb-card-body>
+  <nb-card-footer class="text-center">
+      <button nbButton status="danger" (click)="onCancel()">Cancel</button>
+      <button nbButton status="success" style="margin-left:1rem" type="submit" [disabled]="viewListForm.invalid"
+          (click)="onSubmit()">Submit</button>
+  </nb-card-footer>
+</nb-card>
