@@ -18,7 +18,7 @@ export class DialogReviewFormComponent implements OnInit {
   ) {
     this.reviewForm = this.formBuilder.group({
       rating: [null, [Validators.required, Validators.max(5)]],
-      comment: ['', [Validators.maxLength(32)]],
+      comment: ['', [Validators.maxLength(120)]],
     });
   }
 

@@ -17,6 +17,7 @@ export class FilmDetailsComponent implements OnInit {
   currentUser: User = {} as User;
   isVoted: boolean = false;
   isDetailsLoaded: boolean = false;
+  isAuthenticated: boolean = false;
 
   // reviews: review[] = [
   //   {
@@ -42,6 +43,7 @@ export class FilmDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.getFilmDetails();
     this.authService.isAuthenticated$.subscribe((isAuthenticated: boolean) => {
+      this.isAuthenticated = isAuthenticated;
       if (isAuthenticated) {
         this.getUserDetails();
       }
@@ -119,6 +121,10 @@ export class FilmDetailsComponent implements OnInit {
   }
 
   submitVote() {
+    if (!this.isAuthenticated) {
+      this.toastr.warning("Please login to vote", 'Warning');
+      return;
+    }
     if (this.film._id === undefined) return;
     this.filmService.vote(this.film._id).subscribe(
       (data) => {
@@ -134,6 +140,10 @@ export class FilmDetailsComponent implements OnInit {
   }
 
   openReviewModal() {
+    if (!this.isAuthenticated) {
+      this.toastr.warning("Please login to rate film", 'Warning');
+      return;
+    }
     this.dialogService.open(DialogReviewFormComponent)
       .onClose.subscribe(review => review && this.submitReview(review));
   }
