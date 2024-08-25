@@ -97,6 +97,19 @@ export class ViewListsComponent implements OnInit {
     )
   }
 
+  onSortChange() {
+    this.loading = true;
+    this.viewLists = this.viewLists.sort((a, b) => {
+      if (this.sortBy === 'likes') {
+        return b.likes.length - a.likes.length;
+      } else {
+        // sort by name
+        return a.name.localeCompare(b.name);
+      }
+    });
+    this.loading = false;
+  }
+
   searchList() {
     console.log('search list')
   }
