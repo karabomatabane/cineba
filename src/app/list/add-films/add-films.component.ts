@@ -55,6 +55,7 @@ export class AddFilmsComponent implements OnInit {
       }
       return;
     }
+    console.log("films: ", this.films);
     this.dialogRef.close(this.films); // Pass the vieList data to the parent component
   }
 
@@ -66,7 +67,7 @@ export class AddFilmsComponent implements OnInit {
     if (event.target.checked) {
       this.films.push(film);
     } else {
-      this.films = this.films.filter(f => f !== film);
+      this.films = this.films.filter(f => f._id !== film._id);
     }
   }
 
