@@ -80,6 +80,8 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         script: |
           cd /home/bitnami
-          rm -rf cineba-api/wwwroot/*
+          timestamp=$(date +%Y%m%d%H%M%S)
+          mkdir -p cineba-api/backups/wwwroot_$timestamp
+          mv cineba-api/wwwroot/* cineba-api/backups/wwwroot_$timestamp/
           cp -r dist/cineba/* cineba-api/wwwroot
           pm2 restart serve
