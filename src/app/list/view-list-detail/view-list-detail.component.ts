@@ -176,7 +176,9 @@ export class ViewListDetailComponent implements OnInit {
   submitListFilms(films: Film[]) {
     this.viewList.films = films;
     this.viewListService.updateViewList(this.viewList._id, this.viewList).subscribe((res) => {
-      console.log(res);
+      this.toastr.success('List updated successfully', 'Success');
+      // refresh the view list
+      this.getViewListDetails(this.viewList._id);
     }, (error) => {
       console.error(error)
     })
