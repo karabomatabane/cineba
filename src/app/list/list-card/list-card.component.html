@@ -4,7 +4,7 @@
       <!-- Check if there are at least three films in the viewList -->
       <ng-container *ngIf="viewList.films.length >= 3">
         <!-- Render the covers of the first three films -->
-        <img *ngFor="let film of viewList.films.slice(0, 3)" [src]="getImagePath(film)" class="img" alt="{{ film.name }}">
+        <img *ngFor="let film of viewList.films.slice(-3)" [src]="getImagePath(film)" class="img" alt="{{ film.name }}">
       </ng-container>
       <!-- If there are fewer than three films, render a default image -->
       <ng-container *ngIf="viewList.films.length < 3" class="default-cover">
