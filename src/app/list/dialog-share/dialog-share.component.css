@@ -26,10 +26,16 @@ i {
   color: #151A30;
 }
 
-i:hover {
+i:hover, .custom-icon:hover {
   color: #007bff;
   cursor: pointer;
 }
+
+.custom-icon {
+  width: 1.8rem;
+  height: 1.8rem;
+}
+
 .icon-button {
   padding: .5rem .7rem !important;
 }

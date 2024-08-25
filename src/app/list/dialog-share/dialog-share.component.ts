@@ -45,6 +45,12 @@ export class DialogShareComponent implements OnInit {
     window.open(shareUrl, '_blank');
   }
 
+  shareOnSignal() {
+    this.copyLink();
+    const shareUrl = `sgnl://send?text=${encodeURIComponent(this.message)} ${encodeURIComponent(this.url)}`;
+    window.open(shareUrl, '_blank');
+  }
+
   onCancel() {
     this.dialogRef.close();
   }
