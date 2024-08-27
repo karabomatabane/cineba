@@ -6,6 +6,11 @@ export interface Comment {
     date: Date;
 }
 
+export interface ListFilm {
+  film: Film,
+  user: {_id: string, username: string};
+}
+
 export interface ViewList {
     _id: string;
     name: string;
@@ -14,7 +19,7 @@ export interface ViewList {
     lastUpdated: Date;
     active: boolean;
     private: boolean;
-    films: Film[];
+    films: ListFilm[];
     likes: string[];
     comments: Comment[];
     owner: {_id: string, username: string};

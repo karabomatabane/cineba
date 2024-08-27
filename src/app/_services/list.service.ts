@@ -28,6 +28,10 @@ export class ListService {
   }
 
   exitViewList(id: string): Observable<any> {
-    return this.http.delete(this.baseUrl + 'view-list/' + id);
+    return this.http.put(this.baseUrl + 'view-list/' + id + '/exit', {});
+  }
+
+  joinViewList(id: string): Observable<any> {
+    return this.http.put(this.baseUrl + 'view-list/' + id + '/join', {});
   }
 }

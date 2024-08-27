@@ -176,8 +176,37 @@ export class ViewListDetailComponent implements OnInit {
         .onClose.subscribe(films => films && this.submitListFilms(films));
   }
 
+  toggleMembership() {
+    if (!this.isAuthenticated) {
+      this.toastr.warning('Please login to join view list', 'Warning');
+      return;
+    }
+    if (this.viewList.members.includes(this.currentUser._id)) {
+      this.viewList.members = this.viewList.members.filter((id) => id !== this.currentUser._id);
+      this.viewListService.exitViewList(this.viewList._id).subscribe((res) => {
+        this.toastr.success('You have exited the view list', 'Success');
+        console.log(res);
+      }, (error) => {
+        this.toastr.danger('An error occurred while exiting the view list', 'Error');
+        console.error(error);
+      });
+    } else {
+      this.viewList.members.push(this.currentUser._id);
+      this.viewListService.joinViewList(this.viewList._id).subscribe((res) => {
+        this.toastr.success('You have joined the view list', 'Success');
+        console.log(res);
+      }, (error) => {
+        this.toastr.danger('An error occurred while joining the view list', 'Error');
+        console.error(error);
+      });
+    }
+  }
+
   submitListFilms(films: Film[]) {
-    this.viewList.films = films;
+    this.viewList.films = films.map(f => ({
+      film: f,
+      user: {_id: this.currentUser._id, username: this.currentUser.username}
+    }));
     this.viewListService.updateViewList(this.viewList._id, this.viewList).subscribe((res) => {
       this.toastr.success('List updated successfully', 'Success');
       // refresh the view list
