@@ -42,16 +42,16 @@ export class DialogEnlistComponent implements OnInit {
   }
 
   isSelected(list: ViewList): boolean {
-    return list.films.some((f) => f._id === this.film._id);
+    return list.films.some((f) => f.film._id === this.film._id);
   }
 
   toggleSelection(list: ViewList, event: any) {
     if (event.target.checked) {
-      list.films.push(this.film);
+      list.films.push({film: this.film, user: this.user});
       this.updatedLists.push(list);
     } else {
       console.log("Removing film from list", this.film);
-      list.films = list.films.filter(f => f._id !== this.film._id);
+      list.films = list.films.filter(f => f.film._id !== this.film._id);
       console.log("Updated list", list);
       this.updatedLists = this.updatedLists.filter(l => l._id !== list._id);
       this.updatedLists.push(list);

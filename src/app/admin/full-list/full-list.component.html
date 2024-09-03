@@ -32,7 +32,8 @@
             <th>Duration</th>
             <th>Release Date</th>
             <th>Language</th>
-            <th>Actions</th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -45,5 +46,8 @@
             <td>
                 <button class="btn btn-sm btn-danger" (click)="toggleVisibility(film._id)">{{ film.active ? "Hide" : "Show" }}</button>
             </td>
+            <td>
+              <button class="btn btn-sm btn-primary" [disabled]="!isBannerFilm(film._id) && bannerFilms.length === 3" (click)="toggleBanner(film._id)">{{ isBannerFilm(film._id) ? "Remove from Banner" : "Add to Banner" }}</button>
+          </td>
         </tr>
 </table>

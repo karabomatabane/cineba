@@ -11,6 +11,7 @@ import { FilmService } from 'src/app/_services/film.service';
 export class FullListComponent implements OnInit {
   films: Film[] = [];
   originalFilms: Film[] = [];
+  bannerFilms: string[] = [];
   searchText: string = "";
 
   constructor(
@@ -29,12 +30,36 @@ export class FullListComponent implements OnInit {
       if (this.searchText !== "") {
         this.search();
       }
+      this.getBannerFilms();
       this.toastr.success("Full list retrieved successfully", 'Success');
     }, (error: any) => {
       console.log(error);
       this.toastr.danger(error.error, 'Error');
     });
   }
+
+  getBannerFilms() {
+    this.filmService.getBannerFilms().subscribe((res: any) => {
+      this.bannerFilms = res.map((banner: any) => banner.film);
+      // sort table to show banner films first
+      this.films.sort((a, b) => {
+        if (this.isBannerFilm(a._id)) {
+          return -1;
+        } else if (this.isBannerFilm(b._id)) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+    }, (error: any) => {
+      console.log(error);
+      this.toastr.danger(error.error, 'Error');
+    });
+  }
+
+  isBannerFilm(id: string): boolean {
+    return this.bannerFilms.includes(id);
+  };
 
   search() {
     if (this.searchText === "") {
@@ -74,5 +99,25 @@ export class FullListComponent implements OnInit {
       console.log(error);
       this.toastr.danger(error.error, 'Error');
     });
+  }
+
+  toggleBanner(id: string) {
+    if (this.isBannerFilm(id)) {
+      this.filmService.removeFromBanner(id).subscribe((res) => {
+        this.toastr.success("Film removed from banner successfully", 'Success');
+        this.bannerFilms = this.bannerFilms.filter(filmId => filmId !== id);
+      }, (error: any) => {
+        console.log(error);
+        this.toastr.danger(error.error, 'Error');
+      });
+    } else {
+      this.filmService.addToBanner(id).subscribe((res: any) => {
+        this.toastr.success("Film added to banner successfully", 'Success');
+        this.bannerFilms.push(res.film);
+      }, (error: any) => {
+        console.log(error);
+        this.toastr.danger(error.error, 'Error');
+      });
+    }
   }
 }

@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { User } from 'src/app/_models/auth.model';
 import { AuthService } from 'src/app/_services/auth.service';
+import { FilmService } from 'src/app/_services/film.service';
 import { ListService } from 'src/app/_services/list.service';
 import { DialogEnlistComponent } from 'src/app/list/dialog-enlist/dialog-enlist.component';
 
@@ -11,23 +12,32 @@ import { DialogEnlistComponent } from 'src/app/list/dialog-enlist/dialog-enlist.
   styleUrls: ['./banner.component.css']
 })
 export class BannerComponent implements OnInit {
-  @Input() films: any[] = [];
+  films: any[] = [];
   currentUser: User = {} as User;
+  bannerFilms: string[] = [];
 
   constructor(
     private dialogService: NbDialogService,
     private authService: AuthService,
     private viewListService: ListService,
+    private filmService: FilmService,
     private toastr: NbToastrService
   ) { }
 
   ngOnInit(): void {
     this.getUserDetails();
+    this.getBannerFilms();
   }
 
-  getFilms() {
-    // top three films
-    return this.films.slice(0, 3);
+
+  getBannerFilms() {
+    this.filmService.getBannerFilmsDetailed().subscribe((res: any) => {
+      console.log("Banner films", res);
+      this.films = res.map((banner: any) => banner.film);
+    }, (error: any) => {
+      console.log(error);
+      this.toastr.danger(error.error, 'Error');
+    });
   }
 
   getUserDetails() {

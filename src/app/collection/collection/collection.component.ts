@@ -20,6 +20,7 @@ export class CollectionComponent implements OnInit {
   votes: number = 1;
   isAuthenticated: boolean = false;
   isAdmin: boolean = false;
+  isRich: boolean = false;
 
   constructor(private filmService: FilmService,
     private toastr: NbToastrService,
@@ -35,9 +36,12 @@ export class CollectionComponent implements OnInit {
     this.authService.isAdmin$.subscribe((isAdmin: boolean) => {
       this.isAdmin = isAdmin;
     });
+    this.isRich = (this.films.length > 0 && this.films[0].user !== undefined);
+    console.log('isRich', this.isRich);
   }
 
   addFilm(id: string) {
+    console.log('add film', id);
     this.filmService.addFilm(id, this.screeningDate, this.screeningTime).subscribe(
       () => {
         this.toastr.success('Film added to collection');
@@ -51,6 +55,9 @@ export class CollectionComponent implements OnInit {
   }
 
   formatDuration(minutes: number): string {
+    if (minutes === undefined) {
+      return '0h 0m';
+    }
     const hours = Math.floor(minutes / 60);
     const remainingMinutes = minutes % 60;
 

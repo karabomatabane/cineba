@@ -52,7 +52,7 @@
           <h6>Add Films</h6>
         </button>
       </div>
-      <div class="vl-add-film">
+      <div class="vl-add-film" style="margin-top: -1rem;">
         <button nbButton status="warning" (click)="joinViewList()">
           <nb-icon icon="plus" pack="eva"></nb-icon>
           <h6>{{ !viewList.members.includes(currentUser._id) ? "Join" : "Exit" }}</h6>

@@ -99,4 +99,20 @@ export class FilmService {
   vote(id: string) {
     return this.http.put(`${this.baseUrl}film/${id}/vote`, {});
   }
+
+  addToBanner(id: string) {
+    return this.http.post(`${this.baseUrl}banner`, {filmId: id});
+  }
+
+  getBannerFilms(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}banner`);
+  }
+
+  getBannerFilmsDetailed(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}banner/detailed`);
+  }
+
+  removeFromBanner(id: string) {
+    return this.http.delete(`${this.baseUrl}banner/${id}`);
+  }
 }

@@ -71,7 +71,7 @@ export class ViewListDetailComponent implements OnInit {
   // }
 
   getViewListDetails(viewListId: string) {
-    this.loading = true;
+      this.loading = true;
     this.viewListService.getViewList(viewListId).subscribe((data: any) => {
       if (data.private && data.owner._id !== this.currentUser._id) {
         this.toastr.warning('This view list is private', 'Warning');
@@ -87,6 +87,8 @@ export class ViewListDetailComponent implements OnInit {
   }
 
   getUserDetails() {
+    console.log("Getting user details");
+
     this.authService.getUserDetails().subscribe(
       (user: User) => {
         this.currentUser = user;
@@ -176,6 +178,10 @@ export class ViewListDetailComponent implements OnInit {
         .onClose.subscribe(films => films && this.submitListFilms(films));
   }
 
+  joinViewList() {
+
+  }
+
   toggleMembership() {
     if (!this.isAuthenticated) {
       this.toastr.warning('Please login to join view list', 'Warning');
@@ -229,5 +235,4 @@ export class ViewListDetailComponent implements OnInit {
       // this.getFilms(this.currentPage);
     }
   }
-
 }
