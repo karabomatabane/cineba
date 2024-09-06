@@ -17,7 +17,6 @@ export class ListCardComponent implements OnInit {
   constructor(private toastr: NbToastrService, private viewListService: ListService) { }
 
   ngOnInit(): void {
-    console.log(this.currentUser, this.viewList.owner);
   }
 
   getImagePath(film: Film) {

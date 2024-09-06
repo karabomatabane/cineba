@@ -1,4 +1,4 @@
-<carousel [itemsPerSlide]="1" [showIndicators]="false">
+<carousel *ngIf="films.length > 0" [itemsPerSlide]="1" [showIndicators]="false">
   <slide *ngFor="let film of films.slice(0, 3)">
     <div class="featured-content">
       <div class="image-container">

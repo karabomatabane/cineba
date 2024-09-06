@@ -150,6 +150,10 @@ p, .vl-user p {
   margin-left: .8rem;
 }
 
+.vl-add-film nb-icon {
+  font-size: 1.8rem !important;
+}
+
 /* for larger screens */
 @media (min-width: 768px) {
   button {

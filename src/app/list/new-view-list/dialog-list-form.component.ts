@@ -16,7 +16,7 @@ export class DialogListFormComponent implements OnInit {
   ) {
     this.viewListForm = this.formBuilder.group({
       private: [false, [Validators.required]],
-      name: [null, [Validators.required, Validators.max(32)]],
+      name: [null, [Validators.required, Validators.maxLength(32)]],
       description: ['', [Validators.maxLength(120)]],
     });
   }

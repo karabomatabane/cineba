@@ -23,7 +23,10 @@
       </nb-select>
     </div>
     <div class="checkbox-filter">
-      <nb-checkbox [(ngModel)]="onlyByMe" (ngModelChange)="onByMeChange()">By Me</nb-checkbox>
+      <nb-checkbox [(ngModel)]="onlyByMe" (ngModelChange)="onFilterChange()">By Me</nb-checkbox>
+    </div>
+    <div class="checkbox-filter">
+      <nb-checkbox [(ngModel)]="saved" (ngModelChange)="onFilterChange()">Saved</nb-checkbox>
     </div>
   </div>
 </div>

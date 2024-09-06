@@ -2,20 +2,21 @@
   <div class="col-md-3 col-sm-6" *ngFor="let film of films">
       <nb-card class="card" [class.card-hover]="voteEnabled">
         <a [routerLink]="voteEnabled ? ['/film', film._id] : null" class="card-link"> <!-- Add this anchor element -->
-        <nb-card-header>{{ film.name || film.title }}</nb-card-header>
+        <nb-card-header>{{ isRich ? film.film.name || film.film.title : film.name || film.title }}</nb-card-header>
         <nb-card-body class="card-body">
           <div class="img-frame-container">
-            <img src="{{getImagePath(film.imgUrl, film.poster_path)}}" class="img-frame"  alt="{{film.name || film.title}}"/>
+            <img src="{{ isRich ? getImagePath(film.film.imgUrl, film.film.poster_path) : getImagePath(film.imgUrl, film.poster_path)}}"
+            class="img-frame"  alt="{{isRich ? film.film.name || film.film.title : film.name || film.title}}"/>
           </div>
         </nb-card-body>
         <nb-card-footer class="card-footer row">
           <ng-container>
             <div class="icon-container">
             <nb-icon icon="clock-outline"></nb-icon>
-            <h6>{{ formatDuration(film.duration) }}</h6>
+            <h6>{{ isRich ? formatDuration(film.film.duration) || 0 : formatDuration(film.duration) || 0 }}</h6>
           </div>&nbsp;|&nbsp;&nbsp;
           </ng-container>
-          <h6>Released: {{ film.releaseDate || film.release_date | date }}</h6>
+          <h6>Released: {{ isRich ? (film.film.releaseDate || film.film.release_date | date) : film.releaseDate || film.release_date | date }}</h6>
         </nb-card-footer>
         <nb-card-footer class="card-footer row" *ngIf="!voteEnabled">
           <div class="col-12 pad-2">
@@ -45,6 +46,11 @@
           </div>
         </nb-card-footer>
       </a> <!-- Close the anchor element -->
+      <nb-card-footer class="card-footer row" *ngIf="isRich">
+        <div class="col-12">
+          <h6>Added by: {{ film.user.username }}</h6>
+        </div>
+      </nb-card-footer>
         <nb-card-footer class="card-footer row">
           <div class="col-12">
             <button
@@ -56,6 +62,6 @@
             </button>
           </div>
         </nb-card-footer>
-      </nb-card>
+    </nb-card>
   </div>
 </div>

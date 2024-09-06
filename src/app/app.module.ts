@@ -57,6 +57,7 @@ import { AddFilmsComponent } from './list/add-films/add-films.component';
 import { DialogEnlistComponent } from './list/dialog-enlist/dialog-enlist.component';
 import { DialogCommentComponent } from './list/dialog-comment/dialog-comment.component';
 import { DialogShareComponent } from './list/dialog-share/dialog-share.component';
+import {NgOptimizedImage} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -87,7 +88,7 @@ import { DialogShareComponent } from './list/dialog-share/dialog-share.component
   ],
   imports: [
     BrowserModule,
-    NbThemeModule.forRoot({ name: 'dark' }),
+    NbThemeModule.forRoot({name: 'dark'}),
     NbLayoutModule,
     NbInputModule,
     NbCardModule,
@@ -119,6 +120,7 @@ import { DialogShareComponent } from './list/dialog-share/dialog-share.component
     NbSelectModule,
     NbCheckboxModule,
     CarouselModule.forRoot(),
+    NgOptimizedImage,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

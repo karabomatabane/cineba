@@ -15,6 +15,7 @@ export class ViewListsComponent implements OnInit {
   viewLists: ViewList[] = [];
   searchText: string = '';
   onlyByMe: boolean = false;
+  saved: boolean = false;
   sortBy: string = '';
   isAuthenticated: boolean = false;
   currentUser: User = {} as User;
@@ -83,9 +84,9 @@ export class ViewListsComponent implements OnInit {
     )
   }
 
-  onByMeChange() {
+  onFilterChange() {
     this.loading = true;
-    this.viewListService.getViewLists(this.onlyByMe).subscribe(
+    this.viewListService.getViewLists(this.onlyByMe, this.saved).subscribe(
       (data) => {
         this.viewLists = data;
         this.loading = false;

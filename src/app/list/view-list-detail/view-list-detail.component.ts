@@ -71,7 +71,7 @@ export class ViewListDetailComponent implements OnInit {
   // }
 
   getViewListDetails(viewListId: string) {
-    this.loading = true;
+      this.loading = true;
     this.viewListService.getViewList(viewListId).subscribe((data: any) => {
       if (data.private && data.owner._id !== this.currentUser._id) {
         this.toastr.warning('This view list is private', 'Warning');
@@ -87,6 +87,8 @@ export class ViewListDetailComponent implements OnInit {
   }
 
   getUserDetails() {
+    console.log("Getting user details");
+
     this.authService.getUserDetails().subscribe(
       (user: User) => {
         this.currentUser = user;
@@ -172,12 +174,47 @@ export class ViewListDetailComponent implements OnInit {
         return;
       }
 
+      if (!this.viewList.members.includes(this.currentUser._id)) {
+        this.toastr.warning("You must join the view list to add films", 'Warning');
+        return;
+      }
+
       this.dialogService.open(AddFilmsComponent, {context: {films: this.films}})
         .onClose.subscribe(films => films && this.submitListFilms(films));
   }
 
+  toggleMembership() {
+    console.log("toggle membership");
+    if (!this.isAuthenticated) {
+      this.toastr.warning('Please login to join view list', 'Warning');
+      return;
+    }
+    if (this.viewList.members.includes(this.currentUser._id)) {
+      this.viewList.members = this.viewList.members.filter((id) => id !== this.currentUser._id);
+      this.viewListService.exitViewList(this.viewList._id).subscribe((res) => {
+        this.toastr.success('You have exited the view list', 'Success');
+        console.log(res);
+      }, (error) => {
+        this.toastr.danger('An error occurred while exiting the view list', 'Error');
+        console.error(error);
+      });
+    } else {
+      this.viewList.members.push(this.currentUser._id);
+      this.viewListService.joinViewList(this.viewList._id).subscribe((res) => {
+        this.toastr.success('You have joined the view list', 'Success');
+        console.log(res);
+      }, (error) => {
+        this.toastr.danger('An error occurred while joining the view list', 'Error');
+        console.error(error);
+      });
+    }
+  }
+
   submitListFilms(films: Film[]) {
-    this.viewList.films = films;
+    this.viewList.films = films.map(f => ({
+      film: f,
+      user: {_id: this.currentUser._id, username: this.currentUser.username}
+    }));
     this.viewListService.updateViewList(this.viewList._id, this.viewList).subscribe((res) => {
       this.toastr.success('List updated successfully', 'Success');
       // refresh the view list
@@ -200,5 +237,4 @@ export class ViewListDetailComponent implements OnInit {
       // this.getFilms(this.currentPage);
     }
   }
-
 }
