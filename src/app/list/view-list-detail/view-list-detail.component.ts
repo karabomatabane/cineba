@@ -174,15 +174,17 @@ export class ViewListDetailComponent implements OnInit {
         return;
       }
 
+      if (!this.viewList.members.includes(this.currentUser._id)) {
+        this.toastr.warning("You must join the view list to add films", 'Warning');
+        return;
+      }
+
       this.dialogService.open(AddFilmsComponent, {context: {films: this.films}})
         .onClose.subscribe(films => films && this.submitListFilms(films));
   }
 
-  joinViewList() {
-
-  }
-
   toggleMembership() {
+    console.log("toggle membership");
     if (!this.isAuthenticated) {
       this.toastr.warning('Please login to join view list', 'Warning');
       return;

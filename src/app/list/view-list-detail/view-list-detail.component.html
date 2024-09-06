@@ -1,7 +1,7 @@
 <!-- Search Feature -->
 <div *ngIf="this.viewList.owner" class="container vl-container">
   <div class="vl-banner">
-    <img src="assets/theatre.png" alt="Default Cover" />
+    <img ngSrc="assets/theatre.png" alt="Default Cover" height="1080" width="1920"/>
   </div>
   <div class="vl-header">
     <div class="vl-user">
@@ -11,7 +11,8 @@
         <p>Updated on {{ viewList.lastUpdated | date }}</p>
         <div class="vl-actions">
           <button class="likes" (click)="likeViewList()">
-            <nb-icon ngClass="{{ viewList.likes.includes(this.currentUser._id) ? 'liked' : ''}}" icon="heart" pack="eva"></nb-icon>
+            <nb-icon ngClass="{{ viewList.likes.includes(this.currentUser._id) ? 'liked' : ''}}" icon="heart"
+                     pack="eva"></nb-icon>
             <h6>{{ viewList.likes.length }}</h6>
           </button>
           <button (click)="commentViewList()">
@@ -40,7 +41,7 @@
         <nb-form-field>
           <nb-icon nbPrefix icon="search" pack="eva"></nb-icon>
           <input nbInput type="search" id="search" [(ngModel)]="searchText" placeholder="Search" fullWidth
-            status="danger" (keyup.enter)="searchFilm()" fieldSize="large" />
+                 status="danger" (keyup.enter)="searchFilm()" fieldSize="large"/>
         </nb-form-field>
         <button id="button" nbButton status="danger" (click)="searchFilm()">
           <h6>Search</h6>
@@ -53,8 +54,9 @@
         </button>
       </div>
       <div class="vl-add-film" style="margin-top: -1rem;">
-        <button nbButton status="warning" (click)="joinViewList()">
-          <nb-icon icon="plus" pack="eva"></nb-icon>
+        <button nbButton status="warning" (click)="toggleMembership()">
+          <nb-icon icon="{{ viewList.members.includes(currentUser._id) ? 'person-remove-outline' : 'person-add-outline'}}"
+                   pack="eva"></nb-icon>
           <h6>{{ !viewList.members.includes(currentUser._id) ? "Join" : "Exit" }}</h6>
         </button>
       </div>
@@ -68,9 +70,11 @@
         <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
         <span>Page {{ currentPage }} of {{ totalPages }}</span>
         <button class="btn-next" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
-        <span class="showing-of">Showing {{ (currentPage - 1) * pageSize + 1 }} - {{ currentPage === totalPages ?
-          (totalItems
-          % pageSize) || pageSize : pageSize * currentPage }} of {{ totalItems }} items</span>
+        <span class="showing-of">Showing {{ (currentPage - 1) * pageSize + 1 }} - {{
+            currentPage === totalPages ?
+              (totalItems
+                % pageSize) || pageSize : pageSize * currentPage
+          }} of {{ totalItems }} items</span>
       </div>
     </div>
     <div *ngIf="viewList.films.length === 0" class="vl-empty text-center">
@@ -79,6 +83,13 @@
         <button nbButton status="primary" (click)="addFilmToList()">
           <nb-icon icon="plus" pack="eva"></nb-icon>
           <h6>Add Films</h6>
+        </button>
+      </div>
+      <div class="vl-add-film" style="margin-top: 1rem;">
+        <button nbButton status="warning" (click)="toggleMembership()">
+          <nb-icon icon="{{ viewList.members.includes(currentUser._id) ? 'person-remove-outline' : 'person-add-outline'}}"
+                   pack="eva"></nb-icon>
+          <h6>{{ !viewList.members.includes(currentUser._id) ? "Join" : "Exit" }}</h6>
         </button>
       </div>
     </div>

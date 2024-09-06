@@ -109,3 +109,7 @@ h6 {
   border-radius: 5px;
   font-size: 8rem;
 }
+
+.card {
+  max-width: 255px !important;
+}
