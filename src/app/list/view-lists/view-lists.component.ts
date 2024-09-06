@@ -45,6 +45,7 @@ export class ViewListsComponent implements OnInit {
     this.viewListService.createViewList(viewList).subscribe(
       (data) => {
         this.toastr.success("View list sent successfully", 'Success');
+        console.log("Refreshing view lists");
         this.getViewLists();
       },
       (error) => {

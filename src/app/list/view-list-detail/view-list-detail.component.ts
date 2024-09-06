@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { Film } from 'src/app/_models/film.model';
-import { Comment, ViewList } from 'src/app/_models/list.model';
+import {Comment, ListFilm, ViewList} from 'src/app/_models/list.model';
 import { FilmService } from 'src/app/_services/film.service';
 import { ListService } from 'src/app/_services/list.service';
 import { AddFilmsComponent } from '../add-films/add-films.component';
@@ -19,6 +19,7 @@ import { DialogShareComponent } from '../dialog-share/dialog-share.component';
 export class ViewListDetailComponent implements OnInit {
   @ViewChild('scrollToTop') scrollToTop: ElementRef | undefined;
   currentUser: User = {} as User;
+  richFilms: ListFilm[] = [];
   films: Film[] = [];
   searchText: string = "";
   currentPage: number = 1;
@@ -78,8 +79,9 @@ export class ViewListDetailComponent implements OnInit {
         this.loading = false;
         this.router.navigate(['/']);
         return;
-      };
-      this.films = data.films;
+      }
+      this.richFilms = data.films;
+      this.films = data.films.map((listFilm: ListFilm) => listFilm.film);
       this.viewList = data;
       this.totalItems = data.films.length;
       this.loading = false;
@@ -211,10 +213,15 @@ export class ViewListDetailComponent implements OnInit {
   }
 
   submitListFilms(films: Film[]) {
-    this.viewList.films = films.map(f => ({
-      film: f,
-      user: {_id: this.currentUser._id, username: this.currentUser.username}
-    }));
+    this.richFilms = [];
+    for (let film of films) {
+      const listFilm: ListFilm = {
+        film: film,
+        user: { _id: this.currentUser._id, username: this.currentUser.username },
+      };
+      this.richFilms.push(listFilm);
+    }
+    this.viewList.films = this.richFilms;
     this.viewListService.updateViewList(this.viewList._id, this.viewList).subscribe((res) => {
       this.toastr.success('List updated successfully', 'Success');
       // refresh the view list
