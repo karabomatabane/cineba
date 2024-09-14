@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment'
 import { ViewList } from '../_models/list.model';
 import { Observable } from 'rxjs';
 

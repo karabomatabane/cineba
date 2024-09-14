@@ -48,7 +48,7 @@
       </a> <!-- Close the anchor element -->
       <nb-card-footer class="card-footer row" *ngIf="isRich">
         <div class="col-12">
-          <h6>Added by: {{ film.user.username }}</h6>
+          <h6>Added by: {{ currentUser._id === film.user._id ? "You" : film.user.username }}</h6>
         </div>
       </nb-card-footer>
         <nb-card-footer class="card-footer row">

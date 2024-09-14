@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { Film } from 'src/app/_models/film.model';
-import {Comment, ListFilm, ViewList} from 'src/app/_models/list.model';
+import { Comment, ListFilm, ViewList } from 'src/app/_models/list.model';
 import { FilmService } from 'src/app/_services/film.service';
 import { ListService } from 'src/app/_services/list.service';
 import { AddFilmsComponent } from '../add-films/add-films.component';
@@ -72,7 +72,7 @@ export class ViewListDetailComponent implements OnInit {
   // }
 
   getViewListDetails(viewListId: string) {
-      this.loading = true;
+    this.loading = true;
     this.viewListService.getViewList(viewListId).subscribe((data: any) => {
       if (data.private && data.owner._id !== this.currentUser._id) {
         this.toastr.warning('This view list is private', 'Warning');
@@ -89,8 +89,6 @@ export class ViewListDetailComponent implements OnInit {
   }
 
   getUserDetails() {
-    console.log("Getting user details");
-
     this.authService.getUserDetails().subscribe(
       (user: User) => {
         this.currentUser = user;
@@ -171,18 +169,18 @@ export class ViewListDetailComponent implements OnInit {
   }
 
   addFilmToList() {
-      if (!this.isAuthenticated) {
-        this.toastr.warning("Please login to modify view list", 'Warning');
-        return;
-      }
+    if (!this.isAuthenticated) {
+      this.toastr.warning("Please login to modify view list", 'Warning');
+      return;
+    }
 
-      if (!this.viewList.members.includes(this.currentUser._id)) {
-        this.toastr.warning("You must join the view list to add films", 'Warning');
-        return;
-      }
+    if (!this.viewList.members.includes(this.currentUser._id)) {
+      this.toastr.warning("You must join the view list to add films", 'Warning');
+      return;
+    }
 
-      this.dialogService.open(AddFilmsComponent, {context: {films: this.films}})
-        .onClose.subscribe(films => films && this.submitListFilms(films));
+    this.dialogService.open(AddFilmsComponent, { context: { films: this.films } })
+      .onClose.subscribe(films => films && this.submitListFilms(films));
   }
 
   toggleMembership() {
@@ -213,14 +211,29 @@ export class ViewListDetailComponent implements OnInit {
   }
 
   submitListFilms(films: Film[]) {
-    this.richFilms = [];
-    for (let film of films) {
-      const listFilm: ListFilm = {
-        film: film,
-        user: { _id: this.currentUser._id, username: this.currentUser.username },
-      };
-      this.richFilms.push(listFilm);
+    const updatedFilmIds = new Set(films.map(film => film._id));
+
+    // Identify deleted films
+    const deletedFilms = this.richFilms.filter(richFilm =>
+      !updatedFilmIds.has(richFilm.film._id));
+
+    // Remove the deleted films from richFilms
+    if (this.currentUser._id === this.viewList.owner._id) {
+      this.richFilms = this.richFilms.filter(film => !deletedFilms.includes(film));
     }
+    
+    // Identify new films
+    const newFilms = films
+      .filter(film => !this.richFilms.some(existingFilm => existingFilm.film._id === film._id))
+      .map(film => ({
+        film: film,
+        user: { _id: this.currentUser._id, username: this.currentUser.username }
+      }));
+
+    // Add new films to the richFilms array
+    this.richFilms.push(...newFilms);
+
+    // Update the view list with the modified films
     this.viewList.films = this.richFilms;
     this.viewListService.updateViewList(this.viewList._id, this.viewList).subscribe((res) => {
       this.toastr.success('List updated successfully', 'Success');
