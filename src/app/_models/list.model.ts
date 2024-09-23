@@ -11,6 +11,11 @@ export interface ListFilm {
   user: {_id: string, username: string};
 }
 
+export interface Member {
+  user: {id: string, username: string};
+  status: string;
+}
+
 export interface ViewList {
     _id: string;
     name: string;
@@ -23,5 +28,5 @@ export interface ViewList {
     likes: string[];
     comments: Comment[];
     owner: {_id: string, username: string};
-    members: string[];
+    members: Member[];
 }

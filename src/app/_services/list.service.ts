@@ -31,7 +31,7 @@ export class ListService {
     return this.http.put(this.baseUrl + 'view-list/' + id + '/exit', {});
   }
 
-  joinViewList(id: string): Observable<any> {
-    return this.http.put(this.baseUrl + 'view-list/' + id + '/join', {});
+  joinViewList(id: string, username: string): Observable<any> {
+    return this.http.put(this.baseUrl + 'view-list/' + id + '/join', {username: username});
   }
 }

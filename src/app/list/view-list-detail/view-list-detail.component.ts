@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { Film } from 'src/app/_models/film.model';
-import { Comment, ListFilm, ViewList } from 'src/app/_models/list.model';
+import { Comment, ListFilm, Member, ViewList } from 'src/app/_models/list.model';
 import { FilmService } from 'src/app/_services/film.service';
 import { ListService } from 'src/app/_services/list.service';
 import { AddFilmsComponent } from '../add-films/add-films.component';
@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/_services/auth.service';
 import { User } from 'src/app/_models/auth.model';
 import { DialogCommentComponent } from '../dialog-comment/dialog-comment.component';
 import { DialogShareComponent } from '../dialog-share/dialog-share.component';
+import { ManageMembersComponent } from 'src/app/view-list/manage-members/manage-members.component';
 
 @Component({
   selector: 'app-view-list-detail',
@@ -29,6 +30,7 @@ export class ViewListDetailComponent implements OnInit {
   loading: boolean = false;
   viewList = {} as ViewList;
   isAuthenticated: boolean = false;
+  alertIsOpen = true;
   fakeFilm: Film = {
     "_id": "656592d30ba044f0a78154ec",
     "name": "!Aitsa",
@@ -174,7 +176,7 @@ export class ViewListDetailComponent implements OnInit {
       return;
     }
 
-    if (!this.viewList.members.includes(this.currentUser._id)) {
+    if (!this.isMember(this.currentUser._id) || this.isPending(this.currentUser._id)) {
       this.toastr.warning("You must join the view list to add films", 'Warning');
       return;
     }
@@ -189,8 +191,8 @@ export class ViewListDetailComponent implements OnInit {
       this.toastr.warning('Please login to join view list', 'Warning');
       return;
     }
-    if (this.viewList.members.includes(this.currentUser._id)) {
-      this.viewList.members = this.viewList.members.filter((id) => id !== this.currentUser._id);
+    if (this.isMember(this.currentUser._id)) {
+      this.viewList.members = this.viewList.members.filter((member) => member.user.id !== this.currentUser._id);
       this.viewListService.exitViewList(this.viewList._id).subscribe((res) => {
         this.toastr.success('You have exited the view list', 'Success');
         console.log(res);
@@ -199,8 +201,8 @@ export class ViewListDetailComponent implements OnInit {
         console.error(error);
       });
     } else {
-      this.viewList.members.push(this.currentUser._id);
-      this.viewListService.joinViewList(this.viewList._id).subscribe((res) => {
+      this.viewList.members.push({ user: { id: this.currentUser._id, username: this.currentUser.username }, status: 'pending' });
+      this.viewListService.joinViewList(this.viewList._id, this.currentUser.username).subscribe((res) => {
         this.toastr.success('You have joined the view list', 'Success');
         console.log(res);
       }, (error) => {
@@ -208,6 +210,40 @@ export class ViewListDetailComponent implements OnInit {
         console.error(error);
       });
     }
+  }
+
+  manageMembers() {
+    this.dialogService.open(ManageMembersComponent, { context: { members: this.viewList.members } })
+    .onClose.subscribe(members => members && this.submitMembers(members));
+  }
+
+  isMember(id: string) {
+    if (id === "" || id === undefined) {
+      return false;
+    }
+    return this.viewList.members.filter(member => member.user.id === id).length > 0;
+  }
+
+  isPending(id: string) {
+    if (id === "" || id === undefined) {
+      return false;
+    }
+    return this.viewList.members.filter(member => member.user.id === id && member.status === 'pending').length > 0;
+  }
+
+  isRejected(id: string) {
+    if (id === "" || id === undefined) {
+      return false;
+    }
+    return this.viewList.members.filter(member => member.user.id === id && member.status === 'rejected').length > 0;
+  }
+
+  hasPending() {
+    return this.viewList.members.filter(member => member.status === 'pending').length > 0;
+  }
+
+  isOwner() {
+    return this.currentUser._id === this.viewList.owner._id;
   }
 
   submitListFilms(films: Film[]) {
@@ -244,6 +280,17 @@ export class ViewListDetailComponent implements OnInit {
     })
   }
 
+  submitMembers(members: Member[]) {
+    this.viewList.members = members;
+    this.viewListService.updateViewList(this.viewList._id, this.viewList).subscribe((res) => {
+      this.toastr.success('Members updated successfully', 'Success');
+      console.log(res);
+    }, (error) => {
+      this.toastr.danger('An error occurred while updating members', 'Error');
+      console.error(error);
+    });
+  }
+
   nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
@@ -256,5 +303,10 @@ export class ViewListDetailComponent implements OnInit {
       this.currentPage--;
       // this.getFilms(this.currentPage);
     }
+  }
+
+  onClose() {
+    // close alert
+    this.alertIsOpen = false;
   }
 }

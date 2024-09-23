@@ -42,6 +42,7 @@ export class ViewListsComponent implements OnInit {
   submitViewList(viewList: Partial<ViewList>) {
     viewList.lastUpdated = new Date();
     viewList.owner = { _id: this.authService.getUserId() || "Anonymous", username: this.currentUser.username || "Anonymous" };
+    viewList.members = [ { user: { id: this.authService.getUserId() || "Anonymous", username: this.currentUser.username || "Anonymous" }, status: 'owner' } ];
     this.viewListService.createViewList(viewList).subscribe(
       (data) => {
         this.toastr.success("View list sent successfully", 'Success');

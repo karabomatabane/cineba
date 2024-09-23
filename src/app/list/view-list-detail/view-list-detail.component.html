@@ -31,6 +31,12 @@
       <p>{{ viewList.description || "No description." }}</p>
     </div>
     <div class="underline"></div>
+    <nb-alert closable="true" (close)="onClose()" *ngIf="isPending(currentUser._id) && alertIsOpen" status="info">
+      Your membership is still pending. You can only view the list.
+    </nb-alert>
+    <nb-alert closable="true" (close)="onClose()" *ngIf="isRejected(currentUser._id) && alertIsOpen" status="danger">
+      Your membership was rejected You can only view the list.
+    </nb-alert>
   </div>
   <div class="vl-body">
     <div *ngIf="viewList.films.length > 0" class="vl-films">
@@ -55,9 +61,14 @@
       </div>
       <div class="vl-add-film" style="margin-top: -1rem;">
         <button nbButton status="warning" (click)="toggleMembership()">
-          <nb-icon icon="{{ viewList.members.includes(currentUser._id) ? 'person-remove-outline' : 'person-add-outline'}}"
+          <nb-icon icon="{{ isMember(currentUser._id) ? 'person-remove-outline' : 'person-add-outline'}}"
                    pack="eva"></nb-icon>
-          <h6>{{ !viewList.members.includes(currentUser._id) ? "Join" : "Exit" }}</h6>
+          <h6>{{ !isMember(currentUser._id) ? "Join" : "Exit" }}</h6>
+        </button>
+        <button *ngIf="isOwner()" nbButton status="success" (click)="manageMembers()">
+          <nb-icon icon="{{ hasPending() ? 'people' : 'people-outline'}}"
+                   pack="eva"></nb-icon>
+          <h6>Members</h6>
         </button>
       </div>
       <!-- Render search film -->
@@ -86,10 +97,10 @@
         </button>
       </div>
       <div class="vl-add-film" style="margin-top: 1rem;">
-        <button nbButton status="warning" (click)="toggleMembership()">
-          <nb-icon icon="{{ viewList.members.includes(currentUser._id) ? 'person-remove-outline' : 'person-add-outline'}}"
+        <button nbButton status="warning" (click)="manageMembers()">
+          <nb-icon icon="{{ isMember(currentUser._id) ? 'person-remove-outline' : 'person-add-outline'}}"
                    pack="eva"></nb-icon>
-          <h6>{{ !viewList.members.includes(currentUser._id) ? "Join" : "Exit" }}</h6>
+          <h6>{{ !isMember(currentUser._id) ? "Join" : "Exit" }}</h6>
         </button>
       </div>
     </div>
