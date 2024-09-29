@@ -192,10 +192,12 @@ export class ViewListDetailComponent implements OnInit {
       return;
     }
     if (this.isMember(this.currentUser._id)) {
+      if (this.isOwner() && !confirm('Are you sure you want to delete this view list?')) {
+        return;
+      }
       this.viewList.members = this.viewList.members.filter((member) => member.user.id !== this.currentUser._id);
       this.viewListService.exitViewList(this.viewList._id).subscribe((res) => {
         this.toastr.success('You have exited the view list', 'Success');
-        console.log(res);
       }, (error) => {
         this.toastr.danger('An error occurred while exiting the view list', 'Error');
         console.error(error);
@@ -204,7 +206,6 @@ export class ViewListDetailComponent implements OnInit {
       this.viewList.members.push({ user: { id: this.currentUser._id, username: this.currentUser.username }, status: 'pending' });
       this.viewListService.joinViewList(this.viewList._id, this.currentUser.username).subscribe((res) => {
         this.toastr.success('You have joined the view list', 'Success');
-        console.log(res);
       }, (error) => {
         this.toastr.danger('An error occurred while joining the view list', 'Error');
         console.error(error);
@@ -257,7 +258,7 @@ export class ViewListDetailComponent implements OnInit {
     if (this.currentUser._id === this.viewList.owner._id) {
       this.richFilms = this.richFilms.filter(film => !deletedFilms.includes(film));
     }
-    
+
     // Identify new films
     const newFilms = films
       .filter(film => !this.richFilms.some(existingFilm => existingFilm.film._id === film._id))

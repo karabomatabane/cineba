@@ -97,10 +97,15 @@
         </button>
       </div>
       <div class="vl-add-film" style="margin-top: 1rem;">
-        <button nbButton status="warning" (click)="manageMembers()">
+        <button nbButton status="warning" (click)="toggleMembership()">
           <nb-icon icon="{{ isMember(currentUser._id) ? 'person-remove-outline' : 'person-add-outline'}}"
                    pack="eva"></nb-icon>
           <h6>{{ !isMember(currentUser._id) ? "Join" : "Exit" }}</h6>
+        </button>
+        <button *ngIf="isOwner()" nbButton status="success" (click)="manageMembers()">
+          <nb-icon icon="{{ hasPending() ? 'people' : 'people-outline'}}"
+                   pack="eva"></nb-icon>
+          <h6>Members</h6>
         </button>
       </div>
     </div>

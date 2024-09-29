@@ -24,7 +24,7 @@
                     <nb-icon icon="close-circle" pack="eva"></nb-icon>
                     Reject
                 </button>
-                <button *ngIf="member.status !== 'owner'" nbButton status="danger" (click)="removeMember(member.user.id)">
+                <button *ngIf="member.status !== 'owner' && member.status !== 'pending'" nbButton status="danger" (click)="removeMember(member.user.id)">
                     <nb-icon icon="trash-2" pack="eva"></nb-icon>
                     Remove
                 </button>
@@ -38,4 +38,3 @@
       <button nbButton status="success" style="margin-left:1rem" type="submit" (click)="onSubmit()">Submit</button>
     </nb-card-footer>
   </nb-card>
-  
