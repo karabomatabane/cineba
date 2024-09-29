@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment'
 import { ViewList } from '../_models/list.model';
 import { Observable } from 'rxjs';
 
@@ -31,7 +31,7 @@ export class ListService {
     return this.http.put(this.baseUrl + 'view-list/' + id + '/exit', {});
   }
 
-  joinViewList(id: string): Observable<any> {
-    return this.http.put(this.baseUrl + 'view-list/' + id + '/join', {});
+  joinViewList(id: string, username: string): Observable<any> {
+    return this.http.put(this.baseUrl + 'view-list/' + id + '/join', {username: username});
   }
 }

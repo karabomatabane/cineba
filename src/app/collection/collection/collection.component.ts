@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
+import { User } from 'src/app/_models/auth.model';
 import { Film } from 'src/app/_models/film.model';
 import { AuthService } from 'src/app/_services/auth.service';
 import { FilmService } from 'src/app/_services/film.service';
@@ -21,6 +22,7 @@ export class CollectionComponent implements OnInit {
   isAuthenticated: boolean = false;
   isAdmin: boolean = false;
   isRich: boolean = false;
+  currentUser: User = {} as User;
 
   constructor(private filmService: FilmService,
     private toastr: NbToastrService,
@@ -32,6 +34,7 @@ export class CollectionComponent implements OnInit {
     this.votes = this.authService.getVotes();
     this.authService.isAuthenticated$.subscribe((isAuthenticated: boolean) => {
       this.isAuthenticated = isAuthenticated;
+      this.getUserDetails();
     });
     this.authService.isAdmin$.subscribe((isAdmin: boolean) => {
       this.isAdmin = isAdmin;
@@ -50,6 +53,17 @@ export class CollectionComponent implements OnInit {
       (error: { error: any; }) => {
         this.toastr.danger(error.error.error);
         console.log(error.error);
+      }
+    )
+  }
+
+  getUserDetails() {
+    this.authService.getUserDetails().subscribe(
+      (user: User) => {
+        this.currentUser = user;
+      },
+      (error) => {
+        console.log(error);
       }
     )
   }

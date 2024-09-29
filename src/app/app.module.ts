@@ -26,6 +26,7 @@ import {
   NbOptionModule,
   NbSelectModule,
   NbCheckboxModule,
+  NbAlertModule,
 } from '@nebular/theme';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
@@ -58,6 +59,7 @@ import { DialogEnlistComponent } from './list/dialog-enlist/dialog-enlist.compon
 import { DialogCommentComponent } from './list/dialog-comment/dialog-comment.component';
 import { DialogShareComponent } from './list/dialog-share/dialog-share.component';
 import {NgOptimizedImage} from "@angular/common";
+import { ManageMembersComponent } from './view-list/manage-members/manage-members.component';
 
 @NgModule({
   declarations: [
@@ -85,6 +87,7 @@ import {NgOptimizedImage} from "@angular/common";
     DialogEnlistComponent,
     DialogCommentComponent,
     DialogShareComponent,
+    ManageMembersComponent,
   ],
   imports: [
     BrowserModule,
@@ -121,6 +124,7 @@ import {NgOptimizedImage} from "@angular/common";
     NbCheckboxModule,
     CarouselModule.forRoot(),
     NgOptimizedImage,
+    NbAlertModule,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
